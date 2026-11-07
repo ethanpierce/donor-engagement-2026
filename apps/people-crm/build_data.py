@@ -7,9 +7,9 @@ at-risk and report logic.
 """
 import argparse, json, os, re, sqlite3, subprocess, sys
 
-MARKET = os.path.expanduser("~/projects/jetcalls/autoworker-flavors-market/tidepath-market")
-SCRIPTS = os.path.join(MARKET, "skills/tidepath-crm/scripts")
 HERE = os.path.dirname(os.path.abspath(__file__))
+MARKET = os.path.normpath(os.path.join(HERE, "..", ".."))  # repo root: skills/ and demo-data/
+SCRIPTS = os.path.join(MARKET, "skills/tidepath-crm/scripts")
 WEEK, QUARTER = "2026-09-28", "2026Q3"
 
 ap = argparse.ArgumentParser()
