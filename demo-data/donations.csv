@@ -1,0 +1,24 @@
+date,donor_name,donor_email,donor_phone,amount,frequency,campaign
+2023-12-20,Harold Pierce,harold.pierce@example.net,305-555-0501,500,one-time,Year-end appeal
+2024-12-18,Harold Pierce,harold.pierce@example.net,305-555-0501,500,one-time,Year-end appeal
+2025-12-19,Beatriz Lowe,b.lowe@example.net,305-555-0502,250,one-time,Year-end appeal
+2026-01-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-01-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-02-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-02-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-03-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-03-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-03-14,Rosa Delgado,rosa.delgado@example.org,305-555-0142,25,one-time,Spring appeal
+2026-04-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-04-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-05-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-05-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-06-01,Priya Shah,priya.shah@example.net,305-555-0503,50,monthly,Tide Circle monthly
+2026-06-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-07-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-07-10,Biscayne Hardware Co.,giving@biscaynehw.example.com,,1000,one-time,Back to school
+2026-08-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-08-20,R. Delgado,rosa.delgado@example.org,,40,one-time,Back to school
+2026-08-30,Andre Williams,andre.w@example.org,305-555-0231,15,one-time,Back to school
+2026-09-05,Marcus Green,marcus.green@example.org,305-555-0415,30,monthly,Tide Circle monthly
+2026-09-15,Rosa M. Delgado,rdelgado.work@example.com,,20,one-time,Back to school

@@ -1,0 +1,7 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-workshop-pipeline
+version: 1.0.0
+name: Tidepath Workshop Pipeline
+description: Take Tidepath school workshop requests in English, Spanish and Haitian Creole, ask for all missing details in one reply, and track each request from intake to delivery.
+trustLevel: first_party

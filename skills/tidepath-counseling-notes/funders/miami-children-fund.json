@@ -1,0 +1,3 @@
+{"funder": "Miami Children Fund (made up)", "fields": {
+  "Service date": "date", "Service type": "service_type", "Minutes": "minutes",
+  "ZIP code": "zip", "Age band": "age_band", "Client ID": "client_id"}}

@@ -1,0 +1,7 @@
+[
+  {"school": "Coral Palms Elementary", "contact": "Ms. Rivera", "channel": "email", "lang": "es",
+   "fields": {"topic": "Bullying prevention", "grade_age": "4th grade", "language": "es"}},
+  {"school": "Little River Middle", "contact": "Mr. Joseph", "channel": "text", "lang": "ht",
+   "fields": {"topic": "Family stress", "date": "2026-12-03", "room": "Library", "language": "ht",
+              "grade_age": "parents", "format": "in-person", "headcount": "30"}}
+]

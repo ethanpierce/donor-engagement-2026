@@ -1,0 +1,6 @@
+{
+  "id": "tidepath_volunteers_friday_hours",
+  "name": "Tidepath Friday hours summary",
+  "schedule": "0 20 * * 5",
+  "prompt": "Use tidepath-volunteer-intake. Post the Friday hours summary for this week in Volunteers, with open urgent needs from tidepath-crm."
+}

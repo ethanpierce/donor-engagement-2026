@@ -1,0 +1,6 @@
+{
+  "id": "tidepath_programs_weekly_at_risk",
+  "name": "Tidepath weekly at-risk check",
+  "schedule": "0 13 * * 1",
+  "prompt": "Use tidepath-programs-ops. Run the weekly at-risk check for the current ISO week in Programs and mentoring. Draft follow-ups, label them not sent, and send them to the Director's approval queue."
+}

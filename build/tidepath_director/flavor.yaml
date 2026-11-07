@@ -1,0 +1,13 @@
+schemaVersion: 1
+kind: HubFlavor
+id: tidepath_director
+version: 1.0.0
+name: Tidepath Director's Desk
+description: 'Tidepath Family Alliance director agent: approval queue, weekly digest, cross-room routing of urgent needs, and People CRM stewardship. Fictional nonprofit, made-up data.'
+trustLevel: first_party
+skillNamespace: tidepath
+skills:
+  - id: tidepath-crm
+    version: 1.0.0
+  - id: tidepath-approvals
+    version: 1.0.0

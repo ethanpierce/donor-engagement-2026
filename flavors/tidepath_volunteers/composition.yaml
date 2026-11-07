@@ -1,0 +1,4 @@
+schemaVersion: 1
+kind: FlavorComposition
+base:
+  path: ../../../flavors/roomcord_base

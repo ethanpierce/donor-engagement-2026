@@ -1,0 +1,18 @@
+donor_id,name,date,amount,recurring
+D001,Maria Lopez,2026-05-03,25,monthly
+D001,Maria Lopez,2026-06-03,25,monthly
+D001,Maria Lopez,2026-07-03,25,monthly
+D001,Maria Lopez,2026-08-03,25,monthly
+D001,Maria Lopez,2026-09-03,25,monthly
+D002,Jean Baptiste,2026-06-15,40,monthly
+D002,Jean Baptiste,2026-07-15,40,monthly
+D002,Jean Baptiste,2026-08-15,40,monthly
+D002,Jean Baptiste,2026-09-15,40,monthly
+D002,Jean Baptiste,2026-10-15,40,monthly
+D003,Carol Diaz,2023-11-20,500,
+D003,Carol Diaz,2024-11-22,500,
+D003,Carol Diaz,2025-11-18,600,
+D004,Sam Okafor,2026-01-10,100,
+D004,Sam Okafor,2026-04-12,100,
+D004,Sam Okafor,2026-07-09,120,
+D005,Ana Pierre,2026-03-01,50,

@@ -1,0 +1,19 @@
+{
+  "note_id": "N-001",
+  "made_up": true,
+  "client_id": "C-1042",
+  "client_name": "Demo Client A",
+  "date": "2026-10-28",
+  "counselor": "Alex",
+  "service_type": "family counseling",
+  "minutes": 50,
+  "zip": "33147",
+  "age_band": "25-34",
+  "language": "ht",
+  "household_size": 4,
+  "income_band": "under 200% FPL",
+  "presenting_issue": "Parenting stress after job loss (made up)",
+  "narrative": "Made-up session text. Discussed routines and school contact.",
+  "risk_flags": "none",
+  "referrals": "food pantry"
+}

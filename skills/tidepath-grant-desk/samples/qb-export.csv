@@ -1,0 +1,12 @@
+Date,Transaction Type,Num,Name,Class,Account,Memo,Amount
+2026-06-20,Bill,1001,Payroll Co,ChildFund,Salaries,June payroll (prior FY),9000.00
+2026-07-31,Bill,1010,Payroll Co,ChildFund,Salaries,July payroll,9000.00
+2026-08-31,Bill,1022,Payroll Co,ChildFund,Salaries,August payroll,9000.00
+2026-09-30,Bill,1035,Payroll Co,ChildFund,Salaries,September payroll,9000.00
+2026-10-31,Bill,1047,Payroll Co,ChildFund,Salaries,October payroll,"9,000.00"
+2026-08-12,Expense,2001,Print Shop,ChildFund,Workshop materials,Handouts,1450.00
+2026-09-18,Expense,2002,Print Shop,ChildFund,Workshop materials,Handouts,2300.00
+2026-10-05,Expense,2003,Bus Co,ChildFund,Family transport,Bus passes,600.00
+2026-10-02,Expense,3001,Food Bank,County,Emergency aid,Grocery cards,4200.00
+2026-10-20,Expense,3002,Payroll Co,County,Salaries,Case manager,3000.00
+2026-09-25,Expense,3003,Food Bank,County,Emergency aid,Prior FY,999.00

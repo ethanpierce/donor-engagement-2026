@@ -1,0 +1,8 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-crm
+version: 1.0.0
+name: Tidepath CRM
+description: Shared people, attendance, mentoring, volunteer-hour, urgent-need and donation records for Tidepath Family Alliance, with duplicate review, approved merges, at-risk lists and reconciled quarterly reports.
+trustLevel: first_party
+compat: {minHubVersion: 0.17.0, minAgentVersion: 0.17.0}

@@ -1,0 +1,7 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-counseling-notes
+version: 1.0.0
+name: Tidepath Counseling Notes
+description: Map one made-up Tidepath counseling note to a funder's required fields, preview what will be sent and what stays inside, and log every preview and send. Not a HIPAA-approved system.
+trustLevel: first_party

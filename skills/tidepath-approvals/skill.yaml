@@ -1,0 +1,8 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-approvals
+version: 1.0.0
+name: Tidepath Approvals
+description: Approval queue, weekly digest and cross-room routing for the Tidepath Director's Desk.
+trustLevel: first_party
+compat: {minHubVersion: 0.17.0, minAgentVersion: 0.17.0}

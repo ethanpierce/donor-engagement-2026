@@ -1,0 +1,7 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-donor-care
+version: 1.0.0
+name: Tidepath Donor Care
+description: Import Tidepath gift files, review duplicate donors with staff, find late and failed regular gifts, and draft personal donor notes.
+trustLevel: first_party

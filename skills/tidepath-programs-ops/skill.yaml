@@ -1,0 +1,8 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-programs-ops
+version: 1.0.0
+name: Tidepath Programs Ops
+description: Weekly at-risk check, multilingual follow-up drafts and quarterly program report for Tidepath.
+trustLevel: first_party
+compat: {minHubVersion: 0.17.0, minAgentVersion: 0.17.0}

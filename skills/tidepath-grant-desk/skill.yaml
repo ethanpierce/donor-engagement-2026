@@ -1,0 +1,7 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-grant-desk
+version: 1.0.0
+name: Tidepath Grant Desk
+description: Draft Tidepath grant answers from an approved-fact library with source tags and MISSING flags, and report grant spending per category in the funder fiscal year from a QuickBooks export.
+trustLevel: first_party

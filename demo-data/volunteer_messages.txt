@@ -1,0 +1,11 @@
+# Tidepath Family Alliance - volunteer text thread, week of 2026-09-21 (made-up demo data)
+# Format: [date time] sender: message
+
+[2026-09-21 18:04] Hannah Levy: Saw Noah and Isabella at the library, 1.5h total. Both good.
+[2026-09-22 07:52] Tom Reyes: Driver run done, 3h. The Pham family is out of diapers for the baby, can someone bring a pack before Friday?
+[2026-09-23 16:30] Nadia Brown: Workshop at Holmes went well, 2h, 14 kids.
+[2026-09-24 19:10] Carlos Mejia: Met Lucas after school 1h, he's doing better in math.
+[2026-09-26 17:45] Maria Alvarez: Met Kevin 1h, he needs a laptop for school. He said he missed group because he watches his little sister.
+[2026-09-26 20:12] Daniel Kim: Saw Mateo today 2h, worked on his science project.
+[2026-09-26 21:40] Daniel Kim: Saw Mateo today 2h, worked on his science project. (resending in case it didn't go through)
+[2026-09-27 12:20] Fabiola Joseph: Zoe and Aaliyah, park visit, 2h.

@@ -1,0 +1,8 @@
+schemaVersion: 1
+kind: HubSkill
+id: tidepath-volunteer-intake
+version: 1.0.0
+name: Tidepath Volunteer Intake
+description: Parse volunteer updates into logged hours, visits and urgent needs for Tidepath.
+trustLevel: first_party
+compat: {minHubVersion: 0.17.0, minAgentVersion: 0.17.0}

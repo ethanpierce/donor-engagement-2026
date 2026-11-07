@@ -1,0 +1,6 @@
+{
+  "id": "tidepath_director_weekly_digest",
+  "name": "Tidepath weekly digest",
+  "schedule": "0 15 * * 1",
+  "prompt": "Use tidepath-approvals. Write the weekly digest in Director desk for the current ISO week, with open approvals, urgent needs, at-risk count, volunteer hours and CRM duplicates. Numbers come from tidepath-crm. @mention Alex for decisions."
+}

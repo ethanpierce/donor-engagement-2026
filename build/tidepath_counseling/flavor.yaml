@@ -1,0 +1,11 @@
+schemaVersion: 1
+kind: HubFlavor
+id: tidepath_counseling
+version: 1.0.0
+name: Tidepath Counseling
+description: Restricted counseling room agent for Tidepath Family Alliance. Turns one made-up session note into a funder report with only the fields that funder requires, with a preview and a send log. Not a HIPAA-approved system.
+trustLevel: first_party
+skillNamespace: tidepath
+skills:
+  - id: tidepath-counseling-notes
+    version: 1.0.0
