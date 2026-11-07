@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e63">
+<meta name="robots" content="noindex">
+<title>Tidepath</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-title="ws.title">
+<a class="skip" href="#main" data-i18n="skip">Skip to the form</a>
+<header class="top">
+  <div class="top-inner">
+    <a class="logo" href="/" data-keep-lang><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff" opacity=".16"/><path d="M6 24c4-4 8-4 12 0s8 4 12 0 6-3 8-2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M8 17c3.5-3 7-3 10.5 0s7 3 10.5 0" fill="none" stroke="#f3b36b" stroke-width="3" stroke-linecap="round"/></svg><span><b data-i18n="brand">Tidepath</b><small data-i18n="brand.sub">Family Alliance</small></span></a>
+    <div class="lang-switch" role="group" aria-label="Language / Idioma / Lang"></div>
+  </div>
+</header>
+<main id="main">
+<a class="back" href="/" data-keep-lang><span aria-hidden="true">&larr;</span> <span data-i18n="back">Back</span></a>
+<h1 data-i18n="ws.title"></h1>
+<p class="lead" data-i18n="ws.lead"></p>
+<form data-form="workshop" novalidate>
+<div class="alert" role="alert" hidden></div>
+<div class="field" data-field="school">
+  <label for="school"><span data-i18n="ws.school"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="school" name="school" type="text" autocomplete="organization" required aria-describedby="school-err" maxlength="120">
+  <p class="err" id="school-err" role="alert"></p>
+</div>
+<div class="field" data-field="contact">
+  <label for="contact"><span data-i18n="ws.contact"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="contact" name="contact" type="text" autocomplete="name" required aria-describedby="contact-err" maxlength="80">
+  <p class="err" id="contact-err" role="alert"></p>
+</div>
+<div class="field" data-field="email">
+  <label for="email"><span data-i18n="ws.email"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-err" inputmode="email" maxlength="120">
+  <p class="err" id="email-err" role="alert"></p>
+</div>
+<div class="field" data-field="phone">
+  <label for="phone"><span data-i18n="ws.phone"></span><span class="tag" data-i18n="opt"></span></label>
+  <input id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="phone-err" inputmode="tel" maxlength="20">
+  <p class="err" id="phone-err" role="alert"></p>
+</div>
+<div class="field" data-field="dates">
+  <label for="dates"><span data-i18n="ws.dates"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="dates" name="dates" type="text" data-i18n-ph="ws.dates.ph" required aria-describedby="dates-err" maxlength="160">
+  <p class="err" id="dates-err" role="alert"></p>
+</div>
+<div class="row2">
+<div class="field" data-field="grade">
+  <label for="grade"><span data-i18n="ws.grade"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="grade" name="grade" type="text" data-i18n-ph="ws.grade.ph" required aria-describedby="grade-err" maxlength="30">
+  <p class="err" id="grade-err" role="alert"></p>
+</div>
+<div class="field" data-field="headcount">
+  <label for="headcount"><span data-i18n="ws.headcount"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="headcount" name="headcount" type="text" required aria-describedby="headcount-err" inputmode="numeric" pattern="[0-9]*" maxlength="4">
+  <p class="err" id="headcount-err" role="alert"></p>
+</div>
+</div>
+<fieldset class="field" data-field="topic">
+  <legend><span data-i18n="ws.topic"></span><span class="tag" data-i18n="req"></span></legend>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="topic" value="safety" required><span><span data-i18n="ws.topic.safety"></span></span></label>
+    <label class="choice"><input type="radio" name="topic" value="mental-health" required><span><span data-i18n="ws.topic.mental"></span></span></label>
+    <label class="choice"><input type="radio" name="topic" value="other" required><span><span data-i18n="ws.topic.other"></span></span></label>
+  </div>
+  <p class="err" role="alert"></p>
+</fieldset>
+<div class="sub-box" data-show-if="topic=other" hidden>
+<div class="field" data-field="topicOther">
+  <label for="topicOther"><span data-i18n="ws.topicOther"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="topicOther" name="topicOther" type="text" required aria-describedby="topicOther-err" maxlength="120">
+  <p class="err" id="topicOther-err" role="alert"></p>
+</div>
+</div>
+<div class="field" data-field="language">
+  <label for="language"><span data-i18n="ws.language"></span><span class="tag" data-i18n="req"></span></label>
+  <select id="language" name="language" required aria-describedby="language-err">
+    <option value="" selected disabled>—</option>
+    <option value="English" data-i18n="lang.en"></option>
+    <option value="Spanish" data-i18n="lang.es"></option>
+    <option value="Haitian Creole" data-i18n="lang.ht"></option>
+    <option value="Other" data-i18n="lang.other"></option>
+  </select>
+  <p class="err" id="language-err" role="alert"></p>
+</div>
+<fieldset class="field" data-field="mode">
+  <legend><span data-i18n="ws.mode"></span><span class="tag" data-i18n="req"></span></legend>
+  <div class="choices inline">
+    <label class="choice"><input type="radio" name="mode" value="in-person" required><span><span data-i18n="ws.mode.inperson"></span></span></label>
+    <label class="choice"><input type="radio" name="mode" value="online" required><span><span data-i18n="ws.mode.online"></span></span></label>
+  </div>
+  <p class="err" role="alert"></p>
+</fieldset>
+<div class="field" data-field="notes">
+  <label for="notes"><span data-i18n="ws.notes"></span><span class="tag" data-i18n="opt"></span></label>
+  <textarea id="notes" name="notes" maxlength="600" data-i18n-ph="ws.notes.ph" aria-describedby="notes-err"></textarea>
+  <p class="err" id="notes-err" role="alert"></p>
+</div>
+<div hidden aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+<button class="btn" type="submit"><span data-i18n="send"></span></button>
+</form>
+</main>
+<footer>
+  <p class="demo" data-i18n="footer.demo">Made-up demo.</p>
+  <p data-i18n="footer.privacy"></p>
+</footer>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e63">
+<meta name="robots" content="noindex">
+<title>Tidepath</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-title="ap.title">
+<a class="skip" href="#main" data-i18n="skip">Skip to the form</a>
+<header class="top">
+  <div class="top-inner">
+    <a class="logo" href="/" data-keep-lang><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff" opacity=".16"/><path d="M6 24c4-4 8-4 12 0s8 4 12 0 6-3 8-2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M8 17c3.5-3 7-3 10.5 0s7 3 10.5 0" fill="none" stroke="#f3b36b" stroke-width="3" stroke-linecap="round"/></svg><span><b data-i18n="brand">Tidepath</b><small data-i18n="brand.sub">Family Alliance</small></span></a>
+    <div class="lang-switch" role="group" aria-label="Language / Idioma / Lang"></div>
+  </div>
+</header>
+<main id="main">
+<h1 data-i18n="ap.title"></h1>
+<div class="approve-missing alert" hidden data-i18n="ap.missing"></div>
+<div class="approve-body">
+<p class="lead" data-i18n="ap.lead"></p>
+<div class="meta">
+  <span class="pill"><span data-i18n="ap.request"></span>: <b data-request></b></span>
+  <span class="pill"><span data-i18n="ap.version"></span>: <b data-version></b></span>
+</div>
+<figure class="slide" role="img" aria-labelledby="slide-title">
+  <h2 id="slide-title" data-i18n="ap.slide.title"></h2>
+  <ul><li data-i18n="ap.slide.b1"></li><li data-i18n="ap.slide.b2"></li><li data-i18n="ap.slide.b3"></li></ul>
+  <span class="mark">Tidepath · <span data-request></span> <span data-version></span></span>
+</figure>
+<p class="caption" data-i18n="ap.preview.note"></p>
+<form data-form="approve" novalidate>
+<div class="alert" role="alert" hidden></div>
+<input type="hidden" name="request"><input type="hidden" name="version">
+<div class="field" data-field="name">
+  <label for="name"><span data-i18n="ap.name"></span><span class="tag" data-i18n="opt"></span></label>
+  <input id="name" name="name" type="text" autocomplete="name" aria-describedby="name-err" maxlength="80">
+  <p class="err" id="name-err" role="alert"></p>
+</div>
+<div class="btn-row">
+  <button class="btn" type="button" data-decision="approve"><span data-i18n="ap.approve"></span></button>
+  <button class="btn secondary" type="button" data-action="show-changes"><span data-i18n="ap.changes"></span></button>
+</div>
+<div class="changes-box sub-box" hidden>
+<div class="field" data-field="comment">
+  <label for="comment"><span data-i18n="ap.comment"></span><span class="tag" data-i18n="req"></span></label>
+  <textarea disabled id="comment" name="comment" maxlength="600" data-i18n-ph="ap.comment.ph" required aria-describedby="comment-err"></textarea>
+  <p class="err" id="comment-err" role="alert"></p>
+</div>
+  <button class="btn" type="submit" data-decision="changes"><span data-i18n="ap.sendChanges"></span></button>
+</div>
+</form>
+</div>
+</main>
+<footer>
+  <p class="demo" data-i18n="footer.demo">Made-up demo.</p>
+  <p data-i18n="footer.privacy"></p>
+</footer>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e63">
+<meta name="robots" content="noindex">
+<title>Tidepath</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-title="fam.title">
+<a class="skip" href="#main" data-i18n="skip">Skip to the form</a>
+<header class="top">
+  <div class="top-inner">
+    <a class="logo" href="/" data-keep-lang><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff" opacity=".16"/><path d="M6 24c4-4 8-4 12 0s8 4 12 0 6-3 8-2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M8 17c3.5-3 7-3 10.5 0s7 3 10.5 0" fill="none" stroke="#f3b36b" stroke-width="3" stroke-linecap="round"/></svg><span><b data-i18n="brand">Tidepath</b><small data-i18n="brand.sub">Family Alliance</small></span></a>
+    <div class="lang-switch" role="group" aria-label="Language / Idioma / Lang"></div>
+  </div>
+</header>
+<main id="main">
+<a class="back" href="/" data-keep-lang><span aria-hidden="true">&larr;</span> <span data-i18n="back">Back</span></a>
+<h1 data-i18n="fam.title"></h1>
+<p class="lead" data-i18n="fam.lead"></p>
+<form data-form="family" data-need-contact novalidate>
+<div class="alert" role="alert" hidden></div>
+<div class="field" data-field="parent">
+  <label for="parent"><span data-i18n="fam.parent"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="parent" name="parent" type="text" autocomplete="name" required aria-describedby="parent-err" maxlength="80">
+  <p class="err" id="parent-err" role="alert"></p>
+</div>
+<p class="hint" data-i18n="fam.contact.hint"></p>
+<div class="field" data-field="phone">
+  <label for="phone"><span data-i18n="fam.phone"></span><span class="tag" data-i18n="opt"></span></label>
+  <input id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="phone-err" inputmode="tel" maxlength="20">
+  <p class="err" id="phone-err" role="alert"></p>
+</div>
+<div class="field" data-field="email">
+  <label for="email"><span data-i18n="fam.email"></span><span class="tag" data-i18n="opt"></span></label>
+  <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-err" inputmode="email" maxlength="120">
+  <p class="err" id="email-err" role="alert"></p>
+</div>
+<div class="field" data-field="language">
+  <label for="language"><span data-i18n="fam.language"></span><span class="tag" data-i18n="req"></span></label>
+  <select id="language" name="language" required aria-describedby="language-err">
+    <option value="" selected disabled>—</option>
+    <option value="English" data-i18n="lang.en"></option>
+    <option value="Spanish" data-i18n="lang.es"></option>
+    <option value="Haitian Creole" data-i18n="lang.ht"></option>
+    <option value="Other" data-i18n="lang.other"></option>
+  </select>
+  <p class="err" id="language-err" role="alert"></p>
+</div>
+<div class="row2">
+<div class="field" data-field="child">
+  <label for="child"><span data-i18n="fam.child"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="child" name="child" type="text" required aria-describedby="child-err" maxlength="60" autocomplete="off">
+  <p class="err" id="child-err" role="alert"></p>
+</div>
+<div class="field" data-field="age">
+  <label for="age"><span data-i18n="fam.age"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="age" name="age" type="text" required aria-describedby="age-err" inputmode="numeric" pattern="[0-9]*" maxlength="2">
+  <p class="err" id="age-err" role="alert"></p>
+</div>
+</div>
+<div class="field" data-field="school">
+  <label for="school"><span data-i18n="fam.school"></span><span class="tag" data-i18n="req"></span></label>
+  <input id="school" name="school" type="text" required aria-describedby="school-err" maxlength="120">
+  <p class="err" id="school-err" role="alert"></p>
+</div>
+<fieldset class="field" data-field="program">
+  <legend><span data-i18n="fam.program"></span><span class="tag" data-i18n="req"></span></legend>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="program" value="mentoring" required><span><span data-i18n="fam.program.mentoring"></span><small data-i18n="fam.program.mentoring.sub"></small></span></label>
+    <label class="choice"><input type="radio" name="program" value="family-counseling" required><span><span data-i18n="fam.program.counseling"></span><small data-i18n="fam.program.counseling.sub"></small></span></label>
+    <label class="choice"><input type="radio" name="program" value="workshops" required><span><span data-i18n="fam.program.workshops"></span><small data-i18n="fam.program.workshops.sub"></small></span></label>
+  </div>
+  <p class="err" role="alert"></p>
+</fieldset>
+<div class="field" data-field="consent">
+  <label class="choice consent"><input type="checkbox" name="consent" required data-err-code="consent"><span data-i18n="fam.consent"></span></label>
+  <p class="err" role="alert"></p>
+</div>
+<div hidden aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+<button class="btn" type="submit"><span data-i18n="send"></span></button>
+</form>
+</main>
+<footer>
+  <p class="demo" data-i18n="footer.demo">Made-up demo.</p>
+  <p data-i18n="footer.privacy"></p>
+</footer>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
