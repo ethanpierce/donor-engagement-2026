@@ -47,6 +47,11 @@ python3 skills/tidepath-crm/scripts/crm.py --db /tmp/tidepath.db report --quarte
 python3 -m pytest skills/tidepath-crm/tests
 ```
 
+## Planning documents
+
+The system handoffs, the architecture contract and the original event
+document are in [docs/README.md](docs/README.md).
+
 ## Limits
 
 - Made-up data only. The counseling flow is not a HIPAA-approved system.
