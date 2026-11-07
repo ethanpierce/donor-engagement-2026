@@ -1,24 +1,52 @@
 1
-00:00:00,000 --> 00:00:03,900
-Maria checks in from her phone, in Spanish.
+00:00:00,020 --> 00:00:02,940
+P5. Volunteer hours get lost, and urgent needs wait for days.
 
 2
-00:00:04,000 --> 00:00:07,700
-She logs one hour and flags Kevin's laptop need.
+00:00:03,020 --> 00:00:05,473
+The Tidepath portal is a public website with no login.
 
 3
-00:00:07,833 --> 00:00:10,733
-The check-in lands in the Volunteers room.
+00:00:05,553 --> 00:00:09,640
+Maria, a volunteer mentor, opens the check-in form in Spanish.
 
 4
-00:00:10,833 --> 00:00:14,233
-The agent logs the hour and flags the need.
+00:00:09,720 --> 00:00:14,906
+She logs 1 hour with Kevin and marks an urgent need: a laptop.
 
 5
-00:00:14,333 --> 00:00:16,733
-Tidepath Director routes it to Programs.
+00:00:14,986 --> 00:00:17,939
+She taps Send. No login, no app to install.
 
 6
-00:00:16,833 --> 00:00:18,867
-The need arrives in Programs and mentoring.
+00:00:18,019 --> 00:00:20,473
+Now we switch to Roomcord, where the staff work.
+
+7
+00:00:20,553 --> 00:00:24,473
+Maria's check-in arrives in the Volunteers room as a portal message.
+
+8
+00:00:24,553 --> 00:00:29,473
+The agent logs the hour once and flags the laptop need as urgent.
+
+9
+00:00:29,553 --> 00:00:32,673
+Alex asks the Director agent to send the need to the Programs room.
+
+10
+00:00:32,753 --> 00:00:36,673
+The Director agent posts the need in Programs and mentoring.
+
+11
+00:00:36,753 --> 00:00:40,173
+In the room list, Programs and mentoring now shows a new message.
+
+12
+00:00:40,253 --> 00:00:41,973
+Alex opens the Programs and mentoring room.
+
+13
+00:00:42,053 --> 00:00:45,233
+The urgent need is here the same day, with a mention for Alex.
 

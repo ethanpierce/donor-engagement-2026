@@ -1,24 +1,52 @@
 1
-00:00:00,000 --> 00:00:02,500
-People CRM holds every family, kid and donor.
+00:00:00,020 --> 00:00:02,473
+The People CRM app runs inside the Roomcord room 'People CRM'.
 
 2
-00:00:02,600 --> 00:00:04,700
-People CRM lists likely duplicates.
+00:00:02,553 --> 00:00:05,040
+In the People CRM room, Alex opens the People CRM tab.
 
 3
-00:00:04,800 --> 00:00:08,500
-The approved merge keeps Alex's name and the time.
+00:00:05,120 --> 00:00:08,640
+One list of 67 people: kids, parents, mentors, volunteers and donors.
 
 4
-00:00:08,600 --> 00:00:10,600
-This week shows the kids at risk.
+00:00:08,720 --> 00:00:12,240
+Duplicates: records that may be the same person.
 
 5
-00:00:10,700 --> 00:00:13,700
-Alex approves Kevin's follow-up.
+00:00:12,320 --> 00:00:15,640
+Rosa Delgado is in the CRM twice: same phone, same address.
 
 6
-00:00:13,800 --> 00:00:17,600
-The Q3 report reconciles with the source rows.
+00:00:15,720 --> 00:00:18,440
+Alex clicks Approve merge.
+
+7
+00:00:18,520 --> 00:00:23,473
+The record keeps who approved it, the time, and the history.
+
+8
+00:00:23,553 --> 00:00:27,073
+This week: the mentoring kids at risk, each with a draft follow-up.
+
+9
+00:00:27,153 --> 00:00:30,873
+Alex approves Kevin's follow-up.
+
+10
+00:00:30,953 --> 00:00:35,807
+Status: approved by Alex, with the time. The owner now calls the parent.
+
+11
+00:00:35,887 --> 00:00:38,540
+Q3 report: the numbers that funders ask for.
+
+12
+00:00:38,620 --> 00:00:42,040
+All totals reconcile with the source rows.
+
+13
+00:00:42,120 --> 00:00:45,300
+Each total is counted again from the raw rows, and every check matches.
 

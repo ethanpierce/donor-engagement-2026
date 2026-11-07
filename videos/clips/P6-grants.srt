@@ -1,8 +1,20 @@
 1
-00:00:00,000 --> 00:00:02,400
-Alex asks what is left in the county grant.
+00:00:00,020 --> 00:00:02,940
+P6. Grant spending is hard to track against the funder rules.
 
 2
-00:00:02,500 --> 00:00:06,933
-Emergency aid has $800 left, and no category is over 90%.
+00:00:03,020 --> 00:00:04,540
+Back in Roomcord, in the Grants and finance room.
+
+3
+00:00:04,620 --> 00:00:08,040
+Alex asks how much is left per category in the county grant.
+
+4
+00:00:08,120 --> 00:00:09,407
+The agent reads the grant budget and the spending.
+
+5
+00:00:09,487 --> 00:00:14,167
+Emergency aid has $800 left. No category is over 90%.
 

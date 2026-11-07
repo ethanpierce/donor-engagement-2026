@@ -1,0 +1,12 @@
+1
+00:00:00,020 --> 00:00:02,473
+Source code, open on GitHub.
+
+2
+00:00:02,553 --> 00:00:06,473
+One repository holds every agent, skill, the portal and the CRM app.
+
+3
+00:00:06,553 --> 00:00:11,233
+Each agent = a flavor: role + rules + skills.
+
