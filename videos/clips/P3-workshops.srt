@@ -1,48 +1,32 @@
 1
-00:00:00,020 --> 00:00:02,940
+00:00:00,100 --> 00:00:01,310
 P3. Schools wait days for answers about workshops.
 
 2
-00:00:03,020 --> 00:00:05,473
-Back to the public portal, on a phone.
+00:00:01,350 --> 00:00:05,367
+A school counselor requests a safety workshop, in Spanish.
 
 3
-00:00:05,553 --> 00:00:14,073
-A school counselor requests a safety workshop in Spanish.
-
-4
-00:00:14,153 --> 00:00:16,907
+00:00:05,417 --> 00:00:07,777
 She sends it. She does not need an account.
 
-5
-00:00:16,987 --> 00:00:18,507
-Back in Roomcord, in the Workshop requests room.
-
-6
-00:00:18,587 --> 00:00:22,007
+4
+00:00:07,817 --> 00:00:10,133
 The request arrives in the Workshop requests room.
 
+5
+00:00:10,183 --> 00:00:13,077
+The agent asks every missing question in one reply and opens W002.
+
+6
+00:00:13,117 --> 00:00:17,677
+Later, the school approves slides v2 on the portal.
+
 7
-00:00:22,087 --> 00:00:27,507
-The agent asks every missing question in one reply and opens request W002.
-
-8
-00:00:27,587 --> 00:00:30,040
-Later, the school uses the portal again.
-
-9
-00:00:30,120 --> 00:00:38,073
-Later, the school approves slides version 2 on the portal.
-
-10
-00:00:38,153 --> 00:00:39,673
-Back in Roomcord.
-
-11
-00:00:39,753 --> 00:00:42,673
+00:00:17,717 --> 00:00:19,667
 The approval arrives in the room.
 
-12
-00:00:42,753 --> 00:00:46,933
+8
+00:00:19,717 --> 00:00:22,367
 The tracker records school approved v2, and who approved it.
 

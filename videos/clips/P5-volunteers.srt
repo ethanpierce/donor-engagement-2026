@@ -1,52 +1,48 @@
 1
-00:00:00,020 --> 00:00:02,940
+00:00:00,100 --> 00:00:01,360
 P5. Volunteer hours get lost, and urgent needs wait for days.
 
 2
-00:00:03,020 --> 00:00:05,473
-The Tidepath portal is a public website with no login.
+00:00:01,400 --> 00:00:02,410
+The Tidepath portal: a public website with no login. Volunteers, parents and schools use it on a phone.
 
 3
-00:00:05,553 --> 00:00:09,640
-Maria, a volunteer mentor, opens the check-in form in Spanish.
+00:00:02,450 --> 00:00:05,400
+Maria opens the check-in form in Spanish.
 
 4
-00:00:09,720 --> 00:00:14,906
-She logs 1 hour with Kevin and marks an urgent need: a laptop.
+00:00:05,450 --> 00:00:09,367
+She logs 1 hour with Kevin and flags an urgent need: a laptop.
 
 5
-00:00:14,986 --> 00:00:17,939
+00:00:09,417 --> 00:00:12,077
 She taps Send. No login, no app to install.
 
 6
-00:00:18,019 --> 00:00:20,473
-Now we switch to Roomcord, where the staff work.
+00:00:12,117 --> 00:00:14,200
+Maria's check-in arrives in the Volunteers room.
 
 7
-00:00:20,553 --> 00:00:24,473
-Maria's check-in arrives in the Volunteers room as a portal message.
+00:00:14,250 --> 00:00:17,433
+The agent logs the hour once and flags the laptop as urgent.
 
 8
-00:00:24,553 --> 00:00:29,473
-The agent logs the hour once and flags the laptop need as urgent.
+00:00:17,483 --> 00:00:19,900
+Alex asks the Director agent to send it to Programs.
 
 9
-00:00:29,553 --> 00:00:32,673
-Alex asks the Director agent to send the need to the Programs room.
-
-10
-00:00:32,753 --> 00:00:36,673
+00:00:19,950 --> 00:00:22,700
 The Director agent posts the need in Programs and mentoring.
 
+10
+00:00:22,750 --> 00:00:24,777
+Programs and mentoring now shows a new message.
+
 11
-00:00:36,753 --> 00:00:40,173
-In the room list, Programs and mentoring now shows a new message.
+00:00:24,817 --> 00:00:25,967
+Alex opens Programs and mentoring.
 
 12
-00:00:40,253 --> 00:00:41,973
-Alex opens the Programs and mentoring room.
-
-13
-00:00:42,053 --> 00:00:45,233
+00:00:26,017 --> 00:00:29,333
 The urgent need is here the same day, with a mention for Alex.
 

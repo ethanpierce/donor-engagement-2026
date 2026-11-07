@@ -1,28 +1,28 @@
 1
-00:00:00,020 --> 00:00:02,473
-The Tidepath portal is a public website with no login.
+00:00:00,100 --> 00:00:01,110
+The Tidepath portal: a public website with no login. Volunteers, parents and schools use it on a phone.
 
 2
-00:00:02,553 --> 00:00:06,640
-Maria, a volunteer mentor, opens the check-in form in Spanish.
+00:00:01,150 --> 00:00:04,100
+Maria opens the check-in form in Spanish.
 
 3
-00:00:06,720 --> 00:00:11,906
-She logs 1 hour with Kevin and marks an urgent need: a laptop.
+00:00:04,150 --> 00:00:08,067
+She logs 1 hour with Kevin and flags an urgent need: a laptop.
 
 4
-00:00:11,986 --> 00:00:14,939
+00:00:08,117 --> 00:00:10,777
 She taps Send. No login, no app to install.
 
 5
-00:00:15,019 --> 00:00:23,539
-A school counselor requests a safety workshop in Spanish.
+00:00:10,817 --> 00:00:14,833
+A school counselor requests a safety workshop, in Spanish.
 
 6
-00:00:23,619 --> 00:00:26,373
+00:00:14,883 --> 00:00:17,243
 She sends it. She does not need an account.
 
 7
-00:00:26,453 --> 00:00:34,166
-Later, the school approves slides version 2 on the portal.
+00:00:17,283 --> 00:00:22,033
+Later, the school approves slides v2 on the portal.
 

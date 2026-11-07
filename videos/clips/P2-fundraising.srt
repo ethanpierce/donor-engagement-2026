@@ -1,20 +1,16 @@
 1
-00:00:00,020 --> 00:00:02,940
+00:00:00,100 --> 00:00:01,310
 P2. Regular donors stop giving, and nobody notices.
 
 2
-00:00:03,020 --> 00:00:04,540
-Back in Roomcord, in the Fundraising room.
+00:00:01,350 --> 00:00:03,433
+Alex asks which regular donors are late.
 
 3
-00:00:04,620 --> 00:00:08,040
-Alex asks the Fundraising agent which regular donors are late.
-
-4
-00:00:08,120 --> 00:00:09,407
+00:00:03,483 --> 00:00:05,367
 The agent checks each donor's giving schedule.
 
-5
-00:00:09,487 --> 00:00:14,667
-Two donors are late: a monthly gift by 35 days, a 90-day gift by 31 days.
+4
+00:00:05,417 --> 00:00:09,167
+Two donors are late: a monthly gift by 35 days, a 90-day gift by 31.
 

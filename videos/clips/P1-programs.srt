@@ -1,28 +1,28 @@
 1
-00:00:00,020 --> 00:00:02,940
+00:00:00,100 --> 00:00:01,310
 P1. Kids at risk get missed until it is too late.
 
 2
-00:00:03,020 --> 00:00:05,673
+00:00:01,350 --> 00:00:03,533
 Alex asks the Programs agent: who needs a call this week?
 
 3
-00:00:05,753 --> 00:00:07,840
+00:00:03,583 --> 00:00:05,533
 The agent checks attendance and mentor meetings in the CRM.
 
 4
-00:00:07,920 --> 00:00:12,340
+00:00:05,583 --> 00:00:08,567
 Kevin and Jaylen missed sessions. They need a call this week.
 
 5
-00:00:12,420 --> 00:00:15,273
-Alex asks for a follow-up message to Kevin's mother, in Spanish.
+00:00:08,617 --> 00:00:10,800
+Alex asks for a follow-up to Kevin's mother, in Spanish.
 
 6
-00:00:15,353 --> 00:00:17,673
+00:00:10,850 --> 00:00:12,733
 The agent writes the draft.
 
 7
-00:00:17,753 --> 00:00:22,433
-The reply says DRAFT, not sent. A person approves before anything is sent.
+00:00:12,783 --> 00:00:15,867
+It says DRAFT, not sent. A person approves before anything goes out.
 

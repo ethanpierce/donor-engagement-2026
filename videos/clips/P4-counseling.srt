@@ -1,20 +1,16 @@
 1
-00:00:00,020 --> 00:00:02,940
+00:00:00,100 --> 00:00:01,310
 P4. Counseling notes are private, but funders need numbers.
 
 2
-00:00:03,020 --> 00:00:04,540
-Back in Roomcord, in the restricted Counseling room.
-
-3
-00:00:04,620 --> 00:00:08,040
+00:00:01,350 --> 00:00:04,533
 Alex asks what exactly goes to the funder from a sample note.
 
-4
-00:00:08,120 --> 00:00:12,040
-WILL BE SENT: only service facts, like date, minutes, ZIP and age band.
+3
+00:00:04,583 --> 00:00:08,000
+Will be sent: only service facts, like date, minutes, ZIP and age band.
 
-5
-00:00:12,120 --> 00:00:16,300
-STAYS INSIDE: names, the narrative and risk flags. Nothing else leaves.
+4
+00:00:08,050 --> 00:00:10,267
+Stays inside: names, the narrative and risk flags.
 
