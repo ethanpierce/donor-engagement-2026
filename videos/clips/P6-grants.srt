@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:02,400
+Alex asks what is left in the county grant.
+
+2
+00:00:02,500 --> 00:00:06,933
+Emergency aid has $800 left, and no category is over 90%.
+

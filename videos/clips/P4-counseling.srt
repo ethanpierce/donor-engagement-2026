@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:02,900
+Counseling previews a funder export from a sample note.
+
+2
+00:00:03,000 --> 00:00:07,333
+Service facts go to the funder, and names and notes stay inside.
+

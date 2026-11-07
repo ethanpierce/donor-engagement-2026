@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:02,500
+People CRM holds every family, kid and donor.
+
+2
+00:00:02,600 --> 00:00:04,700
+People CRM lists likely duplicates.
+
+3
+00:00:04,800 --> 00:00:08,500
+The approved merge keeps Alex's name and the time.
+
+4
+00:00:08,600 --> 00:00:10,600
+This week shows the kids at risk.
+
+5
+00:00:10,700 --> 00:00:13,700
+Alex approves Kevin's follow-up.
+
+6
+00:00:13,800 --> 00:00:17,600
+The Q3 report reconciles with the source rows.
+

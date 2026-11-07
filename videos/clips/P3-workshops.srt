@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:03,800
+A school requests a workshop in Spanish.
+
+2
+00:00:03,900 --> 00:00:07,800
+Tidepath Workshops asks the missing question and opens W002.
+
+3
+00:00:07,900 --> 00:00:10,800
+The school approves slides v2 on the portal.
+
+4
+00:00:10,900 --> 00:00:13,200
+The tracker records the approval and who gave it.
+

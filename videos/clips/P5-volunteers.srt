@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:03,900
+Maria checks in from her phone, in Spanish.
+
+2
+00:00:04,000 --> 00:00:07,700
+She logs one hour and flags Kevin's laptop need.
+
+3
+00:00:07,833 --> 00:00:10,733
+The check-in lands in the Volunteers room.
+
+4
+00:00:10,833 --> 00:00:14,233
+The agent logs the hour and flags the need.
+
+5
+00:00:14,333 --> 00:00:16,733
+Tidepath Director routes it to Programs.
+
+6
+00:00:16,833 --> 00:00:18,867
+The need arrives in Programs and mentoring.
+

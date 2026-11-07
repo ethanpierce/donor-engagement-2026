@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:02,500
+Alex asks who needs a call this week.
+
+2
+00:00:02,600 --> 00:00:05,100
+Kevin and Jaylen need a call.
+
+3
+00:00:05,200 --> 00:00:07,500
+Alex asks for a follow-up in Spanish.
+
+4
+00:00:07,600 --> 00:00:11,467
+The draft waits for Alex to approve it.
+
