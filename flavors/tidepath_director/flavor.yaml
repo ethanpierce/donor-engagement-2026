@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_director
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Director's Desk
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_director.webp
 description: >-
   Tidepath Family Alliance director agent: approval queue, weekly digest, cross-room routing of urgent needs, and People CRM stewardship. Fictional nonprofit, made-up data.
 trustLevel: first_party

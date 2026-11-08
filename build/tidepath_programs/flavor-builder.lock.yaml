@@ -2,7 +2,7 @@ schemaVersion: 1
 kind: FlavorBuildLock
 flavor:
   id: tidepath_programs
-  version: 1.0.0
+  version: 1.0.1
 layers:
   - id: roomcord_base
     version: 1.0.19
@@ -10,6 +10,6 @@ layers:
     role: base
     path: ../../../flavors/roomcord_base
   - id: tidepath_programs
-    version: 1.0.0
-    digest: sha256:140bc98b969158626483b32291c188e0919fec539f62dafb6c59110c9c6832ef
+    version: 1.0.1
+    digest: sha256:98a49ccd515b36b2018a8748611e2a3e8117e011eb74f7516a0a41c3f3084f88
     role: flavor

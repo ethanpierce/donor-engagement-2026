@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_fundraising
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Fundraising
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_fundraising.webp
 description: >-
   Fundraising room agent for Tidepath Family Alliance. Imports gift files, finds duplicate donors for staff approval, flags late and failed regular gifts, and drafts personal thank-you and check-in notes.
 trustLevel: first_party

@@ -1,0 +1,445 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tidepath System Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: four stacked layers (people → portal → rooms → hub/data), then one row per problem tracing its path. */
+:root{
+  --bg:#f3f6f5; --panel:#ffffff; --ink:#15302f; --muted:#5b716f; --line:#c9d6d3;
+  --teal:#0f6466; --teal-soft:#dcece9; --sand:#f1e3c8; --sand-ink:#6b4a12;
+  --live:#1f7a4d; --live-soft:#dff1e7; --src:#8a5a00; --src-soft:#f8ecd2; --none:#8b3a3a; --none-soft:#f6e1e1;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1918; --panel:#162423; --ink:#e3eeec; --muted:#9bb2af; --line:#2c403e;
+  --teal:#5cc2bd; --teal-soft:#183634; --sand:#3a2f1b; --sand-ink:#f0d49a;
+  --live:#6fd39e; --live-soft:#173527; --src:#f0c063; --src-soft:#3a2e15; --none:#f09a9a; --none-soft:#3b1f1f; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f1918; --panel:#162423; --ink:#e3eeec; --muted:#9bb2af; --line:#2c403e;
+  --teal:#5cc2bd; --teal-soft:#183634; --sand:#3a2f1b; --sand-ink:#f0d49a;
+  --live:#6fd39e; --live-soft:#173527; --src:#f0c063; --src-soft:#3a2e15; --none:#f09a9a; --none-soft:#3b1f1f; color-scheme:dark }
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(26px,4vw,38px)}
+h2{font-size:22px}
+h3{font-size:16px}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--mono);padding:5px 9px;border-radius:999px;white-space:nowrap}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.live{background:var(--live-soft);color:var(--live)} .src{background:var(--src-soft);color:var(--src)} .none{background:var(--none-soft);color:var(--none)}
+.mono{font-family:var(--mono);font-size:12.5px}
+.muted{color:var(--muted)}
+
+/* layers */
+.stack{display:grid;gap:0}
+.layer{display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.layer .tag{font:700 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.layer .tag small{display:block;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);font-size:12px;margin-top:4px}
+.arrow{display:flex;justify-content:center;color:var(--teal);font:500 12px var(--mono);padding:6px 0;gap:8px;align-items:center}
+.arrow::before{content:"";width:2px;height:22px;background:var(--teal)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.box{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;background:var(--bg);flex:1 1 180px}
+.box b{display:block;font-size:14.5px}
+.box .chip{margin-top:6px}
+.box p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:10px}
+.room{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:10px 12px;display:grid;gap:4px;min-width:0}
+.room .name{font-weight:700;font-size:14.5px}
+.room .agent{font:500 12.5px var(--mono);color:var(--teal)}
+.room .p{font:700 11px var(--mono);color:var(--sand-ink);background:var(--sand);border-radius:4px;padding:1px 6px;justify-self:start}
+.room.hub{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.db{border:1px dashed var(--teal);border-radius:8px;padding:12px;background:var(--teal-soft);min-width:0}
+.db .users{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.db .users span{font:500 12px var(--mono);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:2px 7px}
+
+/* process table */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td .step{display:block}
+td .step+.step{margin-top:3px}
+.pid{font:700 13px var(--mono);color:var(--sand-ink)}
+
+/* flow */
+ol.flow{margin:0;padding-left:22px;display:grid;gap:6px;max-width:80ch}
+.issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.issue{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--none);border-radius:8px;padding:12px;min-width:0}
+.issue p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+footer{color:var(--muted);font-size:13px}
+.matrix{min-width:1040px}
+.matrix th.rm{writing-mode:initial;text-align:center;font-size:10.5px;letter-spacing:.03em;white-space:normal;min-width:72px}
+.matrix td.c{text-align:center;padding:8px 4px}
+.matrix td.who b{display:block;font-size:14px}
+.matrix td.who span{font-size:12.5px;color:var(--muted)}
+.m{display:inline-block;font:500 11px/1 var(--mono);padding:4px 6px;border-radius:4px;white-space:nowrap}
+.m.own{background:var(--teal);color:var(--panel)}
+.m.adm{background:var(--teal-soft);color:var(--teal)}
+.m.mem{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.m.agt{background:var(--sand);color:var(--sand-ink)}
+.m.bot{background:var(--src-soft);color:var(--src)}
+.m.gen{background:var(--none-soft);color:var(--none)}
+.matrix tr.group td{background:var(--bg);font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);padding:8px 12px}
+.graph{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:8px}
+.graph svg{display:block;min-width:1000px;width:100%;height:auto}
+.graph .col{font:700 11px var(--mono);letter-spacing:.08em;fill:var(--teal)}
+.graph .nm{font:700 14px var(--body);fill:var(--ink)}
+.graph .sb{font:400 11.5px var(--body);fill:var(--muted)}
+.graph .ext{fill:var(--bg);stroke:var(--line)}
+.graph .portal{fill:var(--src-soft);stroke:var(--src)}
+.graph .alex{fill:var(--teal);stroke:none}
+.graph .alex-t{font:700 14px var(--body);fill:var(--panel)}
+.graph .alex-s{font:400 11.5px var(--body);fill:var(--panel);opacity:.85}
+.graph .room{fill:var(--panel);stroke:var(--line)}
+.graph .room.r{stroke:var(--none);stroke-dasharray:4 3}
+.graph .agent{fill:var(--sand);stroke:none}
+.graph .agent-t{font:700 13.5px var(--body);fill:var(--sand-ink)}
+.graph .agent-s{font:400 11px var(--body);fill:var(--sand-ink);opacity:.85}
+.graph .crm{fill:var(--teal-soft);stroke:var(--teal);stroke-dasharray:5 4}
+.graph .priv{fill:var(--bg);stroke:var(--muted);stroke-dasharray:5 4}
+.graph .e-home{stroke:var(--teal);stroke-width:2.5;fill:none}
+.graph .e-mem{stroke:var(--teal);stroke-width:1.3;fill:none;stroke-dasharray:5 4;opacity:.75}
+.graph .e-data{stroke:var(--sand-ink);stroke-width:1.6;fill:none;opacity:.7}
+.graph .e-ext{stroke:var(--muted);stroke-width:1.4;fill:none}
+.graph .e-portal{stroke:var(--src);stroke-width:2;fill:none}
+.graph .bar{stroke:var(--teal);stroke-width:4;fill:none;stroke-linecap:round}
+.graph .lbl{font:500 10.5px var(--mono);fill:var(--muted)}
+.graph .p{font:700 10px var(--mono);fill:var(--sand-ink)}
+.graph .pbg{fill:var(--sand)}
+.glegend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted);margin-top:10px}
+.glegend span{display:inline-flex;align-items:center;gap:6px}
+.glegend i{display:inline-block;width:26px;height:0;border-top:2.5px solid var(--teal)}
+.glegend i.d{border-top:1.5px dashed var(--teal)}
+.glegend i.s{border-top:2px solid var(--sand-ink)}
+.glegend i.o{border-top:2px solid var(--src)}
+.flag{border-left:3px solid var(--src);background:var(--panel);border-radius:8px;padding:10px 12px;font-size:14px;margin-top:10px}
+@media (max-width:640px){ .layer{grid-template-columns:1fr} }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Tidepath Family Alliance · system map</h1>
+    <p class="lede">Who talks to what. External people use a public portal, the portal posts into Roomcord rooms, a specialist agent in each room does the work against a shared CRM, and Alex approves before anything leaves.</p>
+    <div class="legend">
+      <span class="chip live">live now</span>
+      <span class="chip src">source only</span>
+      <span class="chip none">not built</span>
+    </div>
+  </header>
+
+  <section>
+    <h2 style="margin-bottom:10px">The map</h2>
+    <div class="graph">
+      <svg viewBox="0 0 1200 730" role="img" aria-label="Diagram: outside people use the portal, which posts into Roomcord rooms; each room has a specialist agent; five agents share one CRM; Counseling and Grants keep private data; Alex approves in every room.">
+        <!-- column headers -->
+        <text class="col" x="20" y="22">OUTSIDE · NO LOGIN</text>
+        <text class="col" x="230" y="22">ENTRY</text>
+        <text class="col" x="440" y="22">ROOMCORD ROOMS</text>
+        <text class="col" x="760" y="22">SPECIALIST AGENTS</text>
+        <text class="col" x="1010" y="22">DATA</text>
+
+        <!-- edges: outside -> portal -->
+        <path class="e-ext" d="M190 258 C210 258 210 310 230 310"/>
+        <path class="e-ext" d="M190 328 C210 328 210 330 230 330"/>
+        <path class="e-ext" d="M190 398 C210 398 210 350 230 350"/>
+        <!-- donors -> fundraising (csv) -->
+        <path class="e-ext" d="M190 498 C320 498 320 448 440 448"/>
+        <text class="lbl" x="268" y="482">gift CSV exports</text>
+        <!-- counseling / grants -> funders -->
+        <path class="e-ext" d="M440 524 C320 524 320 588 190 588"/>
+        <path class="e-ext" d="M440 600 C330 600 330 592 190 592"/>
+        <text class="lbl" x="250" y="572">Alex pastes into funder sites</text>
+
+        <!-- portal -> rooms -->
+        <path class="e-portal" d="M390 320 C415 320 415 220 440 220"/>
+        <path class="e-portal" d="M390 340 C415 340 415 296 440 296"/>
+        <path class="e-portal" d="M390 360 C415 360 415 372 440 372"/>
+
+        <!-- Alex bar -->
+        <path class="bar" d="M424 44 L424 700"/>
+        <path class="e-home" d="M390 655 L424 655"/>
+
+        <!-- agent home links -->
+        <path class="e-home" d="M650 68 L760 68"/>
+        <path class="e-home" d="M650 220 L760 220"/>
+        <path class="e-home" d="M650 296 L760 296"/>
+        <path class="e-home" d="M650 372 L760 372"/>
+        <path class="e-home" d="M650 448 L760 448"/>
+        <path class="e-home" d="M650 524 L760 524"/>
+        <path class="e-home" d="M650 600 L760 600"/>
+        <!-- director member links -->
+        <path class="e-mem" d="M760 76 C705 76 705 144 650 144"/>
+        <path class="e-mem" d="M760 80 C710 80 705 214 650 214"/>
+        <path class="e-mem" d="M760 84 C715 84 705 290 650 290"/>
+        <path class="e-mem" d="M760 88 C720 88 705 366 650 366"/>
+        <path class="e-mem" d="M760 92 C725 92 705 442 650 442"/>
+        <path class="e-mem" d="M760 96 C730 96 705 594 650 594"/>
+        <!-- volunteers agent also in programs -->
+        <path class="e-mem" d="M760 380 C700 380 710 228 650 228"/>
+
+        <!-- agents -> shared CRM -->
+        <path class="e-data" d="M950 68 C985 68 985 200 1010 200"/>
+        <path class="e-data" d="M950 220 C980 220 980 260 1010 260"/>
+        <path class="e-data" d="M950 296 C980 296 980 310 1010 310"/>
+        <path class="e-data" d="M950 372 C980 372 980 360 1010 360"/>
+        <path class="e-data" d="M950 448 C985 448 985 420 1010 420"/>
+        <path class="e-data" d="M950 524 L1010 524"/>
+        <path class="e-data" d="M950 600 L1010 600"/>
+
+        <!-- outside nodes -->
+        <rect class="ext" x="20" y="230" width="170" height="56" rx="8"/><text class="nm" x="34" y="254">Volunteers</text><text class="sb" x="34" y="272">40 mentors, helpers, drivers</text>
+        <rect class="ext" x="20" y="300" width="170" height="56" rx="8"/><text class="nm" x="34" y="324">Parents &amp; kids</text><text class="sb" x="34" y="342">sign-ups · EN / ES / HT</text>
+        <rect class="ext" x="20" y="370" width="170" height="56" rx="8"/><text class="nm" x="34" y="394">Schools</text><text class="sb" x="34" y="412">requests · slide sign-off</text>
+        <rect class="ext" x="20" y="470" width="170" height="56" rx="8"/><text class="nm" x="34" y="494">Donors</text><text class="sb" x="34" y="512">existing donation tools</text>
+        <rect class="ext" x="20" y="562" width="170" height="56" rx="8"/><text class="nm" x="34" y="586">Funders · board</text><text class="sb" x="34" y="604">their own websites</text>
+
+        <!-- entry nodes -->
+        <rect class="portal" x="230" y="270" width="160" height="110" rx="10"/>
+        <text class="nm" x="244" y="296">Tidepath portal</text>
+        <text class="sb" x="244" y="314">public website, no login</text>
+        <text class="sb" x="244" y="332">check-in · sign-up</text>
+        <text class="sb" x="244" y="348">workshop request</text>
+        <text class="sb" x="244" y="364">slide approval</text>
+        <rect class="alex" x="230" y="620" width="160" height="70" rx="10"/>
+        <text class="alex-t" x="244" y="646">Alex</text>
+        <text class="alex-s" x="244" y="664">single operator, all roles</text>
+        <text class="alex-s" x="244" y="680">approves in every room</text>
+
+        <!-- rooms -->
+        <g>
+          <rect class="room" x="440" y="40" width="210" height="56" rx="8"/><text class="nm" x="454" y="64">Director desk</text><text class="sb" x="454" y="82">approvals · digest</text>
+          <rect class="room" x="440" y="116" width="210" height="56" rx="8"/><text class="nm" x="454" y="140">People CRM</text><text class="sb" x="454" y="158">room app: People CRM</text>
+          <rect class="room" x="440" y="192" width="210" height="56" rx="8"/><text class="nm" x="454" y="216">Programs and mentoring</text><rect class="pbg" x="610" y="226" width="28" height="15" rx="3"/><text class="p" x="615" y="237">P1</text><text class="sb" x="454" y="234">at-risk · reports</text>
+          <rect class="room" x="440" y="268" width="210" height="56" rx="8"/><text class="nm" x="454" y="292">Workshop requests</text><rect class="pbg" x="610" y="302" width="28" height="15" rx="3"/><text class="p" x="615" y="313">P3</text><text class="sb" x="454" y="310">schools</text>
+          <rect class="room" x="440" y="344" width="210" height="56" rx="8"/><text class="nm" x="454" y="368">Volunteers</text><rect class="pbg" x="610" y="378" width="28" height="15" rx="3"/><text class="p" x="615" y="389">P5</text><text class="sb" x="454" y="386">hours · urgent needs</text>
+          <rect class="room" x="440" y="420" width="210" height="56" rx="8"/><text class="nm" x="454" y="444">Fundraising</text><rect class="pbg" x="610" y="454" width="28" height="15" rx="3"/><text class="p" x="615" y="465">P2</text><text class="sb" x="454" y="462">donors</text>
+          <rect class="room r" x="440" y="496" width="210" height="56" rx="8"/><text class="nm" x="454" y="520">Counseling (restricted)</text><rect class="pbg" x="610" y="530" width="28" height="15" rx="3"/><text class="p" x="615" y="541">P4</text><text class="sb" x="454" y="538">no Director, no CRM</text>
+          <rect class="room" x="440" y="572" width="210" height="56" rx="8"/><text class="nm" x="454" y="596">Grants and finance</text><rect class="pbg" x="610" y="606" width="28" height="15" rx="3"/><text class="p" x="615" y="617">P6</text><text class="sb" x="454" y="614">grants · budgets</text>
+          <rect class="room" x="440" y="648" width="210" height="56" rx="8"/><text class="nm" x="454" y="672">General</text><text class="sb" x="454" y="690">generic RoomAgent only</text>
+        </g>
+
+        <!-- agents -->
+        <rect class="agent" x="760" y="40" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="64">Tidepath Director</text><text class="agent-s" x="774" y="82">in 7 rooms · routes · merges</text>
+        <rect class="agent" x="760" y="192" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="216">Tidepath Programs</text><text class="agent-s" x="774" y="234">Mon at-risk check</text>
+        <rect class="agent" x="760" y="268" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="292">Tidepath Workshops</text><text class="agent-s" x="774" y="310">request → approved slides</text>
+        <rect class="agent" x="760" y="344" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="368">Tidepath Volunteers</text><text class="agent-s" x="774" y="386">also posts in Programs</text>
+        <rect class="agent" x="760" y="420" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="444">Tidepath Fundraising</text><text class="agent-s" x="774" y="462">late and failed gifts</text>
+        <rect class="agent" x="760" y="496" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="520">Tidepath Counseling</text><text class="agent-s" x="774" y="538">funder fields only</text>
+        <rect class="agent" x="760" y="572" width="190" height="56" rx="8"/><text class="agent-t" x="774" y="596">Tidepath Grants</text><text class="agent-s" x="774" y="614">sourced drafts · spend</text>
+        <text class="lbl" x="760" y="676">+ a generic RoomAgent in every room</text>
+        <text class="lbl" x="760" y="692">(added by Roomcord, holds no Tidepath data)</text>
+
+        <!-- data -->
+        <rect class="crm" x="1010" y="170" width="175" height="280" rx="12"/>
+        <text class="nm" x="1024" y="196">Shared CRM</text>
+        <text class="sb" x="1024" y="214">one SQLite file on the Hub</text>
+        <text class="sb" x="1024" y="244">people (one record each)</text>
+        <text class="sb" x="1024" y="262">sign-ups · attendance</text>
+        <text class="sb" x="1024" y="280">mentor matches, meetings</text>
+        <text class="sb" x="1024" y="298">volunteer hours · visits</text>
+        <text class="sb" x="1024" y="316">urgent needs</text>
+        <text class="sb" x="1024" y="334">gifts · donor history</text>
+        <text class="sb" x="1024" y="352">school contacts</text>
+        <text class="sb" x="1024" y="382">5 agents read and write</text>
+        <text class="sb" x="1024" y="400">merges only after Alex</text>
+        <text class="sb" x="1024" y="418">approves</text>
+        <rect class="priv" x="1010" y="496" width="175" height="56" rx="8"/><text class="nm" x="1024" y="520">Private: notes</text><text class="sb" x="1024" y="538">field maps · access log</text>
+        <rect class="priv" x="1010" y="572" width="175" height="56" rx="8"/><text class="nm" x="1024" y="596">Private: grants</text><text class="sb" x="1024" y="614">facts · budgets · QuickBooks</text>
+        <rect class="priv" x="1010" y="100" width="175" height="50" rx="8"/><text class="nm" x="1024" y="122">App records</text><text class="sb" x="1024" y="139">approvals: who, when, history</text>
+        <path class="e-data" d="M650 136 C830 136 830 125 1010 125" style="stroke-dasharray:2 3"/>
+      </svg>
+    </div>
+    <div class="glegend">
+      <span><i></i>agent's home room</span>
+      <span><i class="d"></i>agent also in this room</span>
+      <span><i class="o"></i>portal posts here</span>
+      <span><i class="s"></i>reads and writes data</span>
+      <span>teal bar: Alex is creator of every room</span>
+    </div>
+  </section>
+
+  <section class="stack" aria-label="System layers">
+    <div class="layer">
+      <div class="tag">1 · People outside<small>never log in to Roomcord</small></div>
+      <div class="row">
+        <div class="box"><b>Volunteers &amp; mentors</b><p>40 people, phones, no new app</p></div>
+        <div class="box"><b>Parents &amp; kids</b><p>sign-ups, reminders, EN / ES / HT</p></div>
+        <div class="box"><b>School staff</b><p>workshop requests, slide sign-off</p></div>
+        <div class="box"><b>Donors · funders · board</b><p>existing donation tools and funder websites stay</p></div>
+      </div>
+    </div>
+    <div class="arrow">forms, links</div>
+
+    <div class="layer">
+      <div class="tag">2 · Tidepath portal<small><span class="mono">portal/</span> · Node, no deps, Docker</small></div>
+      <div class="row">
+        <div class="box"><b>Volunteer check-in</b><p>hours, kid, what happened, urgent need, photo</p><span class="chip live">live (local)</span></div>
+        <div class="box"><b>Family sign-up</b><p>parent, child, school, program, consent</p><span class="chip live">live (local)</span></div>
+        <div class="box"><b>Workshop request</b><p>school, grade, headcount, topic, language</p><span class="chip live">live (local)</span></div>
+        <div class="box"><b>Slide approval</b><p><span class="mono">/approve?request=W00X&amp;version=vN</span></p><span class="chip live">live (local)</span></div>
+        <div class="box"><b>SMS · email · WhatsApp bot</b><p>outbound replies to the person</p><span class="chip none">next step</span></div>
+      </div>
+    </div>
+    <div class="arrow">bot “Tidepath portal” posts message + @mention</div>
+
+    <div class="layer">
+      <div class="tag">3 · Roomcord server<small>jc-public · owner Alex · private</small></div>
+      <div class="rooms">
+        <div class="room hub"><span class="name">Director desk</span><span class="agent">Tidepath Director</span><span class="muted" style="font-size:13px">approvals, weekly digest, routes urgent needs; sits in 7 rooms</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P1</span><span class="name">Programs and mentoring</span><span class="agent">Tidepath Programs</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P5</span><span class="name">Volunteers</span><span class="agent">Tidepath Volunteers</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P2</span><span class="name">Fundraising</span><span class="agent">Tidepath Fundraising</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P3</span><span class="name">Workshop requests</span><span class="agent">Tidepath Workshops</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P4</span><span class="name">Counseling (restricted)</span><span class="agent">Tidepath Counseling</span><span class="muted" style="font-size:13px">no CRM, no Director</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P6</span><span class="name">Grants and finance</span><span class="agent">Tidepath Grants</span><span class="chip live">live</span></div>
+        <div class="room"><span class="p">P1 P2</span><span class="name">People CRM</span><span class="agent">room app “People CRM”</span><span class="muted" style="font-size:13px">People · Duplicates [Approve] · Kid card · This week · Q3 report</span><span class="chip live">live</span></div>
+        <div class="room"><span class="name">General</span><span class="agent">generic RoomAgent</span><span class="muted" style="font-size:13px">the generic RoomAgent also re-appears in every room</span></div>
+      </div>
+    </div>
+    <div class="arrow">A2A</div>
+
+    <div class="layer">
+      <div class="tag">4 · Autoworker Hub<small>public-hub.bewize.ai · Codex runtime</small></div>
+      <div class="data">
+        <div class="db">
+          <h3>Shared CRM · one SQLite file</h3>
+          <p class="mono muted" style="margin:4px 0 0">skill tidepath-crm · crm.py</p>
+          <p style="margin:6px 0 0;font-size:14px">dupes with reasons · merge only after approval · at-risk list · volunteer log (counted once) · urgent needs · Q3 report that reconciles</p>
+          <div class="users"><span>Director</span><span>Programs</span><span>Volunteers</span><span>Fundraising</span><span>Workshops</span></div>
+        </div>
+        <div class="db" style="background:var(--panel)">
+          <h3>Private workspaces</h3>
+          <p style="margin:6px 0 0;font-size:14px"><b>Counseling</b>: notes + per-funder field maps + send/access log. Never shared.<br><b>Grants</b>: approved facts with sources, budgets, QuickBooks export.</p>
+        </div>
+        <div class="db" style="background:var(--panel)">
+          <h3>Room app records</h3>
+          <p style="margin:6px 0 0;font-size:14px">People CRM decisions: who approved, when, history. The app shows built-in demo data, not the live shared CRM.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Actors and where they sit</h2>
+    <p class="lede">Every person, bot, agent and app in the Tidepath server, and its place in each of the 9 rooms.</p>
+    <div class="legend" style="margin-bottom:10px">
+      <span class="m own">creator</span><span class="m adm">admin</span><span class="m mem">member</span><span class="m bot">bot</span><span class="m agt">agent</span><span class="m gen">room agent</span>
+    </div>
+    <div class="tablewrap">
+      <table class="matrix">
+        <thead><tr><th>Actor</th><th class="rm">Director desk</th><th class="rm">People CRM</th><th class="rm">Programs &amp; mentoring</th><th class="rm">Workshop requests</th><th class="rm">Volunteers</th><th class="rm">Fund&shy;raising</th><th class="rm">Counseling</th><th class="rm">Grants &amp; finance</th><th class="rm">General</th></tr></thead>
+        <tbody>
+          <tr class="group"><td colspan="10">People with a Roomcord login</td></tr>
+          <tr><td class="who"><b>Alex</b><span>alex@tidepathfamily.org · plays all 7 staff roles</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td><td class="c"><span class="m own">creator</span></td></tr>
+          <tr><td class="who"><b>Platform operator</b><span>setup and support</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td><td class="c"><span class="m adm">admin</span></td></tr>
+          <tr><td class="who"><b>Luis</b><span>team member · joined Nov 7</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td><td class="c"><span class="m mem">member</span></td></tr>
+          <tr><td class="who"><b>Demo personas</b><span>Maria Alvarez, Luis Pierre (volunteers) · Ms. Joseph (school). Made up, replaced by the portal</span></td><td></td><td></td><td></td><td class="c"><span class="m mem">Ms. Joseph</span></td><td class="c"><span class="m mem">Maria, Luis P.</span></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath portal</b><span>bot user · posts public form submissions</span></td><td></td><td></td><td class="c"><span class="m bot">bot</span></td><td class="c"><span class="m bot">bot</span></td><td class="c"><span class="m bot">bot</span></td><td></td><td></td><td></td><td></td></tr>
+          <tr class="group"><td colspan="10">Specialist agents (Autoworker Hub, Codex runtime)</td></tr>
+          <tr><td class="who"><b>Tidepath Director</b><span>approvals, digest, routing, CRM steward</span></td><td class="c"><span class="m agt">home</span></td><td class="c"><span class="m agt">agent</span></td><td class="c"><span class="m agt">agent</span></td><td class="c"><span class="m agt">agent</span></td><td class="c"><span class="m agt">agent</span></td><td class="c"><span class="m agt">agent</span></td><td></td><td class="c"><span class="m agt">agent</span></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Programs</b><span>P1 program manager</span></td><td></td><td></td><td class="c"><span class="m agt">home</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Volunteers</b><span>P5 volunteer coordinator</span></td><td></td><td></td><td class="c"><span class="m agt">agent</span></td><td></td><td class="c"><span class="m agt">home</span></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Fundraising</b><span>P2 fundraising coordinator</span></td><td></td><td></td><td></td><td></td><td></td><td class="c"><span class="m agt">home</span></td><td></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Workshops</b><span>P3 front-desk coordinator</span></td><td></td><td></td><td></td><td class="c"><span class="m agt">home</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Counseling</b><span>P4 counselor</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c"><span class="m agt">home</span></td><td></td><td></td></tr>
+          <tr><td class="who"><b>Tidepath Grants</b><span>P6 director + bookkeeper</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c"><span class="m agt">home</span></td><td></td></tr>
+          <tr class="group"><td colspan="10">Platform parts</td></tr>
+          <tr><td class="who"><b>Generic RoomAgent</b><span>one per room, added by Roomcord, no Tidepath data</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td><td class="c"><span class="m gen">yes</span></td></tr>
+          <tr><td class="who"><b>People CRM app</b><span>room app, a tab in the room</span></td><td></td><td class="c"><span class="m adm">app</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag"><b>Check this:</b> Luis is a member of Counseling (restricted), as requested. In a real deployment only counselors should be there. The platform operator is admin everywhere for setup; remove that before real data.</div>
+  </section>
+
+  <section>
+    <h2 style="margin-bottom:10px">Who does what</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Actor</th><th>Does</th><th>Never does</th><th>Schedule</th></tr></thead>
+        <tbody>
+          <tr><td><b>Alex</b> (all staff roles)</td><td>Approves merges, follow-ups, funder exports and grant drafts. Sends approved messages. Submits applications on funder websites.</td><td>Retype data from lists or chats</td><td>as needed</td></tr>
+          <tr><td><b>Volunteers, parents, schools</b></td><td>Fill portal forms on a phone. Schools approve a slide version from a link.</td><td>Log in to Roomcord</td><td>as needed</td></tr>
+          <tr><td><b>Tidepath portal</b></td><td>Validates a form, posts one structured message to the right room and mentions its agent.</td><td>Store data, reply to the person</td><td>on submit</td></tr>
+          <tr><td><b>Tidepath Director</b></td><td>Keeps the approval queue, routes urgent needs to the right room, runs approved CRM merges, writes the weekly digest.</td><td>Enter Counseling, merge without approval</td><td>Mon 15:00 UTC digest</td></tr>
+          <tr><td><b>Tidepath Programs</b></td><td>Finds kids who missed sessions or a mentor meeting, drafts follow-ups in EN/ES/HT, builds the quarterly report.</td><td>Send a follow-up without approval</td><td>Mon 13:00 UTC at-risk check</td></tr>
+          <tr><td><b>Tidepath Volunteers</b></td><td>Turns a check-in into logged hours and visits, counted once. Flags urgent needs the same day. Sums weekly hours.</td><td>Read WhatsApp chats automatically</td><td>Fri 20:00 UTC hours summary</td></tr>
+          <tr><td><b>Tidepath Fundraising</b></td><td>Imports gift exports, lists duplicate donors with reasons, finds late and failed regular gifts, drafts personal notes.</td><td>Merge or delete a donor, lose giving history</td><td>on request</td></tr>
+          <tr><td><b>Tidepath Workshops</b></td><td>Answers a request asking every missing detail at once, tracks stages, records which slide version the school approved.</td><td>Send slides staff have not checked</td><td>on request</td></tr>
+          <tr><td><b>Tidepath Counseling</b></td><td>Fills a funder's fields from one note, shows what will be sent and what stays inside, logs every send and open.</td><td>Share note content with any other room or agent</td><td>on request</td></tr>
+          <tr><td><b>Tidepath Grants</b></td><td>Drafts answers from approved, sourced facts within word limits, flags missing facts, tracks spend per category in each funder's year.</td><td>Invent a fact or a number</td><td>on request</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="margin-bottom:10px">Data and its owners</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Data</th><th>Written by</th><th>Read by</th><th>Stored in</th></tr></thead>
+        <tbody>
+          <tr><td><b>People</b>: kids, parents, mentors, volunteers, donors, school contacts</td><td>Programs, Volunteers, Fundraising, Workshops (new records) · Director (merges)</td><td>all five CRM agents, Alex</td><td>shared CRM</td></tr>
+          <tr><td><b>Sign-ups, attendance, mentor matches and meetings</b></td><td>Programs (imports, portal sign-ups)</td><td>Programs, Director</td><td>shared CRM</td></tr>
+          <tr><td><b>Volunteer hours, visits, photos</b></td><td>Volunteers</td><td>Programs (report), Director</td><td>shared CRM · photos in the Roomcord message</td></tr>
+          <tr><td><b>Urgent needs</b></td><td>Volunteers</td><td>Director (routing), Programs</td><td>shared CRM · posted in the target room</td></tr>
+          <tr><td><b>Gifts and donor history</b></td><td>Fundraising (CSV imports)</td><td>Fundraising, Director</td><td>shared CRM + gift CSVs in its workspace</td></tr>
+          <tr><td><b>Workshop requests, stages, slide versions, school approvals</b></td><td>Workshops (from portal messages)</td><td>Workshops, Director</td><td>Workshops workspace + shared CRM contacts</td></tr>
+          <tr><td><b>Counseling notes, funder field maps, send and access log</b></td><td>Counseling</td><td>Counseling and the counselor only</td><td>Counseling's private workspace</td></tr>
+          <tr><td><b>Approved facts, grant budgets, QuickBooks spend</b></td><td>Grants (from staff-approved files)</td><td>Grants, Alex</td><td>Grants' private workspace</td></tr>
+          <tr><td><b>Merge and follow-up decisions</b></td><td>Alex in the People CRM app</td><td>everyone in the People CRM room</td><td>room app records (name, time, history)</td></tr>
+          <tr><td><b>Quarterly outcome report</b></td><td>Programs (generated)</td><td>Alex, board, funders</td><td>chat reply · rebuilt on demand from the shared CRM</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>One request, end to end</h2>
+    <ol class="flow" style="margin-top:10px">
+      <li>Maria fills the volunteer check-in on her phone, in Spanish.</li>
+      <li>The portal posts it in <b>Volunteers</b> and mentions Tidepath Volunteers.</li>
+      <li>Tidepath Volunteers logs 1 hour in the shared CRM, once, and flags “needs a laptop” as urgent.</li>
+      <li>Tidepath Director routes the need to <b>Programs and mentoring</b> and mentions Alex.</li>
+      <li>Tidepath Programs sees Kevin on this week’s at-risk list and drafts a Spanish note to his mother.</li>
+      <li>Alex approves in the People CRM app. Nothing goes out without that approval.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 style="margin-bottom:10px">Each problem, its path</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Problem</th><th>Comes in from</th><th>Room · agent</th><th>Skill · script</th><th>Data</th><th>Human step</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pid">P1</span> sign-up to quarterly report</td><td>portal family sign-up, mentor check-in</td><td>Programs and mentoring · Tidepath Programs</td><td><span class="mono">tidepath-programs-ops</span> + <span class="mono">crm.py at-risk / report</span></td><td>shared CRM</td><td>approve follow-up, read Q3 report</td></tr>
+          <tr><td><span class="pid">P2</span> duplicate and lapsed donors</td><td>gift CSV exports</td><td>Fundraising · Tidepath Fundraising</td><td><span class="mono">tidepath-donor-care</span> · <span class="mono">lapsed.py</span>, <span class="mono">crm.py dupes</span></td><td>shared CRM</td><td>approve merge in People CRM, call late donors</td></tr>
+          <tr><td><span class="pid">P3</span> request to approved workshop</td><td>portal workshop request, slide approval link</td><td>Workshop requests · Tidepath Workshops</td><td><span class="mono">tidepath-workshop-pipeline</span> · <span class="mono">pipeline.py</span></td><td>shared CRM + pipeline stages</td><td>staff check slides, a person takes over anytime</td></tr>
+          <tr><td><span class="pid">P4</span> counseling notes typed twice</td><td>counselor writes the note once</td><td>Counseling (restricted) · Tidepath Counseling</td><td><span class="mono">tidepath-counseling-notes</span> · <span class="mono">funder_export.py</span></td><td>private workspace, access log</td><td>counselor checks preview, pastes into funder site</td></tr>
+          <tr><td><span class="pid">P5</span> volunteer updates in chats</td><td>portal volunteer check-in, exported chats</td><td>Volunteers · Tidepath Volunteers (+ Director routing)</td><td><span class="mono">tidepath-volunteer-intake</span> + <span class="mono">crm.py log-volunteer</span></td><td>shared CRM</td><td>staff act on urgent need the same day</td></tr>
+          <tr><td><span class="pid">P6</span> grants and spending rules</td><td>QuickBooks CSV, approved facts</td><td>Grants and finance · Tidepath Grants</td><td><span class="mono">tidepath-grant-desk</span> · <span class="mono">grant_budget.py</span></td><td>private workspace</td><td>staff approve drafts, a person submits</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="margin-bottom:10px">Known gaps</h2>
+    <div class="issues">
+      <div class="issue"><h3>Replies stay in Roomcord</h3><p>Agents draft messages to parents and schools. Sending them by SMS or email is not built.</p></div>
+      <div class="issue"><h3>CRM app shows demo data</h3><p>The People CRM tab is built from the seed data. It does not read the live shared CRM yet.</p></div>
+      <div class="issue"><h3>Generic RoomAgent noise</h3><p>The platform re-adds a generic agent to every room. Silencing it needs a code change.</p></div>
+      <div class="issue"><h3>Not a HIPAA system</h3><p>Counseling uses made-up notes only. Real notes must stay in an approved system.</p></div>
+      <div class="issue"><h3>Portal hardening</h3><p>Approval links are not signed and the rate limit resets on restart. Haitian Creole text needs a native review.</p></div>
+    </div>
+  </section>
+
+  <footer>Source: github.com/ethanpierce/donor-engagement-2026 · flavors/, skills/, portal/, apps/people-crm/, demo-data/. All people and data are made up.</footer>
+</div>
+
+</body></html>

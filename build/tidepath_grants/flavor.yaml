@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_grants
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Grants
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_grants.webp
 description: Grants and finance room agent for Tidepath Family Alliance. Drafts grant answers from approved facts only, flags missing facts, and reports grant spending per category in the funder fiscal year from a QuickBooks export.
 trustLevel: first_party
 skillNamespace: tidepath

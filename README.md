@@ -47,6 +47,11 @@ python3 skills/tidepath-crm/scripts/crm.py --db /tmp/tidepath.db report --quarte
 python3 -m pytest skills/tidepath-crm/tests
 ```
 
+## System map
+
+[docs/system-map.html](docs/system-map.html) shows how the portal, rooms, agents
+and data connect, and the path of each problem.
+
 ## Planning documents
 
 The system handoffs, the architecture contract and the original event

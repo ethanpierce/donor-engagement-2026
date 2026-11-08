@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_volunteers
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Volunteers
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_volunteers.webp
 description: 'Tidepath Family Alliance volunteer coordinator: logs volunteer hours and visits from messages volunteers send, confirms them, and flags urgent kid needs the same day. Fictional nonprofit, made-up data.'
 trustLevel: first_party
 skillNamespace: tidepath

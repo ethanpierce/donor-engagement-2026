@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_workshops
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Workshops
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_workshops.webp
 description: >-
   Workshop requests room agent for Tidepath Family Alliance. Takes school workshop requests in English, Spanish and Haitian Creole, asks for all missing details in one reply, and tracks each request from intake to delivery.
 trustLevel: first_party

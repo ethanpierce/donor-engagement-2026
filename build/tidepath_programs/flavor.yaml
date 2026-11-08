@@ -1,8 +1,9 @@
 schemaVersion: 1
 kind: HubFlavor
 id: tidepath_programs
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Programs
+iconUrl: https://storage.googleapis.com/wize-rooms-uploads/flavor-icons/tidepath_programs.webp
 description: 'Tidepath Family Alliance program manager: weekly at-risk check, EN/ES/HT follow-up drafts held for approval, and the quarterly program report. Fictional nonprofit, made-up data.'
 trustLevel: first_party
 skillNamespace: tidepath
