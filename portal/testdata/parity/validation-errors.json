@@ -1,0 +1,146 @@
+{
+  "name": "validation-errors",
+  "steps": [
+    {
+      "method": "POST",
+      "path": "/api/submit/volunteer",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"hours\":\"30\",\"urgent\":\"yes\",\"phone\":\"abc\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"name\":\"required\",\"phone\":\"phone\",\"date\":\"date\",\"hours\":\"hours\",\"happened\":\"required\",\"urgentText\":\"required\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/workshop",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"school\":\"X\",\"contact\":\"Y\",\"dates\":\"d\",\"grade\":\"7\",\"language\":\"English\",\"email\":\"bad\",\"headcount\":\"2.5\",\"topic\":\"other\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"email\":\"email\",\"headcount\":\"number\",\"topicOther\":\"required\",\"mode\":\"required\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/workshop",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"school\":\"required\",\"contact\":\"required\",\"dates\":\"required\",\"grade\":\"required\",\"language\":\"required\",\"email\":\"required\",\"headcount\":\"required\",\"topic\":\"required\",\"mode\":\"required\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/family",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"phone\":\"12\",\"email\":\"x@y\",\"age\":\"30\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"parent\":\"required\",\"language\":\"required\",\"child\":\"required\",\"school\":\"required\",\"phone\":\"phone\",\"email\":\"email\",\"age\":\"age\",\"program\":\"required\",\"consent\":\"consent\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/family",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"parent\":\"P\",\"language\":\"Spanish\",\"child\":\"C\",\"school\":\"S\",\"age\":\"9\",\"program\":\"mentoring\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"phone\":\"contact\",\"consent\":\"consent\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"request\":\"X1\",\"version\":\"2\",\"decision\":\"maybe\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"request\":\"request\",\"version\":\"version\",\"decision\":\"required\"}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"request\":\"W004\",\"version\":\"v2\",\"decision\":\"changes\"}",
+      "expect": {
+        "status": 400,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"invalid\",\"fields\":{\"comment\":\"required\"}}"
+      }
+    }
+  ],
+  "roomcord": []
+}

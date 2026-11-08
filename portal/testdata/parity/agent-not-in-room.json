@@ -1,0 +1,49 @@
+{
+  "name": "agent-not-in-room",
+  "mockResponses": {
+    "members": {
+      "status": 200,
+      "body": "{\"data\":[{\"memberType\":\"agent\",\"agentId\":\"other\",\"displayName\":\"Someone Else\"}]}"
+    }
+  },
+  "steps": [
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"ref\":\"TP-\u003cref\u003e\"}"
+      }
+    }
+  ],
+  "roomcord": [
+    {
+      "method": "GET",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/members?limit=200",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/messages",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real",
+        "Content-Type": "application/json"
+      },
+      "body": "{\"content\":\"@Tidepath Workshops School approved W004 v2 (by Ms. Lee). Sent from the Portal.\",\"type\":\"text\"}"
+    }
+  ]
+}

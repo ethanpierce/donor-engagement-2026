@@ -1,0 +1,39 @@
+{
+  // Tidepath portal as a Cloudflare Worker. The Worker runs first for every
+  // request, so it adds the security headers and serves public/ through the
+  // ASSETS binding with the same paths and 404 page as the Go server.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tidepath-portal",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "../public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "RATE_LIMITER", "class_name": "RateLimiter" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["RateLimiter"] }],
+  "routes": [{ "pattern": "app.tidepathfamily.org", "custom_domain": true }],
+  // Non-secret settings (jc-public rooms and agents). ROOMCORD_BOT_TOKEN is a
+  // secret: .dev.vars for local runs, `wrangler secret put` for deploy.
+  "vars": {
+    "ROOM_VOLUNTEERS_ID": "a5200f0d-f427-4cfb-8a5f-8ba681593deb",
+    "ROOM_WORKSHOPS_ID": "deaa1613-a30b-4c43-a84a-caade23959ae",
+    "ROOM_PROGRAMS_ID": "01793c68-ab09-4080-a27d-4366027a23b7",
+    "AGENT_VOLUNTEERS_ID": "97a3c061-a17f-4f54-98ca-9a0deda46bd7",
+    "AGENT_WORKSHOPS_ID": "e888b042-4f4f-4a8f-a19f-e81c2ac871d8",
+    "AGENT_PROGRAMS_ID": "283a7d9c-32d9-447e-9a2a-b5405679690b",
+    "ROOMCORD_API_URL": "https://public-rooms-api.wizeup.app/api/v1",
+    "AGENT_VOLUNTEERS_NAME": "Tidepath Volunteers",
+    "AGENT_WORKSHOPS_NAME": "Tidepath Workshops",
+    "AGENT_PROGRAMS_NAME": "Tidepath Programs",
+    "RATE_LIMIT_MAX": "10",
+    "RATE_LIMIT_WINDOW_SEC": "600",
+    "PORTAL_DRY_RUN": "0"
+  }
+}

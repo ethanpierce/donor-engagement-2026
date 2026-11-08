@@ -1,0 +1,45 @@
+{
+  "name": "not-configured",
+  "env": {
+    "ROOM_PROGRAMS_ID": ""
+  },
+  "steps": [
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"forms\":{\"volunteer\":true,\"workshop\":true,\"family\":false,\"approve\":true}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/family",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"age\":\"11\",\"child\":\"Mateo\",\"consent\":\"on\",\"email\":\"rosa@example.org\",\"language\":\"Spanish\",\"parent\":\"Rosa Pérez\",\"program\":\"family-counseling\",\"school\":\"Bayview Middle School\"}",
+      "expect": {
+        "status": 503,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"not_configured\"}"
+      }
+    }
+  ],
+  "roomcord": []
+}

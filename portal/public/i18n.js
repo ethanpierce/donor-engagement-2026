@@ -10,7 +10,7 @@ window.TP_I18N = {
     "footer.privacy": "We send your answers only to the Tidepath team that handles this form.",
     "back": "Back to all forms",
 
-    "home.title": "How can we help today?",
+    "home.title": "How can we help *today?*",
     "home.lead": "Pick a form. It takes about two minutes. No account needed.",
     "home.volunteer": "Volunteer check-in",
     "home.volunteer.sub": "Log your hours and tell us how the visit went.",
@@ -27,7 +27,7 @@ window.TP_I18N = {
     "send": "Send",
     "sending": "Sending…",
 
-    "vol.title": "Volunteer check-in",
+    "vol.title": "Volunteer *check-in*",
     "vol.lead": "Tell us about your time with a Tidepath kid. We log your hours for you.",
     "vol.name": "Your name",
     "vol.phone": "Your phone",
@@ -46,7 +46,7 @@ window.TP_I18N = {
     "vol.photo.hint": "A photo of the activity. Do not show faces. JPG or PNG, up to 5 MB.",
     "vol.photo.remove": "Remove photo",
 
-    "ws.title": "Request a workshop",
+    "ws.title": "Request a *workshop*",
     "ws.lead": "Free workshops for students. A Tidepath coordinator answers within two school days.",
     "ws.school": "School name",
     "ws.contact": "Your name",
@@ -69,7 +69,7 @@ window.TP_I18N = {
     "ws.notes": "Anything else?",
     "ws.notes.ph": "Room, equipment, students with special needs…",
 
-    "fam.title": "Sign up your family",
+    "fam.title": "Sign up your *family*",
     "fam.lead": "All programs are free. A Tidepath staff member calls you in your language.",
     "fam.parent": "Parent or guardian name",
     "fam.phone": "Phone",
@@ -93,7 +93,7 @@ window.TP_I18N = {
     "lang.ht": "Haitian Creole",
     "lang.other": "Other",
 
-    "ap.title": "Approve the workshop slides",
+    "ap.title": "Approve the workshop *slides*",
     "ap.lead": "Check the slides for your school's workshop. Approve them or ask for changes.",
     "ap.request": "Request",
     "ap.version": "Version",
@@ -111,7 +111,7 @@ window.TP_I18N = {
     "ap.sendChanges": "Send change request",
     "ap.missing": "This link is not complete. Open the link from your Tidepath email again.",
 
-    "thanks.title": "Thank you!",
+    "thanks.title": "Thank *you!*",
     "thanks.volunteer": "We got your check-in. Your hours are on their way to the log.",
     "thanks.volunteer.urgent": "Staff see urgent needs the same day.",
     "thanks.workshop": "We got your request. A coordinator writes to you within two school days.",
@@ -154,7 +154,7 @@ window.TP_I18N = {
     "footer.privacy": "Enviamos sus respuestas solo al equipo de Tidepath que atiende este formulario.",
     "back": "Volver a todos los formularios",
 
-    "home.title": "¿Cómo podemos ayudarle hoy?",
+    "home.title": "¿Cómo podemos ayudarle *hoy?*",
     "home.lead": "Elija un formulario. Toma unos dos minutos. No necesita cuenta.",
     "home.volunteer": "Registro de voluntario",
     "home.volunteer.sub": "Registre sus horas y cuéntenos cómo fue la visita.",
@@ -171,7 +171,7 @@ window.TP_I18N = {
     "send": "Enviar",
     "sending": "Enviando…",
 
-    "vol.title": "Registro de voluntario",
+    "vol.title": "Registro de *voluntario*",
     "vol.lead": "Cuéntenos sobre su tiempo con un niño de Tidepath. Nosotros registramos sus horas.",
     "vol.name": "Su nombre",
     "vol.phone": "Su teléfono",
@@ -190,7 +190,7 @@ window.TP_I18N = {
     "vol.photo.hint": "Una foto de la actividad. No muestre caras. JPG o PNG, hasta 5 MB.",
     "vol.photo.remove": "Quitar la foto",
 
-    "ws.title": "Pedir un taller",
+    "ws.title": "Pedir un *taller*",
     "ws.lead": "Talleres gratis para estudiantes. Un coordinador de Tidepath responde en dos días escolares.",
     "ws.school": "Nombre de la escuela",
     "ws.contact": "Su nombre",
@@ -213,7 +213,7 @@ window.TP_I18N = {
     "ws.notes": "¿Algo más?",
     "ws.notes.ph": "Salón, equipo, estudiantes con necesidades especiales…",
 
-    "fam.title": "Inscriba a su familia",
+    "fam.title": "Inscriba a su *familia*",
     "fam.lead": "Todos los programas son gratis. Una persona de Tidepath le llama en su idioma.",
     "fam.parent": "Nombre del padre, madre o tutor",
     "fam.phone": "Teléfono",
@@ -237,7 +237,7 @@ window.TP_I18N = {
     "lang.ht": "Criollo haitiano",
     "lang.other": "Otro",
 
-    "ap.title": "Apruebe las diapositivas del taller",
+    "ap.title": "Apruebe las *diapositivas* del taller",
     "ap.lead": "Revise las diapositivas del taller para su escuela. Apruébelas o pida cambios.",
     "ap.request": "Solicitud",
     "ap.version": "Versión",
@@ -255,7 +255,7 @@ window.TP_I18N = {
     "ap.sendChanges": "Enviar los cambios",
     "ap.missing": "Este enlace no está completo. Abra otra vez el enlace del correo de Tidepath.",
 
-    "thanks.title": "¡Gracias!",
+    "thanks.title": "¡*Gracias!*",
     "thanks.volunteer": "Recibimos su registro. Sus horas van al registro.",
     "thanks.volunteer.urgent": "El personal ve las necesidades urgentes el mismo día.",
     "thanks.workshop": "Recibimos su solicitud. Un coordinador le escribe en dos días escolares.",
@@ -298,7 +298,7 @@ window.TP_I18N = {
     "footer.privacy": "Nou voye repons ou yo sèlman bay ekip Tidepath ki okipe fòmilè sa a.",
     "back": "Retounen nan tout fòmilè yo",
 
-    "home.title": "Kijan nou ka ede w jodi a?",
+    "home.title": "Kijan nou ka ede w *jodi a?*",
     "home.lead": "Chwazi yon fòmilè. Li pran apeprè de minit. Ou pa bezwen kont.",
     "home.volunteer": "Rapò volontè",
     "home.volunteer.sub": "Ekri èdtan ou yo epi di nou kijan vizit la te ye.",
@@ -315,7 +315,7 @@ window.TP_I18N = {
     "send": "Voye",
     "sending": "N ap voye…",
 
-    "vol.title": "Rapò volontè",
+    "vol.title": "Rapò *volontè*",
     "vol.lead": "Di nou sou tan ou te pase ak yon timoun Tidepath. Nou ekri èdtan ou yo pou ou.",
     "vol.name": "Non ou",
     "vol.phone": "Telefòn ou",
@@ -334,7 +334,7 @@ window.TP_I18N = {
     "vol.photo.hint": "Yon foto aktivite a. Pa montre figi moun. JPG oswa PNG, jiska 5 MB.",
     "vol.photo.remove": "Retire foto a",
 
-    "ws.title": "Mande yon atelye",
+    "ws.title": "Mande yon *atelye*",
     "ws.lead": "Atelye gratis pou elèv. Yon kowòdonatè Tidepath reponn nan de jou lekòl.",
     "ws.school": "Non lekòl la",
     "ws.contact": "Non ou",
@@ -357,7 +357,7 @@ window.TP_I18N = {
     "ws.notes": "Lòt bagay?",
     "ws.notes.ph": "Sal, ekipman, elèv ki gen bezwen espesyal…",
 
-    "fam.title": "Enskri fanmi ou",
+    "fam.title": "Enskri *fanmi ou*",
     "fam.lead": "Tout pwogram yo gratis. Yon moun nan ekip Tidepath ap rele w nan lang ou.",
     "fam.parent": "Non paran an oswa responsab la",
     "fam.phone": "Telefòn",
@@ -381,7 +381,7 @@ window.TP_I18N = {
     "lang.ht": "Kreyòl ayisyen",
     "lang.other": "Lòt",
 
-    "ap.title": "Apwouve paj atelye a",
+    "ap.title": "Apwouve *paj atelye a*",
     "ap.lead": "Gade paj prezantasyon atelye lekòl ou a. Apwouve yo oswa mande chanjman.",
     "ap.request": "Demann",
     "ap.version": "Vèsyon",
@@ -399,7 +399,7 @@ window.TP_I18N = {
     "ap.sendChanges": "Voye chanjman yo",
     "ap.missing": "Lyen sa a pa konplè. Louvri lyen ki nan imèl Tidepath la ankò.",
 
-    "thanks.title": "Mèsi!",
+    "thanks.title": "*Mèsi!*",
     "thanks.volunteer": "Nou resevwa rapò ou. Èdtan ou yo ap antre nan rejis la.",
     "thanks.volunteer.urgent": "Ekip la wè bezwen ijan yo menm jou a.",
     "thanks.workshop": "Nou resevwa demann ou. Yon kowòdonatè ap ekri w nan de jou lekòl.",

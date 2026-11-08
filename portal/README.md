@@ -10,30 +10,45 @@ Made-up demo. Tidepath is a fictional nonprofit.
 
 ## Run
 
-Node 20 or newer. No npm install: the server uses only `node:http` and `fetch`.
+Go 1.27 or newer. The server is one static binary. The pages in `public/`
+are embedded into it at build time, so rebuild after a page change.
 
 ```bash
-cp .env.example .env     # then fill in the values
-node server.js           # http://localhost:8080
-npm test                 # unit tests for validation and message format
+cp .env.example .env               # then fill in the values
+go run .                           # http://localhost:8080
+go build -o tidepath-portal . && ./tidepath-portal
 ```
 
-Docker:
+Docker (multi-stage build, distroless runtime, about 17 MB):
 
 ```bash
 docker build -t tidepath-portal .
 docker run -p 8080:8080 --env-file .env tidepath-portal
 ```
 
-Any host that runs Node 20 or a container works (a VM, Cloud Run, Fly.io,
-Render). Put it behind HTTPS. Behind a reverse proxy, set `TRUST_PROXY=1` so the
-rate limit uses the client IP from `X-Forwarded-For`. `GET /healthz` reports
-which forms are configured.
+Any host that runs a Linux binary or a container works (a VM, Cloud Run,
+Fly.io, Render). Put it behind HTTPS. Behind a reverse proxy, set
+`TRUST_PROXY=1` so the rate limit uses the client IP from `X-Forwarded-For`.
+`GET /healthz` reports which forms are configured. The container
+health check runs `tidepath-portal -healthcheck`. The server stops cleanly on
+SIGTERM and lets open requests finish (up to 20 s).
+
+## Tests
+
+```bash
+go vet ./... && go test ./...
+```
+
+The tests cover validation, message format and the error paths. A mock
+Roomcord API records every outgoing request. `TestParity` replays the cases in
+`testdata/parity/` and checks that the server answers and calls Roomcord
+exactly like the earlier Node server did. Those golden files were captured
+from the Node server (see the comment at the top of `parity_test.go`).
 
 ## Configuration
 
-Environment variables only. `server.js` also reads a local `.env` file if one
-exists. Variables that are already set win.
+Environment variables only. The server also reads a `.env` file from the
+working directory if one exists. Variables that are already set win.
 
 | Variable | Meaning |
 |---|---|
@@ -45,7 +60,7 @@ exists. Variables that are already set win.
 | `PORT` | Listen port, default 8080 |
 | `RATE_LIMIT_MAX`, `RATE_LIMIT_WINDOW_SEC` | Posts per IP per window, default 10 per 600 s |
 | `TRUST_PROXY` | `1` to use `X-Forwarded-For` for the client IP |
-| `PORTAL_DRY_RUN` | `1` to validate and log messages without posting |
+| `PORTAL_DRY_RUN` | `1` to validate and log messages without posting. The photo upload and the member lookup still run |
 
 The bot user must be a member of the three rooms. Give it no other rooms.
 
@@ -95,7 +110,8 @@ All pages work in English, Spanish and Haitian Creole. The language comes from
 - Only the room members (Tidepath staff and the room's agents) see a message.
 - The volunteer form asks for the kid's first name only and no faces in photos.
 - The family form needs explicit consent before it sends.
-- Strict security headers: CSP with `'self'` only, no framing, no referrer.
+- Strict security headers: CSP with `'self'` only (plus Google Fonts for
+  styles and fonts), no framing, no referrer.
 
 ## Next
 

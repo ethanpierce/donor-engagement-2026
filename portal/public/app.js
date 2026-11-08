@@ -27,9 +27,20 @@
     return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
   }
 
+  // "*word*" in a string becomes an <em> accent (headline style). Built with DOM nodes, never innerHTML.
+  function setText(el, s) {
+    if (s.indexOf("*") < 0) { el.textContent = s; return; }
+    el.textContent = "";
+    s.split("*").forEach(function (part, i) {
+      if (!part) return;
+      if (i % 2) { var em = document.createElement("em"); em.textContent = part; el.appendChild(em); }
+      else el.appendChild(document.createTextNode(part));
+    });
+  }
+
   function applyLang() {
     document.documentElement.lang = lang;
-    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { setText(el, t(el.getAttribute("data-i18n"))); });
     document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-ph")); });
     document.querySelectorAll("[data-i18n-aria]").forEach(function (el) { el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria"))); });
     document.querySelectorAll(".lang-switch button").forEach(function (b) {
@@ -41,7 +52,7 @@
       a.href = u.pathname + u.search;
     });
     var titleKey = document.body.getAttribute("data-title");
-    document.title = (titleKey ? t(titleKey) + " · " : "") + "Tidepath";
+    document.title = (titleKey ? t(titleKey).replace(/\*/g, "") + " · " : "") + "Tidepath";
     // Re-translate any visible errors.
     document.querySelectorAll("[data-err]").forEach(function (el) { el.textContent = t(el.getAttribute("data-err")); });
   }
@@ -54,7 +65,11 @@
       b.type = "button";
       b.value = code;
       b.lang = code;
-      b.textContent = I18N[code]["lang.name"];
+      b.setAttribute("aria-label", I18N[code]["lang.name"]);
+      var full = document.createElement("span"); full.className = "lang-full"; full.textContent = I18N[code]["lang.name"];
+      var short = document.createElement("span"); short.className = "lang-short"; short.textContent = code.toUpperCase();
+      full.setAttribute("aria-hidden", "true"); short.setAttribute("aria-hidden", "true");
+      b.append(full, short);
       b.addEventListener("click", function () {
         lang = code;
         store("tp-lang", code);

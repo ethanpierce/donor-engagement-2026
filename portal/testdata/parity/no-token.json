@@ -1,0 +1,45 @@
+{
+  "name": "no-token",
+  "env": {
+    "ROOMCORD_BOT_TOKEN": ""
+  },
+  "steps": [
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"forms\":{\"volunteer\":false,\"workshop\":false,\"family\":false,\"approve\":false}}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 503,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"not_configured\"}"
+      }
+    }
+  ],
+  "roomcord": []
+}

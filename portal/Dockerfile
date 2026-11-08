@@ -1,9 +1,16 @@
-FROM node:20-alpine
-WORKDIR /app
-ENV NODE_ENV=production PORT=8080
-COPY package.json server.js ./
+# Build a static binary, then run it on distroless (no shell, no package manager).
+FROM golang:1.27.3 AS build
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY *.go ./
 COPY public ./public
-USER node
+RUN CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o /out/tidepath-portal .
+
+FROM gcr.io/distroless/static-debian12:nonroot
+COPY --from=build /out/tidepath-portal /tidepath-portal
+ENV PORT=8080
+USER nonroot:nonroot
 EXPOSE 8080
-HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1:8080/healthz || exit 1
-CMD ["node", "server.js"]
+HEALTHCHECK --interval=30s --timeout=3s CMD ["/tidepath-portal", "-healthcheck"]
+ENTRYPOINT ["/tidepath-portal"]

@@ -1,0 +1,129 @@
+{
+  "name": "trust-proxy",
+  "env": {
+    "RATE_LIMIT_MAX": "1",
+    "TRUST_PROXY": "1"
+  },
+  "steps": [
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Forwarded-For": "203.0.113.7"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"ref\":\"TP-\u003cref\u003e\"}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Forwarded-For": "203.0.113.8, 10.0.0.1"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"ref\":\"TP-\u003cref\u003e\"}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Forwarded-For": " 203.0.113.7 ,10.0.0.2"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 429,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "Retry-After": "600",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":false,\"error\":\"rate_limited\",\"retryAfter\":600}"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/submit/approve",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "{\"decision\":\"approve\",\"name\":\"Ms. Lee\",\"request\":\"w004\",\"version\":\"V2\"}",
+      "expect": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+          "Content-Type": "application/json; charset=utf-8",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY"
+        },
+        "body": "{\"ok\":true,\"ref\":\"TP-\u003cref\u003e\"}"
+      }
+    }
+  ],
+  "roomcord": [
+    {
+      "method": "GET",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/members?limit=200",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/messages",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real",
+        "Content-Type": "application/json"
+      },
+      "body": "{\"content\":\"@Workshops Agent School approved W004 v2 (by Ms. Lee). Sent from the Portal.\",\"type\":\"text\"}"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/messages",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real",
+        "Content-Type": "application/json"
+      },
+      "body": "{\"content\":\"@Workshops Agent School approved W004 v2 (by Ms. Lee). Sent from the Portal.\",\"type\":\"text\"}"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/rooms/22222222-2222-4222-8222-222222222222/messages",
+      "headers": {
+        "Authorization": "Bearer test-token-not-real",
+        "Content-Type": "application/json"
+      },
+      "body": "{\"content\":\"@Workshops Agent School approved W004 v2 (by Ms. Lee). Sent from the Portal.\",\"type\":\"text\"}"
+    }
+  ]
+}

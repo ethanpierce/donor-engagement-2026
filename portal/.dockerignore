@@ -1,5 +1,6 @@
 .env
 .env.*
 !.env.example
-test
-node_modules
+testdata
+*_test.go
+tidepath-portal
