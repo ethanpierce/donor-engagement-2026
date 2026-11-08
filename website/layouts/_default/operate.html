@@ -1,0 +1,102 @@
+{{ define "main" }}
+{{ $site := site.Data.site -}}
+{{ $v := site.Data.videos -}}
+<section class="hero hero-page" data-enter>
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker a a-enter">How we operate · demo for the {{ $site.event }}</p>
+    <h1 class="a a-enter" style="--d:.05s">One room per job, <em>one agent per room.</em></h1>
+    <p class="hero-sub a a-enter" style="--d:.18s">{{ $site.orgName }} is a made-up nonprofit with seven staff roles, all played by one operator, Alex. It runs as a private server on Roomcord. Each staff process has its own room, and each room has a specialist AI agent. Agents draft, count and route. Alex approves every merge, outbound message and funder submission.</p>
+  </div>
+</section>
+
+<section class="wrap section-tight" id="demo">
+  <figure class="video-main">
+    {{ partial "video.html" (dict "file" $v.full.file "label" $v.full.title) }}
+    <figcaption><strong>{{ $v.full.title }}.</strong> {{ $v.full.caption }}</figcaption>
+  </figure>
+</section>
+
+<section class="wrap section" id="rooms">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">The <em>rooms.</em></h2>
+    <p class="lede">Each room holds one staff process and its agent. The public forms portal and the website feed the rooms. The People CRM holds every record once.</p>
+  </div>
+  <ul class="cards cards-3" data-seen="0.1">
+    {{ range $i, $r := slice
+      (dict "code" "P1" "room" "Programs and mentoring" "job" "Weekly list of kids at risk, follow-up drafts in English, Spanish and Haitian Creole, quarterly outcome report.")
+      (dict "code" "P2" "room" "Fundraising" "job" "Duplicate donors with match reasons, late regular gifts, failed monthly gifts.")
+      (dict "code" "P3" "room" "Workshop requests" "job" "Request to confirmed workshop, one reply for all missing details, approved slide version tracked.")
+      (dict "code" "P4" "room" "Counseling (restricted)" "job" "Note written once, funder gets only its required fields, send and access log.")
+      (dict "code" "P5" "room" "Volunteers" "job" "Volunteer texts and forms become logged hours and visits, counted once. Urgent needs reach staff the same day.")
+      (dict "code" "P6" "room" "Grants and finance" "job" "Drafts from approved, sourced facts within word limits, grant spend by category in the funder's year.")
+      (dict "code" "All" "room" "Director desk" "job" "Approval queue, weekly digest, routing of urgent needs between rooms, People CRM steward.")
+      (dict "code" "Web" "room" "Website" "job" "Drafts announcements for this site and publishes them only after Alex approves.")
+    }}
+    <li class="box a a-up12" style="--d:{{ printf "%.2f" (mul $i 0.05) }}s">
+      <span class="box-tag">{{ $r.code }}</span>
+      <h3>{{ $r.room }}</h3>
+      <p>{{ $r.job }}</p>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+
+<section class="band">
+  <div class="wrap section" id="clips">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">Each problem, <em>in under 30 seconds.</em></h2>
+      <p class="lede">The six problems come from the hackathon challenge, based on a survey of 14 South Florida nonprofits.</p>
+    </div>
+    <ul class="video-grid">
+      {{ range $v.problems }}
+      <li>
+        <figure>
+          {{ partial "video.html" (dict "file" .file "label" (printf "%s · %s" .code .room)) }}
+          <figcaption><strong>{{ .code }} · {{ .room }}.</strong> {{ .caption }}</figcaption>
+        </figure>
+      </li>
+      {{ end }}
+    </ul>
+    <h3 class="video-more">More clips</h3>
+    <ul class="video-grid">
+      {{ range $v.more }}
+      <li>
+        <figure>
+          {{ partial "video.html" (dict "file" .file "label" .title) }}
+          <figcaption><strong>{{ .title }}.</strong> {{ .caption }}</figcaption>
+        </figure>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+
+<section class="wrap section" id="example">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">Example: the same donor <em>on three lists.</em></h2>
+    <p class="lede">In the Fundraising room, the agent finds the same donor across separate gift lists, shows why the records match, and merges only after staff approve. Every gift stays attached. Sample data.</p>
+  </div>
+  <div class="hero-win-wrap">
+    <div class="win hero-win">
+      {{ partial "winbar.html" (dict "title" "Fundraising · Year-end letter list" "right" "Sample data") }}
+      <div class="app-main">{{ partial "sections/merge-stage.html" . }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section fit" id="rules">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">The <em>rules.</em></h2>
+    <p class="lede">Agents draft. A person decides.</p>
+  </div>
+  <div class="promises a a-rise" data-seen="0.3" style="--d:.1s">
+    <ul>
+      <li>{{ partial "icons/check.html" }}A person approves every merge, message and funder submission.</li>
+      <li>{{ partial "icons/check.html" }}No giving history or attendance record is ever deleted.</li>
+      <li>{{ partial "icons/check.html" }}No WhatsApp scraping. Agents read only messages that volunteers send on purpose, or chats exported with WhatsApp's Export chat option.</li>
+      <li>{{ partial "icons/check.html" }}Made-up data only. The counseling flow is not a HIPAA-approved system.</li>
+    </ul>
+  </div>
+</section>
+{{ end }}

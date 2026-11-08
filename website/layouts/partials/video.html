@@ -1,0 +1,6 @@
+{{- /* Native video with poster and English captions. Takes dict "file", "label". */ -}}
+<video controls preload="metadata" playsinline poster="/videos/{{ .file }}.jpg" aria-label="{{ .label }}">
+  <source src="/videos/{{ .file }}.mp4" type="video/mp4">
+  <track kind="captions" src="/videos/{{ .file }}.vtt" srclang="en" label="English"{{ if .default }} default{{ end }}>
+  <a href="/videos/{{ .file }}.mp4">Download the video</a>
+</video>

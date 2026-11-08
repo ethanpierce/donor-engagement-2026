@@ -1,9 +1,167 @@
 {{ define "main" }}
-{{ partial "sections/hero.html" . }}
-{{ partial "sections/problem.html" . }}
-{{ partial "sections/quote.html" . }}
-{{ partial "sections/how.html" . }}
-{{ partial "sections/note.html" . }}
-{{ partial "sections/failed.html" . }}
-{{ partial "sections/fit.html" . }}
+{{ $site := site.Data.site -}}
+{{ $p := $site.portalUrl -}}
+<section class="hero hero-page" data-enter>
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker a a-enter">Miami-Dade · English, Español, Kreyòl ayisyen</p>
+    <h1 class="a a-enter" style="--d:.05s">Kids and families, <em>never on their own.</em></h1>
+    <p class="hero-sub a a-enter" style="--d:.18s">{{ $site.orgName }} helps Miami-Dade kids and their families through mentoring, family counseling, and safety and mental health workshops in schools.</p>
+    <div class="hero-cta a a-enter" style="--d:.28s">
+      <a class="btn btn-accent" href="{{ $p }}/family">Sign up your family</a>
+      <a class="btn btn-ghost" href="#get-involved">Get involved</a>
+    </div>
+    <p class="hero-note a a-enter" style="--d:.36s">This is a demo nonprofit for the {{ $site.event }}. Forms open on our demo portal and accept made-up data only.</p>
+  </div>
+</section>
+
+<section class="wrap section" id="programs">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">What we <em>do.</em></h2>
+    <p class="lede">Three programs, one team. Every family gets one person to call, in the language they speak at home.</p>
+  </div>
+  <ul class="cards cards-3" data-seen="0.2">
+    <li class="box a a-up12" style="--d:0s">
+      <span class="box-tag">Mentoring</span>
+      <h3>A mentor for every kid who asks</h3>
+      <p>Weekly sessions with a trained volunteer mentor. If a kid misses sessions, we call home the same week.</p>
+    </li>
+    <li class="box a a-up12" style="--d:.08s">
+      <span class="box-tag">Family counseling</span>
+      <h3>Help when home gets hard</h3>
+      <p>Private sessions for parents and kids with our counselors. Notes stay private and are written once.</p>
+    </li>
+    <li class="box a a-up12" style="--d:.16s">
+      <span class="box-tag">School workshops</span>
+      <h3>Safety and mental health in class</h3>
+      <p>Workshops for students, fitted to each class and approved by the school, in person or online.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="quote section">
+  <div class="wrap">
+    {{ $text := "“Every hour we save on paperwork is an hour we give back to kids and families.”" -}}
+    <p class="quote-text" data-scroll-words>{{ range split $text " " }}<span><span>{{ . }}</span> </span>{{ end }}</p>
+    <p class="quote-who"><span class="avatar small" aria-hidden="true">C</span>Claudette, director, {{ $site.orgName }} (fictional)</p>
+  </div>
+</section>
+
+<section class="wrap section" id="get-involved">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">Get <em>involved.</em></h2>
+    <p class="lede">Every form takes about two minutes on a phone. No account, no app to install. The forms are part of this demo: please enter made-up data only.</p>
+  </div>
+  <ul class="cards cards-4" data-seen="0.2">
+    <li class="box a a-up12" style="--d:0s">
+      <span class="box-tag">Families</span>
+      <h3>Sign up your family</h3>
+      <p>Mentoring, family counseling and workshops for your child.</p>
+      <a class="box-link" href="{{ $p }}/family">Family sign-up <span aria-hidden="true">→</span></a>
+    </li>
+    <li class="box a a-up12" style="--d:.06s" id="volunteer">
+      <span class="box-tag">Volunteers</span>
+      <h3>Log a visit or your hours</h3>
+      <p>Mentors, event helpers and drivers check in after each visit. Flag an urgent need and staff see it the same day.</p>
+      <a class="box-link" href="{{ $p }}/volunteer">Volunteer check-in <span aria-hidden="true">→</span></a>
+    </li>
+    <li class="box a a-up12" style="--d:.12s">
+      <span class="box-tag">Schools</span>
+      <h3>Request a workshop</h3>
+      <p>Safety and mental health workshops for your students, in English, Spanish or Haitian Creole.</p>
+      <a class="box-link" href="{{ $p }}/workshop">Workshop request <span aria-hidden="true">→</span></a>
+    </li>
+    <li class="box a a-up12" style="--d:.18s">
+      <span class="box-tag">Donors</span>
+      <h3>Support the work</h3>
+      <p>How gifts would help kids and families, and why this demo takes no money.</p>
+      <a class="box-link" href="#donate">Ways to give <span aria-hidden="true">→</span></a>
+    </li>
+  </ul>
+</section>
+
+<section class="band" id="workshops">
+  <div class="wrap section split">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">Workshops for <em>your school.</em></h2>
+      <p class="lede">Ask once. We answer the same day with every question we need, set up a short planning call, and fit our slides to your class.</p>
+      <div class="hero-cta">
+        <a class="btn btn-accent" href="{{ $p }}/workshop">Request a workshop</a>
+        <a class="btn btn-ghost" href="{{ $p }}/approve?request=W001&amp;version=v2">Approve slides (example W001)</a>
+      </div>
+    </div>
+    <ol class="steps a a-rise" data-seen="0.3" style="--d:.1s">
+      <li><span>1</span><div><strong>Send a request</strong><small>By the web form, email, text or phone.</small></div></li>
+      <li><span>2</span><div><strong>One reply, every question</strong><small>Date, room, grade, language, topic, in person or online.</small></div></li>
+      <li><span>3</span><div><strong>Planning call</strong><small>Fifteen minutes with our program manager.</small></div></li>
+      <li><span>4</span><div><strong>Approve the slides online</strong><small>One link per version. You approve or ask for changes.</small></div></li>
+      <li><span>5</span><div><strong>Workshop day</strong><small>We confirm the room the day before.</small></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap section" id="donate">
+  <div class="split">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">Support <em>Tidepath.</em></h2>
+      <p class="lede">At a real nonprofit, gifts arrive online, through event tickets, at the gala auction and by check. Each donor would hear from us once, by name, and we would notice if a regular gift stopped.</p>
+    </div>
+    <div class="demo-box a a-rise" data-seen="0.3" style="--d:.1s">
+      <h3>This demo takes no money</h3>
+      <p>{{ $site.orgName }} is not a real charity and has no donation page. Please do not send money or card details anywhere on this site. To support real Miami nonprofits, give to an organization you know.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="news">
+  <div class="wrap section">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">News and <em>announcements.</em></h2>
+    </div>
+    {{ $active := partial "announcements-active.html" . -}}
+    {{ with $active -}}
+    <ul class="news">
+      {{- range . }}
+      {{- $item := . }}
+      <li class="box news-{{ .tone | default "info" }}">
+        <span class="box-tag">{{ with .updatedAt }}{{ (time.AsTime .).Format "Jan 2, 2006" }}{{ else }}Update{{ end }}</span>
+        <h3>{{ .title }}</h3>
+        {{ with .body }}<p>{{ . }}</p>{{ end }}
+        {{ with .link }}<a class="box-link" href="{{ . }}">{{ $item.linkText | default "Learn more" }} <span aria-hidden="true">→</span></a>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+    {{- else -}}
+    <p class="lede">No announcements right now.</p>
+    {{- end }}
+  </div>
+</section>
+
+<section class="wrap section" id="how">
+  <div class="split">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">How a small team <em>keeps up.</em></h2>
+      <p class="lede">Each staff job has its own room with a specialist AI agent. Agents draft and count. A person approves every message, merge and funder report.</p>
+    </div>
+    <div class="a a-rise" data-seen="0.3" style="--d:.1s">
+      <a class="btn" href="/how-we-operate/">How we operate, with videos</a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contact">
+  <div class="wrap section split">
+    <div class="a a-rise" data-seen="0.3">
+      <h2 class="section-title">Contact <em>us.</em></h2>
+      <p class="lede">Fictional contact details for the demo. They do not reach a real office.</p>
+    </div>
+    <dl class="contact a a-rise" data-seen="0.3" style="--d:.1s">
+      <div><dt>Front desk</dt><dd>(305) 555-0100 (made up)</dd></div>
+      <div><dt>Email</dt><dd>hello@example.org (made up)</dd></div>
+      <div><dt>Office</dt><dd>Miami-Dade County, Florida (fictional)</dd></div>
+      <div><dt>Forms</dt><dd><a href="{{ $p }}/">app.tidepathfamily.org</a></dd></div>
+      <div class="contact-urgent"><dt>In danger now?</dt><dd>Call 911. For a mental health crisis, call or text 988.</dd></div>
+    </dl>
+  </div>
+</section>
 {{ end }}

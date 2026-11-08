@@ -1,15 +1,8 @@
 {{- /* Announcement banners from data/announcements.json.
   Item: {id, title, body, link?, linkText?, tone: info|urgent|celebrate, startsAt?, endsAt?, updatedAt, updatedBy}.
-  Filtered at build time: startsAt <= build time < endsAt; a missing bound is open.
-  An empty list renders nothing. */ -}}
-{{- $now := now -}}
-{{- $active := slice -}}
-{{- range site.Data.announcements -}}
-  {{- $ok := true -}}
-  {{- with .startsAt }}{{ if (time.AsTime .).After $now }}{{ $ok = false }}{{ end }}{{ end -}}
-  {{- with .endsAt }}{{ if not ($now.Before (time.AsTime .)) }}{{ $ok = false }}{{ end }}{{ end -}}
-  {{- if $ok }}{{ $active = $active | append . }}{{ end -}}
-{{- end -}}
+  Filtered at build time (partials/announcements-active.html). An empty list renders nothing.
+  The home page also lists the same items in its News section. */ -}}
+{{- $active := partial "announcements-active.html" . -}}
 {{- with $active }}
 <div class="announcements">
   {{- range . }}

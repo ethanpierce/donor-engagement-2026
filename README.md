@@ -20,7 +20,12 @@ are real, from a survey of 14 South Florida nonprofits.
 
 ## Try it live
 
-- **Public website:** https://tidepathfamily.org
+- **Public website:** https://tidepathfamily.org. The made-up nonprofit's own
+  site for families, volunteers, schools and donors. It exists only for this
+  hackathon. Every page says so, and all data is made up.
+- **How we operate:** https://tidepathfamily.org/how-we-operate/. How Tidepath
+  runs on Roomcord rooms with specialist agents, with the full demo and one
+  video per problem.
 - **Portal for parents, volunteers and schools:** https://app.tidepathfamily.org.
   Volunteers check in, families ask for help and schools request workshops,
   in English, Spanish and Haitian Creole. Nobody installs an app or makes an

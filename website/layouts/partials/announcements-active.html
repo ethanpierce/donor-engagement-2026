@@ -1,0 +1,11 @@
+{{- /* Returns the active items of data/announcements.json.
+  Filtered at build time: startsAt <= build time < endsAt; a missing bound is open. */ -}}
+{{- $now := now -}}
+{{- $active := slice -}}
+{{- range site.Data.announcements -}}
+  {{- $ok := true -}}
+  {{- with .startsAt }}{{ if (time.AsTime .).After $now }}{{ $ok = false }}{{ end }}{{ end -}}
+  {{- with .endsAt }}{{ if not ($now.Before (time.AsTime .)) }}{{ $ok = false }}{{ end }}{{ end -}}
+  {{- if $ok }}{{ $active = $active | append . }}{{ end -}}
+{{- end -}}
+{{- return $active -}}

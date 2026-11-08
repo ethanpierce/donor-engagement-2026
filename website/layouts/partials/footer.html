@@ -1,12 +1,20 @@
 {{ $site := site.Data.site -}}
 <footer class="end">
-  <section class="demo wrap" id="demo">
-    <h2 class="section-title">See it on <em>made-up donors.</em></h2>
-    {{ with $site.demoUrl }}<a class="btn" href="{{ . }}">Open the demo</a>{{ else }}<button class="btn" disabled>Demo link coming</button>{{ end }}
-  </section>
+  <div class="end-links wrap">
+    <nav aria-label="Footer">
+      <a href="/#programs">Programs</a>
+      <a href="/#get-involved">Get involved</a>
+      <a href="/#workshops">Workshops</a>
+      <a href="/#donate">Support</a>
+      <a href="/#news">News</a>
+      <a href="/#contact">Contact</a>
+      <a href="/how-we-operate/">How we operate</a>
+      <a href="{{ $site.portalUrl }}/">Forms portal</a>
+    </nav>
+  </div>
   <div class="end-notes wrap">
-    <p>Tidepath Family Alliance and every donor on this page are made up. The problems are real, from a survey of 14 South Florida nonprofits.</p>
-    <p>Built with Codex at the DevDay Exchange Community Hackathon, Miami, November 2026.<br>The Token Maxxers</p>
+    <p class="end-event"><strong>Demo site for the {{ $site.event }}.</strong> {{ $site.orgName }} is a fictional nonprofit. All names, numbers, addresses and stories on this site are made up. It does not take donations or collect real personal data. The problems come from a survey of 14 South Florida nonprofits.</p>
+    <p>Built with Codex at the DevDay Exchange Community Hackathon, Miami, November 7–8, 2026.<br>The Token Maxxers</p>
   </div>
   <p class="wordmark" aria-hidden="true">{{ $site.productName }}</p>
 </footer>

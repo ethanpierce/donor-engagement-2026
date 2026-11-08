@@ -1,0 +1,17 @@
+# Demo videos on /how-we-operate/. Files live in static/videos/ (<file>.mp4, .jpg poster, .vtt captions).
+# Re-encoded from videos/ in the repo: H.264 + faststart, each file under the 25 MiB Cloudflare Pages limit.
+full:
+  file: tidepath-demo
+  title: The full demo
+  caption: "One operator runs a made-up Miami nonprofit on Roomcord: nine rooms, one AI agent per job, a person approves every step."
+problems:
+  - { file: P1-programs, code: P1, room: Programs and mentoring, caption: "Kids who miss sessions get a call the same week, with a follow-up drafted in the family's language." }
+  - { file: P2-fundraising, code: P2, room: Fundraising, caption: "Duplicate donors are found with reasons, and a late or failed regular gift shows up in time to call." }
+  - { file: P3-workshops, code: P3, room: Workshop requests, caption: "A school's request becomes a confirmed workshop with one reply for every missing detail and approved slides." }
+  - { file: P4-counseling, code: P4, room: Counseling (restricted), caption: "A counselor writes the note once. The funder gets only its required fields, and every send is logged." }
+  - { file: P5-volunteers, code: P5, room: Volunteers, caption: "A volunteer's phone check-in becomes logged hours, counted once, and an urgent need reaches staff the same day." }
+  - { file: P6-grants, code: P6, room: Grants and finance, caption: "Grant drafts use only approved, sourced facts, and spending is tracked by category in each funder's year." }
+more:
+  - { file: portal, title: The forms portal, caption: "Volunteers, parents and schools use public forms on a phone, with no login." }
+  - { file: crm-app, title: People CRM, caption: "Staff review records and approve merges in the People CRM room app." }
+  - { file: source, title: How it is built, caption: "The flavors, skills and demo data are open source on GitHub." }

@@ -1,0 +1,245 @@
+WEBVTT
+
+1
+00:00:01.800 --> 00:00:03.660
+Tidepath Family Alliance: a made-up Miami nonprofit with 7 staff roles and 1 operator, Alex.
+
+2
+00:00:03.700 --> 00:00:04.710
+Roomcord: the private workspace where staff work. Each room has one AI agent for one job.
+
+3
+00:00:04.750 --> 00:00:07.933
+Tidepath works in 9 rooms, one job and one AI agent each.
+
+4
+00:00:07.983 --> 00:00:10.067
+Kids and families: Programs, Volunteers, Workshops, Counseling.
+
+5
+00:00:10.117 --> 00:00:12.067
+Money: Fundraising, and Grants and finance.
+
+6
+00:00:12.117 --> 00:00:14.393
+Director desk routes work. People CRM holds every record.
+
+7
+00:00:14.433 --> 00:00:15.693
+P5. Volunteer hours get lost, and urgent needs wait for days.
+
+8
+00:00:15.733 --> 00:00:16.743
+The Tidepath portal: a public website with no login. Volunteers, parents and schools use it on a phone.
+
+9
+00:00:16.783 --> 00:00:19.733
+Maria opens the check-in form in Spanish.
+
+10
+00:00:19.783 --> 00:00:23.700
+She logs 1 hour with Kevin and flags an urgent need: a laptop.
+
+11
+00:00:23.750 --> 00:00:26.410
+She taps Send. No login, no app to install.
+
+12
+00:00:26.450 --> 00:00:28.533
+Maria's check-in arrives in the Volunteers room.
+
+13
+00:00:28.583 --> 00:00:31.767
+The agent logs the hour once and flags the laptop as urgent.
+
+14
+00:00:31.817 --> 00:00:34.233
+Alex asks the Director agent to send it to Programs.
+
+15
+00:00:34.283 --> 00:00:37.033
+The Director agent posts the need in Programs and mentoring.
+
+16
+00:00:37.083 --> 00:00:39.110
+Programs and mentoring now shows a new message.
+
+17
+00:00:39.150 --> 00:00:40.300
+Alex opens Programs and mentoring.
+
+18
+00:00:40.350 --> 00:00:43.527
+The urgent need is here the same day, with a mention for Alex.
+
+19
+00:00:43.567 --> 00:00:44.777
+P1. Kids at risk get missed until it is too late.
+
+20
+00:00:44.817 --> 00:00:47.000
+Alex asks the Programs agent: who needs a call this week?
+
+21
+00:00:47.050 --> 00:00:49.000
+The agent checks attendance and mentor meetings in the CRM.
+
+22
+00:00:49.050 --> 00:00:52.033
+Kevin and Jaylen missed sessions. They need a call this week.
+
+23
+00:00:52.083 --> 00:00:54.267
+Alex asks for a follow-up to Kevin's mother, in Spanish.
+
+24
+00:00:54.317 --> 00:00:56.200
+The agent writes the draft.
+
+25
+00:00:56.250 --> 00:00:59.193
+It says DRAFT, not sent. A person approves before anything goes out.
+
+26
+00:00:59.233 --> 00:01:00.243
+The People CRM app runs inside the Roomcord room 'People CRM'. Staff review records and approve.
+
+27
+00:01:00.283 --> 00:01:01.833
+Alex opens the People CRM tab.
+
+28
+00:01:01.883 --> 00:01:04.900
+67 people in one list: kids, parents, mentors, volunteers, donors.
+
+29
+00:01:04.950 --> 00:01:07.767
+Duplicates: records that may be the same person.
+
+30
+00:01:07.817 --> 00:01:10.367
+Rosa Delgado is in twice: same phone, same address.
+
+31
+00:01:10.417 --> 00:01:12.700
+Alex clicks Approve merge.
+
+32
+00:01:12.750 --> 00:01:15.700
+The record keeps who approved, the time and the history.
+
+33
+00:01:15.750 --> 00:01:18.667
+This week: at-risk kids, each with a draft follow-up.
+
+34
+00:01:18.717 --> 00:01:21.367
+Alex approves Kevin's follow-up.
+
+35
+00:01:21.417 --> 00:01:24.267
+Approved by Alex, with the time. The owner calls the parent.
+
+36
+00:01:24.317 --> 00:01:26.633
+Q3 report: the numbers that funders ask for.
+
+37
+00:01:26.683 --> 00:01:29.860
+Every total is counted again from the raw rows, and every check matches.
+
+38
+00:01:29.900 --> 00:01:31.110
+P2. Regular donors stop giving, and nobody notices.
+
+39
+00:01:31.150 --> 00:01:33.233
+Alex asks which regular donors are late.
+
+40
+00:01:33.283 --> 00:01:35.167
+The agent checks each donor's giving schedule.
+
+41
+00:01:35.217 --> 00:01:38.827
+Two donors are late: a monthly gift by 35 days, a 90-day gift by 31.
+
+42
+00:01:38.867 --> 00:01:40.077
+P3. Schools wait days for answers about workshops.
+
+43
+00:01:40.117 --> 00:01:44.133
+A school counselor requests a safety workshop, in Spanish.
+
+44
+00:01:44.183 --> 00:01:46.543
+She sends it. She does not need an account.
+
+45
+00:01:46.583 --> 00:01:48.900
+The request arrives in the Workshop requests room.
+
+46
+00:01:48.950 --> 00:01:51.843
+The agent asks every missing question in one reply and opens W002.
+
+47
+00:01:51.883 --> 00:01:56.443
+Later, the school approves slides v2 on the portal.
+
+48
+00:01:56.483 --> 00:01:58.433
+The approval arrives in the room.
+
+49
+00:01:58.483 --> 00:02:00.993
+The tracker records school approved v2, and who approved it.
+
+50
+00:02:01.033 --> 00:02:02.243
+P4. Counseling notes are private, but funders need numbers.
+
+51
+00:02:02.283 --> 00:02:05.467
+Alex asks what exactly goes to the funder from a sample note.
+
+52
+00:02:05.517 --> 00:02:08.933
+Will be sent: only service facts, like date, minutes, ZIP and age band.
+
+53
+00:02:08.983 --> 00:02:11.060
+Stays inside: names, the narrative and risk flags.
+
+54
+00:02:11.100 --> 00:02:12.310
+P6. Grant spending is hard to track against the funder rules.
+
+55
+00:02:12.350 --> 00:02:15.333
+Alex asks what is left per category in the county grant.
+
+56
+00:02:15.383 --> 00:02:17.267
+The agent reads the grant budget and the spending.
+
+57
+00:02:17.317 --> 00:02:19.827
+Emergency aid has $800 left. No category is over 90%.
+
+58
+00:02:19.867 --> 00:02:20.877
+How it is built: the source code is open on GitHub.
+
+59
+00:02:20.917 --> 00:02:25.267
+One repository holds every agent, skill, the portal and the CRM app.
+
+60
+00:02:25.317 --> 00:02:29.660
+Each agent is a flavor: role + rules + skills.
+
+61
+00:02:29.700 --> 00:02:32.550
+Every detail entered once. Urgent needs reach staff the same day. Reports in minutes. A human approves everything.

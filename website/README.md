@@ -1,8 +1,8 @@
-# Tidepath Family landing page
+# Tidepath Family Alliance website
 
-One-page site for Tidepath Family: it finds the same donor across separate gift lists, merges only after staff approve, keeps every gift, and flags regular gifts that are late.
+Public site of the fictional Tidepath Family Alliance, made for the DevDay Exchange Community Hackathon 2026, Miami. Home page for families, volunteers, schools and donors (programs, get involved, workshops, support, news, contact), plus `/how-we-operate/` (Roomcord rooms, specialist agents, demo videos).
 
-Every donor, email, phone number and amount on the page is made up (`example.com` / `example.org` addresses, `555-01xx` numbers).
+Every name, email, phone number and amount on the site is made up (`example.com` / `example.org` addresses, `555-01xx` numbers). A notice at the top of every page and in the footer says so. Forms link to the demo portal https://app.tidepathfamily.org.
 
 Static Hugo site. No backend, no Node, no npm.
 
@@ -61,10 +61,12 @@ For a git-integrated Pages build use: build command `hugo --minify`, root direct
 
 ## Where to change things
 
-- `data/site.yaml`: product name, page title and description, and `demoUrl`. Put the demo link there and the "Try the demo" button turns on.
-- `data/sample.yaml`: all sample donors, gifts, dates and step copy. Totals are computed in the templates.
-- `layouts/partials/sections/`: one partial per page section. `merge-stage.html` is the hero merge demo.
-- `assets/css/main.css`: colors, fonts and layout. `motion.css` holds the entrance states, `announcements.css` the banner, `base.css` the vendored Tailwind preflight.
-- `assets/js/site.js`: all motion (merge demo, scroll story, counters). `announcements.js`: banner dismiss.
+- `data/site.yaml`: names, page title and description, portal URL, event name.
+- `layouts/index.html`: home page sections. `layouts/_default/operate.html`: How we operate (`content/how-we-operate.md` sets its URL).
+- `layouts/partials/event-notice.html`: the demo notice at the top of every page. The footer repeats it.
+- `data/videos.yaml` and `static/videos/`: demo videos (`.mp4` H.264 with faststart, `.jpg` poster, `.vtt` captions). Each file must stay under the 25 MiB Cloudflare Pages limit.
+- `data/sample.yaml`: sample donors for the merge example on How we operate.
+- `assets/css/main.css`: colors, fonts and base layout. `pages.css` holds the site sections and video styles, `motion.css` the entrance states, `announcements.css` the banner, `base.css` the vendored Tailwind preflight.
+- `assets/js/site.js`: motion (merge demo, quote, counters). `announcements.js`: banner dismiss.
 
 Respects reduced motion.

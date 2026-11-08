@@ -1,0 +1,5 @@
+{{- /* Persistent event notice. Not dismissible. Shown on every page above everything else. */ -}}
+{{ $site := site.Data.site -}}
+<div class="event-notice" role="note" aria-label="Demo site notice">
+  <p class="wrap"><strong>Demo site.</strong> {{ $site.orgName }} is a fictional nonprofit made for the {{ $site.event }}. All names, numbers and stories are made up. Do not send real money or real personal data.</p>
+</div>

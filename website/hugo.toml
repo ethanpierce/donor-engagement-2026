@@ -1,15 +1,17 @@
 baseURL = "https://tidepathfamily.org/"
 languageCode = "en-us"
-title = "Tidepath Family: each donor once, no late gift missed"
-disableKinds = ["taxonomy", "term", "section", "page", "RSS", "sitemap", "robotsTXT", "404"]
+title = "Tidepath Family Alliance (demo)"
+disableKinds = ["taxonomy", "term", "section", "RSS", "sitemap", "robotsTXT", "404"]
 ignoreFiles = ["README\\.md$"]
 
-# One-page site. Content lives in data/ (site.yaml, sample.yaml, announcements.json).
+# Home page plus one content page (content/how-we-operate.md).
+# Content lives in data/ (site.yaml, sample.yaml, announcements.json) and layouts/.
 # Hugo writes the build to public/ (Cloudflare Pages output directory).
 publishDir = "public"
 
 [outputs]
   home = ["HTML"]
+  page = ["HTML"]
 
 [params]
   themeColor = "#FFFDF9"

@@ -1,5 +1,9 @@
-# Product name and demo link. Put the demo URL here and the "Try the demo" button turns on.
+# Site name, page title and description, and the forms portal.
+# Tidepath Family Alliance is a fictional nonprofit made for the DevDay Exchange
+# Community Hackathon 2026, Miami. Every name, number and address is made up.
 productName: Tidepath Family
-demoUrl: ""
-title: "Tidepath Family: each donor once, no late gift missed"
-description: "Tidepath Family finds the same donor across your gift lists, shows why records match, keeps every gift, and flags late gifts while there is still time to call."
+orgName: Tidepath Family Alliance
+title: "Tidepath Family Alliance: mentoring, counseling and school workshops in Miami-Dade (demo)"
+description: "Tidepath Family Alliance is a fictional Miami-Dade nonprofit made for the DevDay Exchange Community Hackathon 2026, Miami. All data on this site is made up."
+portalUrl: https://app.tidepathfamily.org
+event: DevDay Exchange Community Hackathon 2026, Miami
