@@ -17,7 +17,9 @@ The site is static. An announcement goes live by a new build and deploy:
 2. It writes the published list to the site's announcements data file.
 3. It builds the site (`SITE_BUILD_CMD`, default `hugo --minify`).
 4. It deploys the output (`SITE_DEPLOY_CMD`, default
-   `wrangler pages deploy public --project-name $CF_PAGES_PROJECT`).
+   `npx wrangler@4.158.0 pages deploy public --project-name $CF_PAGES_PROJECT`).
+   On first use the script installs the pinned Hugo extended release into
+   `~/workspace/bin` and checks its SHA256 against the release checksums.
 5. It fetches the live page and checks each active announcement id.
 
 The repo is never written. The announcement list lives only in the workspace

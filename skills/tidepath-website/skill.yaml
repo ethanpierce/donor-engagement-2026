@@ -1,7 +1,7 @@
 schemaVersion: 1
 kind: HubSkill
 id: tidepath-website
-version: 1.0.0
+version: 1.0.1
 name: Tidepath Website
 description: Draft, publish after approval, remove and verify announcements on tidepathfamily.org, and read the public site repo read-only.
 trustLevel: first_party

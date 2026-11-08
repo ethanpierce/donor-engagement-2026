@@ -21,7 +21,9 @@ Environment (defaults in brackets):
   REPO_BRANCH [main]   SITE_SUBDIR [website]
   ANNOUNCEMENTS_FILE [data/announcements.json]  (relative to SITE_SUBDIR)
   SITE_BUILD_CMD [hugo --minify]
-  SITE_DEPLOY_CMD [npx --yes wrangler@4 pages deploy public --project-name "$CF_PAGES_PROJECT" --branch main --commit-dirty=true]
+  SITE_DEPLOY_CMD [npx --yes wrangler@4.158.0 pages deploy public --project-name "$CF_PAGES_PROJECT" --branch main --commit-dirty=true]
+  HUGO_VERSION [0.155.3]  Hugo extended is downloaded on first use into ~/workspace/bin
+                          and checked against the release SHA256 checksums.
   CF_PAGES_PROJECT, CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID (deploy only, never printed)
 Exit codes: 0 ok, 1 failed check, 2 usage or input error.
 """
@@ -29,10 +31,13 @@ import argparse
 import datetime as dt
 import json
 import os
+import hashlib
+import platform
 import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import time
 import urllib.request
 
@@ -56,9 +61,11 @@ ANN_FILE = os.environ.get("ANNOUNCEMENTS_FILE", "data/announcements.json")
 BUILD_CMD = os.environ.get("SITE_BUILD_CMD", "hugo --minify")
 DEPLOY_CMD = os.environ.get(
     "SITE_DEPLOY_CMD",
-    'npx --yes wrangler@4 pages deploy public --project-name "$CF_PAGES_PROJECT" '
+    'npx --yes wrangler@4.158.0 pages deploy public --project-name "$CF_PAGES_PROJECT" '
     "--branch main --commit-dirty=true")
 SECRET_NAMES = ("CLOUDFLARE_API_TOKEN",)
+HUGO_VERSION = os.environ.get("HUGO_VERSION", "0.155.3")
+BIN_DIR = os.path.join(WS, "bin")
 
 
 def die(msg, code=2):
@@ -131,7 +138,8 @@ def redact(text):
 
 
 def run(cmd, cwd, label):
-    p = subprocess.run(cmd, cwd=cwd, shell=True, capture_output=True, text=True)
+    env = dict(os.environ, PATH=BIN_DIR + os.pathsep + os.environ.get("PATH", ""))
+    p = subprocess.run(cmd, cwd=cwd, shell=True, capture_output=True, text=True, env=env)
     if p.returncode != 0:
         tail = redact((p.stdout + p.stderr)[-2000:])
         die(f"{label} failed (exit {p.returncode}):\n{tail}", 1)
@@ -233,6 +241,40 @@ def sync_repo():
     return run("git rev-parse --short HEAD", REPO_DIR, "git rev-parse").strip()
 
 
+def ensure_hugo():
+    """Install the pinned Hugo extended binary into ~/workspace/bin once, SHA256-checked."""
+    exe = os.path.join(BIN_DIR, "hugo")
+    if os.path.exists(exe):
+        p = subprocess.run([exe, "version"], capture_output=True, text=True)
+        if f"v{HUGO_VERSION}" in p.stdout:
+            return
+    arch = {"x86_64": "amd64", "amd64": "amd64", "aarch64": "arm64", "arm64": "arm64"}.get(platform.machine().lower())
+    if not arch or platform.system() != "Linux":
+        die(f"no pinned Hugo build for {platform.system()} {platform.machine()}", 1)
+    name = f"hugo_extended_{HUGO_VERSION}_linux-{arch}.tar.gz"
+    base = f"https://github.com/gohugoio/hugo/releases/download/v{HUGO_VERSION}/"
+    try:
+        sums = urllib.request.urlopen(base + f"hugo_{HUGO_VERSION}_checksums.txt", timeout=60).read().decode()
+        want = next(ln.split()[0] for ln in sums.splitlines() if ln.endswith(" " + name))
+        data = urllib.request.urlopen(base + name, timeout=300).read()
+    except StopIteration:
+        die(f"{name} not in the release checksums", 1)
+    except Exception as e:  # noqa: BLE001
+        die(f"Hugo download failed: {e}", 1)
+    got = hashlib.sha256(data).hexdigest()
+    if got != want:
+        die(f"Hugo checksum mismatch for {name}: got {got}, want {want}", 1)
+    os.makedirs(BIN_DIR, exist_ok=True)
+    tgz = os.path.join(BIN_DIR, name)
+    with open(tgz, "wb") as f:
+        f.write(data)
+    with tarfile.open(tgz) as t:
+        t.extract(t.getmember("hugo"), BIN_DIR)
+    os.remove(tgz)
+    os.chmod(exe, 0o755)
+    print(f"Installed Hugo extended {HUGO_VERSION} ({arch}), sha256 verified", file=sys.stderr)
+
+
 def build(items):
     """Copy the repo's site dir, write the announcements file, run the build. Returns build dir and sha."""
     sha = sync_repo()
@@ -243,6 +285,8 @@ def build(items):
     shutil.copytree(src, BUILD_DIR, ignore=shutil.ignore_patterns("node_modules", "public", "dist", ".git"))
     target = os.path.join(BUILD_DIR, ANN_FILE)
     save(target, items)
+    if BUILD_CMD.split()[0] == "hugo":
+        ensure_hugo()
     run(BUILD_CMD, BUILD_DIR, "build")
     return BUILD_DIR, sha
 
