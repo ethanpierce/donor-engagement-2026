@@ -1,0 +1,8 @@
+{"name": "r1", "steps": [
+ {"open_room": "Volunteers"}, {"pause": 2.5},
+ {"post": {"url": "http://localhost:8788/api/submit/volunteer", "json": {"name": "Maria Alvarez", "date": "2026-11-03", "hours": "1", "met": "Kevin",
+   "happened": "Math homework and reading at the library.", "urgent": "yes", "urgentText": "Kevin's school laptop broke. He needs one for school."}},
+  "wait_for": ["Tidepath portal", "Tidepath Volunteers"]},
+ {"pause": 4},
+ {"say": "@Tidepath Director please post Kevin's laptop need in Programs and mentoring and mention me.", "wait_for": "Tidepath Director"},
+ {"pause": 4}]}

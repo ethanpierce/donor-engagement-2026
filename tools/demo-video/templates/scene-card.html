@@ -1,0 +1,13 @@
+<!doctype html>
+<!-- Full-frame scene card text layer (1920x1080, transparent). The photo plate and motion are added by the compositor.
+     Placeholders: {{fonts}} {{tokens}} {{eyebrow}} {{title}} {{sub}} {{title_class}} ("t" or "t name" for a proper-name title). -->
+<html><head><meta charset="utf-8">{{fonts}}<style>{{tokens}}
+body{width:1920px;height:1080px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.eb,.t,.s{text-shadow:0 2px 28px rgba(20,0,70,.45)}
+.eb{font:700 22px/1 Montserrat,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--lime);margin-bottom:30px}
+.t{font:800 80px/1.08 Montserrat,sans-serif;color:#fff;text-transform:uppercase;max-width:1480px;letter-spacing:.005em;text-wrap:balance}
+.t.name{text-transform:none;font-size:104px;letter-spacing:-.01em}
+.s{font:500 30px/1.4 Inter,sans-serif;color:rgba(255,255,255,.86);margin-top:30px;max-width:1300px;text-wrap:balance}
+</style></head><body>
+<div class="eb">{{eyebrow}}</div><div class="{{title_class}}">{{title}}</div>{{sub}}
+</body></html>

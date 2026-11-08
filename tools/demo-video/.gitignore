@@ -1,0 +1,15 @@
+# Never commit recordings, rendered media, generated audio or login state.
+*.mp4
+*.webm
+*.mov
+*.wav
+*.mp3
+*.png
+*.jpg
+state*.json
+**/takes/raw_*/
+work/
+out/
+vo/
+music/
+__pycache__/

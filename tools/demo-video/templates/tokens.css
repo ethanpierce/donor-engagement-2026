@@ -1,0 +1,4 @@
+/* Brand tokens shared by every overlay. Change these to restyle a video. */
+:root{--violet:#5E28D2;--deep:#1E0957;--lime:#B3E51B;--surface:rgba(24,8,70,.84);--muted:rgba(255,255,255,.66)}
+html,body{margin:0;background:transparent;-webkit-font-smoothing:antialiased}
+em{font-style:normal;color:var(--lime)}

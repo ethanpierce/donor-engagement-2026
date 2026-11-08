@@ -1,0 +1,8 @@
+{"name": "pv", "base_url": "http://localhost:8788", "viewport": [390, 844], "scale": 2,
+ "mock_submit": {"pattern": "**/api/submit/**", "response": {"ok": true, "ref": "TP-000000"}},
+ "steps": [{"goto": "/", "wait": 1.8}, {"click": ".lang-switch button[value=en]"}, {"click": "a[href*=\"/volunteer\"]"},
+  {"type": ["#name", "Maria Alvarez"]}, {"fill": ["#date", "2026-11-03"]}, {"type": ["#hours", "1"]}, {"type": ["#met", "Kevin"]},
+  {"type": ["#happened", "Math homework and reading at the library."], "delay": 30},
+  {"pick": "label.choice:has(input[name=urgent][value=yes])"},
+  {"type": ["#urgentText", "Kevin's school laptop broke. He needs one for school."], "delay": 30},
+  {"submit": "form[data-form=volunteer] button[type=submit]", "wait_url": "**/thanks**"}, {"pause": 3.5}]}

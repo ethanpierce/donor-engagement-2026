@@ -2,6 +2,8 @@
 
 Website: https://tidepathfamily.org
 
+Demo video: https://www.youtube.com/watch?v=VIDEO_ID (placeholder until the YouTube upload).
+
 DevDay Exchange Community Hackathon 2026, Miami. Tidepath Family Alliance is a
 fictional Miami-Dade nonprofit. All data in this repository is made up.
 

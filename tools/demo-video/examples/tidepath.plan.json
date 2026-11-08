@@ -1,0 +1,1122 @@
+{
+ "project": {
+  "name": "tidepath-demo",
+  "out_dir": "out",
+  "work_dir": "work",
+  "plates_dir": "plates",
+  "vo_dir": "vo",
+  "intro": "assets/intro.mp4",
+  "outro": "assets/outro.mp4",
+  "music": "music/bed.mp3",
+  "music_gain_db": -8.5,
+  "duck_threshold": 0.05
+ },
+ "voice": {
+  "provider": "heygen",
+  "model": "legacy",
+  "voice": "c5ee8a405d7e460380cdb8e368a1cbff",
+  "name": "Marina",
+  "fallback": {
+   "provider": "gemini",
+   "model": "gemini-2.5-pro-preview-tts",
+   "voice": "Sulafat",
+   "style": "Read this as a warm, calm, natural documentary narrator, friendly and unhurried, with clear diction:"
+  }
+ },
+ "music": {
+  "model": "fal-ai/elevenlabs/music",
+  "length_ms": 300000,
+  "prompt": "Warm, hopeful, gentle instrumental background music for a nonprofit documentary-style product demo with a narrator. Major key, uplifting but calm. Soft felt piano playing a simple optimistic melody, warm string pads, light acoustic guitar picking, very soft brushed percussion, round warm bass. 84 BPM. Even, steady energy from start to finish, no build-ups, no drops, no solos, no vocals, no choir, no humming. Leave space in the midrange for a voice. Gentle fade-out ending."
+ },
+ "timing": {
+  "xfade": 0.3,
+  "lead": 0.25,
+  "tail_gap": 0.42,
+  "pre_card": 1.6
+ },
+ "takes": {
+  "pa": "takes/pa.mp4",
+  "pv": "takes/pv.mp4",
+  "pw": "takes/pw.mp4",
+  "r1": "takes/r1.webm",
+  "r2": "takes/r2.webm",
+  "r3": "takes/r3.webm",
+  "r4": "takes/r4.webm",
+  "r5": "takes/r5.webm",
+  "t4": "takes/t4.webm",
+  "t7": "takes/t7.webm",
+  "t8": "takes/t8.webm",
+  "t9": "takes/t9.webm",
+  "web": "takes/web.webm",
+  "site_d": "takes/site_d.webm",
+  "site_p": "takes/site_p.webm"
+ },
+ "scenes": [
+  {
+   "id": "S1",
+   "narration": "This is Tidepath Family Alliance, a made-up Miami nonprofit that mentors kids and supports their families. It has seven staff jobs. Here, one person, Alex, does all of them.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Meet the nonprofit",
+     "title": "Tidepath *Family Alliance*",
+     "sub": "A made-up Miami nonprofit that mentors kids and supports their families",
+     "name": true,
+     "plate": "office_a",
+     "sents": [
+      0
+     ]
+    },
+    {
+     "type": "card",
+     "eyebrow": "One operator",
+     "title": "Seven staff jobs. *One person.*",
+     "sub": "Alex does all of them, with an AI agent for each job",
+     "name": false,
+     "plate": "skyline",
+     "sents": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S2",
+   "narration": "Staff work in Roomcord, a private team workspace. Every job has its own room: programs, volunteers, workshops, fundraising, counseling and grants. Each room has an AI agent that does that one job.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Where staff work",
+     "title": "*Roomcord*",
+     "sub": "A private team workspace · one AI agent per room",
+     "name": true,
+     "plate": "office_b",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r2",
+     "eyebrow": "Roomcord · Tidepath workspace",
+     "who": "Private staff workspace · one AI agent per room",
+     "beats": [
+      {
+       "sent": 0,
+       "freeze": 52.0
+      },
+      {
+       "sent": 1,
+       "freeze": 52.0,
+       "zoom": false,
+       "focus": [
+        [
+         70,
+         215,
+         407,
+         621
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r2",
+     "eyebrow": "Roomcord · Programs and mentoring",
+     "who": "Staff workspace · room agent: Tidepath Programs",
+     "beats": [
+      {
+       "sent": 2,
+       "freeze": 25.0,
+       "focus": {
+        "bubble": "bot",
+        "index": 1
+       }
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "Staff work in *Roomcord*, a private team workspace.",
+    "Every job has *its own room*: programs, volunteers, workshops, fundraising, counseling and grants.",
+    "Each room has *an AI agent* that does that one job."
+   ]
+  },
+  {
+   "id": "S3",
+   "narration": "People outside the team never log in. Maria, a volunteer mentor, opens Tidepath's public website on her phone. In one minute she reports an hour with Kevin, and an urgent need: Kevin's school laptop broke.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Where outsiders come in",
+     "title": "Tidepath's *public website*",
+     "sub": "People outside the team never log in · volunteers, parents and schools use it on a phone",
+     "name": true,
+     "plate": "office_a",
+     "sents": [
+      0
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "phone",
+     "take": "pv",
+     "eyebrow": "Tidepath's public website",
+     "who": "Public, no login · Maria, a volunteer mentor, on her phone",
+     "beats": [
+      {
+       "sent": 1,
+       "a": 0.0,
+       "b": 7.2
+      },
+      {
+       "sent": 2,
+       "a": 7.2,
+       "b": 20.3
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "People outside the team *never log in*.",
+    "Maria, a volunteer mentor, opens Tidepath's *public website* on her phone.",
+    "In one minute she reports an hour with Kevin, and an *urgent need*: Kevin's school laptop broke."
+   ]
+  },
+  {
+   "id": "S4",
+   "narration": "Her check-in lands in the Volunteers room. The volunteer agent logs the hour once, so nothing is counted twice, and flags the laptop as urgent.",
+   "parts": [
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r1",
+     "eyebrow": "Roomcord · Volunteers",
+     "who": "Staff workspace · room agent: Tidepath Volunteers",
+     "beats": [
+      {
+       "sent": 0,
+       "freeze": 26.0,
+       "focus": {
+        "bubble": "white",
+        "index": 0
+       }
+      },
+      {
+       "sent": 1,
+       "freeze": 26.0,
+       "focus": {
+        "bubble": "bot",
+        "index": 0
+       }
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "Her check-in *lands* in the Volunteers room.",
+    "The volunteer agent logs the hour *once*, so nothing is counted twice, and flags the laptop as urgent."
+   ]
+  },
+  {
+   "id": "S5",
+   "narration": "Alex asks the Director agent to pass the need to the Programs team. It arrives there the same day, addressed to Alex.",
+   "parts": [
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r1",
+     "eyebrow": "Roomcord · Volunteers",
+     "who": "Staff workspace · Alex calls Tidepath Director with an @mention",
+     "beats": [
+      {
+       "sent": 0,
+       "w": 0.55,
+       "a": 32.8,
+       "b": 35.8,
+       "focus": [
+        418,
+        838,
+        1432,
+        892
+       ]
+      },
+      {
+       "sent": 0,
+       "w": 0.45,
+       "freeze": 43.0,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r2",
+     "eyebrow": "Roomcord · Programs and mentoring",
+     "who": "Staff workspace · posted by Tidepath Director",
+     "beats": [
+      {
+       "sent": 1,
+       "freeze": 14.5,
+       "focus": {
+        "bubble": "bot",
+        "index": 0
+       }
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "Alex asks the *Director agent* to pass the need to the Programs team.",
+    "It arrives there *the same day*, addressed to Alex."
+   ]
+  },
+  {
+   "id": "S6",
+   "narration": "In Programs and mentoring, Alex asks who needs a call this week. The agent checks attendance and mentor meetings. Kevin missed three sessions, and Jaylen hasn't met his mentor in weeks. It drafts a message to Kevin's mother, marked draft, not sent. Nothing goes out until a person approves it.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Programs and mentoring",
+     "title": "Kids at risk get *missed*",
+     "sub": "Until it is too late · for mentoring kids and their parents",
+     "name": false,
+     "plate": "skyline",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r2",
+     "eyebrow": "Roomcord · Programs and mentoring",
+     "who": "Staff workspace · room agent: Tidepath Programs",
+     "beats": [
+      {
+       "sent": 0,
+       "a": 14.5,
+       "b": 16.6,
+       "focus": [
+        418,
+        838,
+        1432,
+        892
+       ]
+      },
+      {
+       "sent": 1,
+       "freeze": 25.0,
+       "focus": {
+        "bubble": "me",
+        "index": -1
+       }
+      },
+      {
+       "sent": 2,
+       "freeze": 25.0,
+       "focus": {
+        "bubble": "bot",
+        "index": 1
+       }
+      },
+      {
+       "sent": 3,
+       "w": 0.4,
+       "a": 34.9,
+       "b": 36.6,
+       "focus": [
+        418,
+        838,
+        1432,
+        892
+       ]
+      },
+      {
+       "sent": 3,
+       "w": 0.6,
+       "freeze": 52.0,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      },
+      {
+       "sent": 4,
+       "freeze": 52.0,
+       "focus": [
+        476,
+        622,
+        884,
+        652
+       ]
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "In Programs and mentoring, Alex asks *who needs a call* this week.",
+    "The agent checks *attendance* and mentor meetings.",
+    "*Kevin* missed three sessions, and *Jaylen* hasn't met his mentor in weeks.",
+    "It drafts a message to Kevin's mother, marked *draft, not sent*.",
+    "Nothing goes out until *a person approves it*."
+   ]
+  },
+  {
+   "id": "S7",
+   "narration": "The People CRM app runs inside Roomcord. Every kid, parent, mentor, volunteer and donor has one record. Rosa Delgado appears twice, with the same phone and address. Alex approves the merge, and the app records who approved it and when. Under This week, Alex approves Kevin's follow-up. The quarterly report for funders is ready in seconds, and every number is checked against the source lists.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "A room app inside Roomcord",
+     "title": "People *CRM*",
+     "sub": "One record per person · staff review and approve",
+     "name": true,
+     "plate": "office_a",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r3",
+     "eyebrow": "People CRM app · People CRM room",
+     "who": "A room app, not an agent · the room's agent is Tidepath Director",
+     "beats": [
+      {
+       "sent": 0,
+       "a": 14.6,
+       "b": 18.0,
+       "focus": [
+        1130,
+        62,
+        1250,
+        102
+       ]
+      },
+      {
+       "sent": 1,
+       "a": 21.6,
+       "b": 25.8,
+       "focus": [
+        448,
+        293,
+        930,
+        326
+       ]
+      },
+      {
+       "sent": 2,
+       "w": 0.4,
+       "a": 25.8,
+       "b": 29.2,
+       "focus": [
+        1019,
+        170,
+        1137,
+        222
+       ]
+      },
+      {
+       "sent": 2,
+       "w": 0.6,
+       "a": 31.6,
+       "b": 33.9,
+       "focus": [
+        429,
+        350,
+        1420,
+        696
+       ]
+      },
+      {
+       "sent": 3,
+       "w": 0.35,
+       "a": 33.9,
+       "b": 35.7,
+       "focus": [
+        448,
+        647,
+        575,
+        679
+       ]
+      },
+      {
+       "sent": 3,
+       "w": 0.65,
+       "a": 37.6,
+       "b": 41.0,
+       "focus": [
+        440,
+        640,
+        1410,
+        722
+       ]
+      },
+      {
+       "sent": 4,
+       "w": 0.35,
+       "a": 41.3,
+       "b": 44.8,
+       "focus": [
+        1218,
+        170,
+        1332,
+        222
+       ]
+      },
+      {
+       "sent": 4,
+       "w": 0.3,
+       "a": 47.3,
+       "b": 49.6,
+       "focus": [
+        448,
+        567,
+        596,
+        599
+       ]
+      },
+      {
+       "sent": 4,
+       "w": 0.35,
+       "a": 50.8,
+       "b": 53.0,
+       "focus": [
+        429,
+        350,
+        1420,
+        616
+       ]
+      },
+      {
+       "sent": 5,
+       "w": 0.3,
+       "a": 54.5,
+       "b": 57.4,
+       "focus": [
+        1335,
+        170,
+        1420,
+        222
+       ]
+      },
+      {
+       "sent": 5,
+       "w": 0.7,
+       "freeze": 58.3,
+       "focus": [
+        429,
+        466,
+        1420,
+        787
+       ]
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "The *People CRM* app runs inside Roomcord.",
+    "Every kid, parent, mentor, volunteer and donor has *one record*.",
+    "Rosa Delgado appears *twice*, with the same phone and address.",
+    "Alex approves the merge, and the app records *who approved it* and when.",
+    "Under This week, Alex *approves* Kevin's follow-up.",
+    "The quarterly report for funders is ready in seconds, and every number is *checked* against the source lists."
+   ]
+  },
+  {
+   "id": "S8",
+   "narration": "In Fundraising, the agent knows each donor's usual giving pattern. Two regular donors are late. One monthly gift is thirty-five days overdue, so staff can call while there is still time.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Fundraising",
+     "title": "Regular donors *stop giving*",
+     "sub": "And nobody notices in time",
+     "name": false,
+     "plate": "office_b",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "t4",
+     "eyebrow": "Roomcord · Fundraising",
+     "who": "Staff workspace · room agent: Tidepath Fundraising",
+     "beats": [
+      {
+       "sent": 0,
+       "freeze": 28.8,
+       "focus": {
+        "bubble": "me",
+        "index": -1
+       }
+      },
+      {
+       "sent": 1,
+       "freeze": 28.8,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      },
+      {
+       "sent": 2,
+       "freeze": 28.8,
+       "focus": [
+        480,
+        284,
+        1292,
+        312
+       ]
+      }
+     ],
+     "covers": [
+      {
+       "rect": [
+        136,
+        501,
+        398,
+        525
+       ],
+       "fill": "white",
+       "text": "2 members"
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "In Fundraising, the agent knows each donor's *usual giving pattern*.",
+    "*Two regular donors* are late.",
+    "One monthly gift is *thirty-five days* overdue, so staff can call while there is still time."
+   ]
+  },
+  {
+   "id": "S9",
+   "narration": "A school counselor requests a safety workshop on the same public website. The workshop agent replies right away, asks for the one missing detail, and opens a new request. Later, the school approves version two of the slides from a link, and the room records exactly which version was approved.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Workshops",
+     "title": "Schools *wait days* for answers",
+     "sub": "About safety workshops for their students",
+     "name": false,
+     "plate": "skyline",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "phone",
+     "take": "pw",
+     "eyebrow": "Tidepath's public website",
+     "who": "Public, no login · a school counselor on her phone",
+     "beats": [
+      {
+       "sent": 0,
+       "a": 3.0,
+       "b": 16.3
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r4",
+     "eyebrow": "Roomcord · Workshop requests",
+     "who": "Staff workspace · room agent: Tidepath Workshops",
+     "beats": [
+      {
+       "sent": 1,
+       "w": 0.35,
+       "freeze": 38.0,
+       "focus": {
+        "bubble": "white",
+        "index": 0
+       }
+      },
+      {
+       "sent": 1,
+       "w": 0.65,
+       "freeze": 38.0,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "phone",
+     "take": "pa",
+     "eyebrow": "Tidepath's public website",
+     "who": "Public, no login · the school, a few days later",
+     "beats": [
+      {
+       "sent": 2,
+       "w": 0.55,
+       "a": 0.3,
+       "b": 9.6
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "r5",
+     "eyebrow": "Roomcord · Workshop requests",
+     "who": "Staff workspace · room agent: Tidepath Workshops",
+     "beats": [
+      {
+       "sent": 2,
+       "w": 0.45,
+       "freeze": 32.0,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "A school counselor requests a *safety workshop* on the same public website.",
+    "The workshop agent replies *right away*, asks for the one missing detail, and opens a new request.",
+    "Later, the school approves *version two* of the slides from a link, and the room records exactly which version was approved."
+   ]
+  },
+  {
+   "id": "S10",
+   "narration": "Counseling notes are private. From one sample note, the counseling agent shows exactly what a funder will receive: dates, minutes, zip code and age band. Names, the family's story and risk flags stay inside.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Counseling",
+     "title": "Counseling notes are *private*",
+     "sub": "Funders still need numbers",
+     "name": false,
+     "plate": "office_a",
+     "sents": [
+      0
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "t7",
+     "eyebrow": "Roomcord · Counseling (restricted)",
+     "who": "Restricted room · room agent: Tidepath Counseling",
+     "beats": [
+      {
+       "sent": 1,
+       "w": 0.3,
+       "freeze": 34.5,
+       "focus": {
+        "bubble": "me",
+        "index": -1
+       }
+      },
+      {
+       "sent": 1,
+       "w": 0.7,
+       "freeze": 34.5,
+       "focus": [
+        470,
+        314,
+        1430,
+        514
+       ]
+      },
+      {
+       "sent": 2,
+       "freeze": 34.5,
+       "focus": [
+        470,
+        519,
+        1430,
+        624
+       ]
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "Counseling notes are *private*.",
+    "From one sample note, the counseling agent shows exactly what *a funder will receive*: dates, minutes, zip code and age band.",
+    "Names, the family's story and risk flags *stay inside*."
+   ]
+  },
+  {
+   "id": "S11",
+   "narration": "In Grants and finance, Alex asks what is left in the county grant. The agent reads the budget and the spending: eight hundred dollars left for emergency aid, and no category is over ninety percent.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Grants and finance",
+     "title": "Grant spending is *hard to track*",
+     "sub": "Against the funder rules · for the finance lead",
+     "name": false,
+     "plate": "office_b",
+     "pre": true
+    },
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "t8",
+     "eyebrow": "Roomcord · Grants and finance",
+     "who": "Staff workspace · room agent: Tidepath Grants",
+     "beats": [
+      {
+       "sent": 0,
+       "freeze": 28.8,
+       "focus": {
+        "bubble": "me",
+        "index": -1
+       }
+      },
+      {
+       "sent": 1,
+       "freeze": 28.8,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      }
+     ],
+     "covers": [
+      {
+       "rect": [
+        136,
+        639,
+        398,
+        663
+       ],
+       "fill": "white",
+       "text": "2 members"
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "In Grants and finance, Alex asks what is left in the *county grant*.",
+    "The agent reads the budget and the spending: *eight hundred dollars* left for emergency aid, and no category is over ninety percent."
+   ]
+  },
+  {
+   "id": "S12a",
+   "enabled": false,
+   "clip": "website-announcements",
+   "narration": "The public website is also managed from a Roomcord room. Alex asks the website agent to post an announcement for Give Miami Day. The site has no donate page, so the agent asks for a link instead of inventing one. It shows a preview. Nothing goes live until Alex approves. After approval, it rebuilds the site and publishes it. The announcement is live on tidepathfamily.org.",
+   "captions": [
+    "The public website is also managed from *a Roomcord room*.",
+    "Alex asks the website agent to post *an announcement* for Give Miami Day.",
+    "The site has no donate page, so the agent *asks for a link* instead of inventing one.",
+    "It shows *a preview*.",
+    "Nothing goes live until *Alex approves*.",
+    "After approval, it *rebuilds the site* and publishes it.",
+    "The announcement is *live* on tidepathfamily.org."
+   ],
+   "parts": [
+    {
+     "type": "card",
+     "pre": true,
+     "eyebrow": "Website",
+     "title": "Update the public site from a *chat*",
+     "sub": "Alex asks, approves, and the banner goes live",
+     "name": false,
+     "plate": "skyline"
+    },
+    {
+     "type": "shot",
+     "layout": "desk1920",
+     "take": "web",
+     "eyebrow": "Roomcord · Website",
+     "who": "Staff workspace · room agent: Tidepath Website",
+     "beats": [
+      {
+       "sent": 0,
+       "a": 13.6,
+       "b": 15.0
+      },
+      {
+       "sent": 1,
+       "a": 15.0,
+       "b": 19.6,
+       "focus": [
+        460,
+        1018,
+        1912,
+        1072
+       ]
+      },
+      {
+       "sent": 2,
+       "freeze": 48.3,
+       "focus": [
+        513,
+        357,
+        1716,
+        448
+       ],
+       "w": 0.65
+      },
+      {
+       "sent": 2,
+       "a": 50.3,
+       "b": 52.3,
+       "focus": [
+        460,
+        1018,
+        1912,
+        1072
+       ],
+       "w": 0.35
+      },
+      {
+       "sent": 3,
+       "freeze": 65.2,
+       "focus": [
+        513,
+        558,
+        955,
+        757
+       ]
+      },
+      {
+       "sent": 4,
+       "a": 71.0,
+       "b": 72.2,
+       "focus": [
+        460,
+        1018,
+        1912,
+        1072
+       ]
+      },
+      {
+       "sent": 5,
+       "freeze": 102.8,
+       "focus": [
+        513,
+        686,
+        958,
+        960
+       ]
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "desk1920",
+     "take": "site_d",
+     "eyebrow": "Tidepath's public website",
+     "who": "tidepathfamily.org · desktop browser",
+     "beats": [
+      {
+       "sent": 6,
+       "a": 1.6,
+       "b": 6.0,
+       "focus": [
+        0,
+        0,
+        1920,
+        49
+       ],
+       "zoom": false,
+       "w": 0.55
+      }
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "phone",
+     "take": "site_p",
+     "eyebrow": "Tidepath's public website",
+     "who": "tidepathfamily.org · phone, 390 px",
+     "beats": [
+      {
+       "sent": 6,
+       "a": 1.4,
+       "b": 6.9,
+       "focus": [
+        0,
+        0,
+        780,
+        120
+       ],
+       "zoom": false,
+       "w": 0.45
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S12",
+   "narration": "It is all open source. Each agent is a flavor, a role with rules and skills, in one repository together with the portal and the CRM app.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "How it is built",
+     "title": "It is all *open source*",
+     "sub": "On GitHub: every agent, skill, the portal and the CRM app",
+     "name": false,
+     "plate": "skyline",
+     "sents": [
+      0
+     ]
+    },
+    {
+     "type": "shot",
+     "layout": "gh",
+     "take": "t9",
+     "eyebrow": "GitHub · donor-engagement-2026",
+     "who": "Source code for the whole demo",
+     "beats": [
+      {
+       "sent": 1,
+       "w": 0.4,
+       "a": 4.4,
+       "b": 8.4,
+       "focus": [
+        33,
+        380,
+        935,
+        690
+       ]
+      },
+      {
+       "sent": 1,
+       "w": 0.6,
+       "a": 14.0,
+       "b": 19.0,
+       "focus": [
+        338,
+        175,
+        1262,
+        585
+       ]
+      }
+     ]
+    }
+   ],
+   "captions": [
+    "It is all *open source*.",
+    "Each agent is a *flavor*, a role with rules and skills, in one repository together with the portal and the CRM app."
+   ]
+  },
+  {
+   "id": "S13",
+   "narration": "Every detail entered once. Urgent needs seen the same day. Reports in minutes. And a person approves everything.",
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Tidepath, in short",
+     "title": "Every detail *entered once*",
+     "sub": "",
+     "name": false,
+     "plate": "office_b",
+     "sents": [
+      0
+     ]
+    },
+    {
+     "type": "card",
+     "eyebrow": "Tidepath, in short",
+     "title": "Urgent needs seen *the same day*",
+     "sub": "",
+     "name": false,
+     "plate": "skyline",
+     "sents": [
+      1
+     ]
+    },
+    {
+     "type": "card",
+     "eyebrow": "Tidepath, in short",
+     "title": "Reports in *minutes*",
+     "sub": "",
+     "name": false,
+     "plate": "office_a",
+     "sents": [
+      2
+     ]
+    },
+    {
+     "type": "card",
+     "eyebrow": "Tidepath, in short",
+     "title": "A person *approves everything*",
+     "sub": "",
+     "name": false,
+     "plate": "office_b",
+     "sents": [
+      3
+     ]
+    }
+   ]
+  }
+ ],
+ "clips": [
+  {
+   "name": "P5-volunteers",
+   "scenes": [
+    "S3",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "P1-programs",
+   "scenes": [
+    "S6"
+   ]
+  },
+  {
+   "name": "crm-app",
+   "scenes": [
+    "S7"
+   ]
+  },
+  {
+   "name": "P2-fundraising",
+   "scenes": [
+    "S8"
+   ]
+  },
+  {
+   "name": "P3-workshops",
+   "scenes": [
+    "S9"
+   ]
+  },
+  {
+   "name": "P4-counseling",
+   "scenes": [
+    "S10"
+   ]
+  },
+  {
+   "name": "P6-grants",
+   "scenes": [
+    "S11"
+   ]
+  },
+  {
+   "name": "source",
+   "scenes": [
+    "S12"
+   ]
+  },
+  {
+   "name": "portal",
+   "scenes": [
+    "S3",
+    "S9"
+   ],
+   "join": true
+  }
+ ]
+}

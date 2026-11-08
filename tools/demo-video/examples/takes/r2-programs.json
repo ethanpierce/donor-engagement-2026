@@ -1,0 +1,4 @@
+{"name": "r2", "steps": [
+ {"open_room": "Programs and mentoring"}, {"pause": 1.5},
+ {"say": "@Tidepath Programs who needs a call this week? Use week of 2026-09-28.", "wait_for": "Tidepath Programs"}, {"pause": 3},
+ {"say": "@Tidepath Programs draft the follow-up to Kevin's mother.", "wait_for": "Tidepath Programs", "timeout": 240}, {"pause": 5}]}

@@ -1,0 +1,15 @@
+<!doctype html>
+<!-- Caption card (frosted lower third). Placeholders: {{fonts}} {{tokens}} {{eyebrow}} {{caption}} {{who}}.
+     *word* in the caption becomes a lime accent. The renderer screenshots #wrap with a transparent background. -->
+<html><head><meta charset="utf-8">{{fonts}}<style>{{tokens}}
+#wrap{display:inline-block;padding:48px}
+.lt{max-width:900px;padding:19px 28px 21px;border-radius:18px;background:var(--surface);
+ box-shadow:0 22px 48px -16px rgba(8,0,36,.7),0 2px 8px rgba(8,0,36,.28),inset 0 0 0 1px rgba(255,255,255,.10)}
+.eb{font:700 15px/1 Montserrat,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.74);
+ display:flex;align-items:center;gap:11px;margin-bottom:13px;white-space:nowrap}
+.eb i{width:8px;height:8px;border-radius:2px;background:var(--lime);display:inline-block;flex:none}
+.cap{font:700 27px/1.28 Montserrat,sans-serif;color:#fff;letter-spacing:-.003em;text-wrap:balance}
+.who{font:500 18px/1.35 Inter,sans-serif;color:var(--muted);margin-top:11px}
+</style></head><body>
+<div id="wrap"><div class="lt"><div class="eb"><i></i>{{eyebrow}}</div><div class="cap">{{caption}}</div>{{who}}</div></div>
+</body></html>
