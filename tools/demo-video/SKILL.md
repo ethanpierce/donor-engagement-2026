@@ -5,23 +5,43 @@ description: Produce a narrated product demo video (1920x1080, brand cards, spot
 
 # Demo video kit
 
-Pipeline used for the Tidepath hackathon demo (v4). It turns real recordings into a narrated video where every
-scene is timed to its voiceover line. All scripts take paths as arguments or from a plan JSON; secrets come only
-from environment variables.
+Pipeline used for the Tidepath hackathon videos (main demo v5a, calendar app, Dots). It turns real recordings into a
+narrated video where every scene is timed to its voiceover line. All scripts take paths as arguments or from a plan
+JSON; secrets come only from environment variables.
+
+## Workflow
+
+Read [DECISIONS.md](DECISIONS.md) first: voice, pronunciation, honesty, data and recording rules, each with its reason.
+
+1. **Script review.** Write the narration per scene, mapped to the problem it solves. Review it with the user before
+   anything is recorded or rendered.
+2. **Data check.** Check that every line has data behind it. Back up the live DB, then add only the missing made-up rows.
+3. **Record.** App takes with `record_app.py`, phone takes last with `record_phone.py` (Steps 2-4 below).
+4. **Render.** Voice (`vo.py`), plan, `editor.py plan.json render mix clips` (Steps 5-8).
+5. **Verify.** `verify.py out --sheet --stt`: format, -16 LUFS, true peak, subtitles, frames, STT of every line (Step 9).
+6. **YouTube text.** Title, description that links the companion videos, chapters, tags (Step 10).
+
+Examples: [tidepath-main.plan.json](examples/tidepath-main.plan.json) (main demo v5a, 5:30, section title cards, music
+bed settings), [tidepath-calendar.plan.json](examples/tidepath-calendar.plan.json) (a 48 s companion video from one
+long take), [dots-screen-recording.md](examples/dots-screen-recording.md) (edit of someone else's near-square screen
+recording with sped-up waits), `tidepath.plan.json` (v4, with a disabled ready-to-insert scene and clips).
 
 ```
 scripts/
   record_app.py     Roomcord desktop take (1440x900 WebM) from a JSON step list; waits for real, finished agent replies
   record_phone.py   phone take of a public page at 390x844 CSS / 2x (780x1688 MP4); can answer form POSTs locally
   clean_room.sh     delete earlier takes from a room through the API delete route
-  overlays.py       renders templates/*.html (caption cards, scene cards) to transparent PNGs with Playwright
-  comp.py           compositor: framed app window on the brand plate, light zoom, spotlight + lime ring, captions, cards
-  vo.py             TTS per scene (HeyGen default, Gemini or ElevenLabs fallback), voice trials, loudness + sentence timings, STT check
-  music.py          generate the music bed (fal), analyse loudness/spectrum, Gemini listening check
+  overlays.py       renders templates/*.html (caption cards, scene cards, speed badge) to transparent PNGs with Playwright
+  comp.py           compositor: framed app window on the brand plate, light zoom, spotlight + lime ring, captions, cards,
+                    speed badge, "pan" layout for large or near-square sources
+  vo.py             TTS per scene (HeyGen default, Gemini or ElevenLabs fallback), voice trials, loudness + sentence timings,
+                    STT check, per-line re-render (line) and cut (drop)
+  music.py          generate the music bed (fal), analyse loudness/spectrum/opening, Gemini listening check, bed trim + loop
   editor.py         plan + takes + voice -> final MP4, SRT, clips (render | mix | clips | plan; --only ID for one scene as a clip)
-  verify.py         format, loudness, true peak, subtitle rules, contact sheet, full frames, STT of the mix
-templates/          tokens.css, lower-third.html (caption card), scene-card.html
-examples/           tidepath.plan.json (full scene plan with narration, incl. a disabled ready-to-insert scene), takes/*.json
+  verify.py         format, loudness (-16 LUFS +-1), true peak, subtitle rules, contact sheet, full frames, STT of the mix
+templates/          tokens.css, lower-third.html (caption card), scene-card.html, speed-badge.html
+examples/           plans and notes, see Workflow; takes/*.json (record_app and record_phone step lists)
+DECISIONS.md        the rules from the Tidepath videos, with reasons
 style-guide.md      visual and audio rules
 ```
 
@@ -44,13 +64,17 @@ Env vars (never write them into files):
 
 ## Steps
 
-Work in a project folder outside git (for example `~/Movies/<name>/build`) and copy `examples/tidepath.plan.json`
+Work in a project folder outside git (for example `~/Movies/<name>/build`) and copy `examples/tidepath-main.plan.json`
 there as `plan.json`. Paths in the plan are relative to it.
 
 1. **Write the narration first.** One line per scene in `plan.json` (`scenes[].narration`). Short sentences, one
    idea each; every sentence becomes one caption. Plan each scene's parts: an optional 1.6 s `pre` card, `card`
    parts bound to sentences, and `shot` parts with beats per sentence (`freeze` time or `a`..`b` range, a `focus`
    rect in source pixels or `{"bubble": "bot"|"me"|"white", "index": n}`, a weight `w`).
+   **Section title cards:** a `card` part with `"pre": true` (eyebrow "P5 · Problem five", short title, one lime
+   phrase) opens the scene for `timing.pre_card` seconds (1.5 s in v5) while the line starts with "Problem five: ...".
+   Shot layouts: `desk` (1440x900 app take), `desk1920`, `phone` (780x1688 take), `gh` (GitHub page), and `pan` for a
+   large or near-square source, where each beat takes `"view": [cx, cy, w]` in source px.
 2. **Prepare the app state.** Reset app data the take changes (for example room-app decisions) before and after
    the take. Delete earlier takes of the same flow with `clean_room.sh`, so the room history looks natural. Use
    fresh input values (dates, names) that the app has not seen, or agents answer "already done". Agents keep
@@ -68,32 +92,41 @@ there as `plan.json`. Paths in the plan are relative to it.
    Set `voice` in the plan, then `vo.py plan.json tts`, `vo.py plan.json check` (re-generate any scene below
    0.95 match, and any scene where a product name is mispronounced), and `vo.py plan.json align` (writes
    `vo/n_<scene>.wav` at -16 LUFS and `vo/timing.json`). Re-generating one scene: delete `vo/<id>.wav`, run `tts <id>`
-   and `align <id>`; the editor re-times that scene.
+   and `align <id>`; the editor re-times that scene. Changing one sentence: edit it in the narration, then
+   `vo.py plan.json line <id> <n>` (only that sentence is new). Removing one: remove it from the narration, caption and
+   beats, then `vo.py plan.json drop <id> <n>`. New sentences that start a new topic go in a new scene (`tts <id>`).
+   Never speed the voice past 1.08x; make the scene longer.
 6. **Music.** `music.py plan.json generate music/bed.mp3` (prompt in the plan), then `music.py analyse` and
-   `music.py listen` on each candidate. Keep a bed with no vocals, steady level, low 2-5 kHz presence, and a length
-   longer than the video.
+   `music.py listen` on each candidate. Keep a bed with no vocals, steady level and low 2-5 kHz presence. In the plan
+   `project`: `music_start` skips a near-silent opening (read the "opening" row of `analyse`), `music_end` cuts before a
+   fade-out ending, and `music_bpm` makes the loop bar-aligned when the video is longer than the bed. The bed plays
+   from the first frame (`music_fade_in`, 0.3 s), under the intro and outro cards at the same level, and ducks under
+   the voice. `mix` sets the master gain so the result is at `loudness` (-16 LUFS); `MASTER_GAIN_DB=<dB>` forces a gain.
 7. **Plates.** Put three 1920x1080 brand photo plates in `plates/` (`skyline.png`, `office_a.png`, `office_b.png`,
    for example frames grabbed from the intro and outro). Without them the cards use a violet gradient.
 8. **Edit.** `editor.py plan.json plan` prints the timeline. Then `editor.py plan.json render mix clips`.
-   Segments cache in `work/seg`; change one scene and only that scene re-renders.
+   Segments cache in `work/seg`; change one scene and only that scene re-renders. Frame counts carry rounding across
+   beats, so a shot with many short beats keeps its planned length. For sped-up footage set
+   `"speed_badge_min": 2` in `project`: `a..b` beats at 2x or faster show a "N× SPEED" badge (`"badge": false` hides it).
 9. **Verify.** `verify.py out --sheet --stt`. Read the contact sheet and the five full frames: English UI only, no
    Thinking bubbles, no title overlap, sidebar, header and navigation readable. Read the STT transcript: complete
    narration, no word masked by music. Fix and re-run.
 10. **Export for YouTube.** The MP4 is upload-ready (H.264 High, AAC 192k, faststart). Upload the `.srt` as the
     English subtitle track. Write `youtube.md` with a title, a description of about 150 words, chapter timestamps
-    from `work/plan.json` (`scenes[id][0]`, first chapter at 0:00), and tags. Do not commit media to git.
+    from `work/plan.json` (`scenes[id][0]`, first chapter at 0:00), and tags. Link the companion videos in each
+    description. Do not commit media to git. Before you replace an output, copy it to `_<name>-backup/` next to it.
 
-## Model choices (Tidepath v4)
+## Model choices (Tidepath v5)
 
-- Voice (default): HeyGen TTS, voice `Marina` (`c5ee8a405d7e460380cdb8e368a1cbff`), the voice of the account's
-  earlier English videos, through `POST /v1/audio/text_to_speech` (`model: "legacy"` in the plan). HeyGen marks this
-  route legacy; for v3 voices set `model` to `heygen-voice-1` (or `heygen-voice-1-turbo-free`) and a v3 voice id.
-  If neither works, render a voice-only video with `POST /v2/video/generate` (color background) and extract the audio.
-- Voice (fallback, in `voice.fallback`): Gemini TTS `gemini-2.5-pro-preview-tts`, voice `Sulafat`, with the style
-  prefix. In blind listening checks it was rated warmer and more natural than Marina and than ElevenLabs
-  multilingual v2 `Sarah`, `Brian` and `Alice`.
+- Voice (default): HeyGen TTS, voice `Marshall` (`1c7ede0bc6ed48f2891b74424b2f1fe3`), a native US male voice,
+  through `POST /v1/audio/text_to_speech` (`model: "legacy"` in the plan). `Marina` (`c5ee8a405d7e460380cdb8e368a1cbff`,
+  used in v4) was rejected as not US native. HeyGen marks this route legacy; for v3 voices set `model` to
+  `heygen-voice-1` (or `heygen-voice-1-turbo-free`) and a v3 voice id. If neither works, render a voice-only video
+  with `POST /v2/video/generate` (color background) and extract the audio.
+- Voice (fallback): Gemini TTS `gemini-2.5-pro-preview-tts`, voice `Sulafat`, with a style prefix (see `tidepath.plan.json`).
 - Music: ElevenLabs Music via fal (`fal-ai/elevenlabs/music`, 300 s, `force_instrumental`), prompt in the plan.
-  It beat Stable Audio 2.5 (`fal-ai/stable-audio-25/text-to-audio`), which was brighter in the voice band.
+  It beat Stable Audio 2.5 (`fal-ai/stable-audio-25/text-to-audio`), which was brighter in the voice band. The
+  Tidepath bed: `music_start` 2.3, `music_end` 280, `music_bpm` 84.
 - Sentence timing: faster-whisper `small.en` word timestamps aligned to the script.
 
 ## Inserting a ready scene
@@ -107,3 +140,5 @@ only the new scene, the final assembly, the mix and the clips are rebuilt.
 
 - `comp.bubbles()` finds chat bubbles by Roomcord's colors; other apps need rect focus values.
 - Covers paint over small UI text in source pixels; use them only for noise such as system previews.
+- The editor fits footage into the line: a long `a..b` range plays faster. When an action needs more time than its
+  line, split it into weighted beats, cut the range shorter, or add a sentence; do not speed up the voice.

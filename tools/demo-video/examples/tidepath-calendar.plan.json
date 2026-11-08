@@ -1,0 +1,223 @@
+{
+ "project": {
+  "name": "tidepath-calendar-app",
+  "out_dir": "out",
+  "work_dir": "work",
+  "plates_dir": "plates",
+  "vo_dir": "vo",
+  "intro": "assets/intro.mp4",
+  "outro": "assets/outro.mp4",
+  "music": "music/bed.mp3",
+  "music_start": 2.3,
+  "music_end": 280,
+  "music_bpm": 84,
+  "music_gain_db": -8.5,
+  "duck_threshold": 0.05,
+  "loudness": -16
+ },
+ "voice": {
+  "provider": "heygen",
+  "model": "legacy",
+  "voice": "1c7ede0bc6ed48f2891b74424b2f1fe3",
+  "name": "Marshall"
+ },
+ "timing": {
+  "xfade": 0.3,
+  "lead": 0.25,
+  "tail_gap": 1.0,
+  "pre_card": 1.6
+ },
+ "takes": {
+  "cal": "takes/cal.mp4"
+ },
+ "clips": [],
+ "scenes": [
+  {
+   "id": "C1",
+   "narration": "Alex needs the workshop planning calls on a calendar. Tidepath has no calendar app.",
+   "captions": [
+    "Alex needs the workshop planning calls *on a calendar*.",
+    "Tidepath has *no calendar app*."
+   ],
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Workshop requests",
+     "title": "Planning calls need *a calendar*",
+     "sub": "Tidepath has no calendar app",
+     "name": false,
+     "plate": "office_a",
+     "sents": [
+      0,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C2",
+   "narration": "So Alex asks the workshop agent in plain chat, in the Workshop requests room. The agent builds a calendar mini-app for the room and saves it as a draft.",
+   "captions": [
+    "So Alex asks the workshop agent *in plain chat*, in the Workshop requests room.",
+    "The agent builds *a calendar mini-app* for the room and saves it as a draft."
+   ],
+   "parts": [
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "cal",
+     "eyebrow": "Roomcord · Workshop requests",
+     "who": "Alex asks · room agent: Tidepath Workshops",
+     "beats": [
+      {
+       "sent": 0,
+       "a": 16.2,
+       "b": 29.6,
+       "focus": [
+        417,
+        838,
+        1432,
+        892
+       ]
+      },
+      {
+       "sent": 1,
+       "freeze": 232.0,
+       "focus": {
+        "bubble": "bot",
+        "index": -1
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C3",
+   "narration": "Alex reviews the app and approves it. The calendar opens as a tab in the room.",
+   "captions": [
+    "Alex *reviews* the app and *approves* it.",
+    "The calendar opens as *a tab in the room*."
+   ],
+   "parts": [
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "cal",
+     "eyebrow": "Roomcord · Workshop requests",
+     "who": "Room admin review · nothing installs without approval",
+     "beats": [
+      {
+       "sent": 0,
+       "w": 0.35,
+       "a": 664.6,
+       "b": 672.0,
+       "focus": [
+        605,
+        590,
+        1244,
+        900
+       ]
+      },
+      {
+       "sent": 0,
+       "w": 0.65,
+       "a": 676.6,
+       "b": 686.0,
+       "focus": [
+        440,
+        156,
+        1000,
+        744
+       ]
+      },
+      {
+       "sent": 1,
+       "w": 0.4,
+       "freeze": 701.0,
+       "focus": [
+        1105,
+        213,
+        1270,
+        258
+       ]
+      },
+      {
+       "sent": 1,
+       "w": 0.6,
+       "freeze": 701.0,
+       "focus": [
+        425,
+        270,
+        1430,
+        830
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C4",
+   "narration": "The planning calls for the workshop requests are on their days, next to the workshop dates.",
+   "captions": [
+    "The *planning calls* for the workshop requests are on their days, next to the workshop dates."
+   ],
+   "parts": [
+    {
+     "type": "shot",
+     "layout": "desk",
+     "take": "cal",
+     "eyebrow": "Workshop Calendar · a room app",
+     "who": "Built by Tidepath Workshops · made-up demo data",
+     "beats": [
+      {
+       "sent": 0,
+       "w": 0.55,
+       "freeze": 712.0,
+       "focus": [
+        575,
+        400,
+        1135,
+        600
+       ]
+      },
+      {
+       "sent": 0,
+       "w": 0.45,
+       "freeze": 712.0,
+       "focus": [
+        855,
+        500,
+        1416,
+        665
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C5",
+   "narration": "Alex asked in chat. The agent built the tool, and Alex approved it.",
+   "captions": [
+    "Alex asked *in chat*.",
+    "The agent built the tool, and Alex *approved it*."
+   ],
+   "parts": [
+    {
+     "type": "card",
+     "eyebrow": "Tidepath, in short",
+     "title": "Asked in chat. *Built in the room.*",
+     "sub": "",
+     "name": false,
+     "plate": "skyline",
+     "sents": [
+      0,
+      1
+     ]
+    }
+   ]
+  }
+ ]
+}

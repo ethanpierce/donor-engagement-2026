@@ -9,11 +9,15 @@ Scenes with "enabled": false are skipped in the full video (use them as ready-to
 Timing model (see SKILL.md): each scene lasts LEAD + narration + TAIL_GAP seconds, scenes crossfade XF seconds.
 Inside a scene, every sentence gets its own caption and shot beats; beats fill the sentence time by weight.
 Paths in the plan are relative to the plan file. vo/timing.json comes from vo.py.
+Mix: the music bed is built from project.music (music_start, music_end, music_bpm, see music.py), plays from the
+first frame (music_fade_in, default 0.3 s, so it sits under the intro card at the same level as under the outro),
+ducks under the voice, and the master gain is set so the mix reaches project.loudness (default -16 LUFS).
+MASTER_GAIN_DB=<dB> in the environment skips the measurement and uses that gain.
 """
-import json, os, subprocess, sys
+import json, os, re, subprocess, sys
 from multiprocessing import Pool
-import overlays, comp
-from overlays import lt_spec, card_spec, plain
+import overlays, comp, music
+from overlays import lt_spec, card_spec, badge_spec, plain
 
 def load(plan_path):
     P = json.load(open(plan_path)); base = os.path.dirname(os.path.abspath(plan_path))
@@ -22,7 +26,9 @@ def load(plan_path):
     cfg = dict(base=base, out=R(pr['out_dir']), work=R(pr['work_dir']), plates=R(pr.get('plates_dir')), intro=R(pr.get('intro')),
                outro=R(pr.get('outro')), music=R(pr.get('music')), vo=R(pr['vo_dir']), name=pr['name'],
                gain=float(pr.get('music_gain_db', -8.5)), duck=float(pr.get('duck_threshold', 0.05)), cover_font=R(pr.get('cover_font')),
-               takes={k: R(v) for k, v in P.get('takes', {}).items()}, templates=R(pr.get('templates_dir')))
+               takes={k: R(v) for k, v in P.get('takes', {}).items()}, templates=R(pr.get('templates_dir')),
+               m_start=float(pr.get('music_start', 0.0)), m_end=pr.get('music_end'), m_bpm=pr.get('music_bpm'),
+               m_fade=float(pr.get('music_fade_in', 0.3)), lufs=pr.get('loudness', -16.0), badge_min=pr.get('speed_badge_min'))
     t = P.get('timing', {})
     cfg.update(XF=t.get('xfade', 0.3), LEAD=t.get('lead', 0.25), TAIL=t.get('tail_gap', 0.42), PRE=t.get('pre_card', 1.6))
     return P, cfg
@@ -81,7 +87,13 @@ def plan(P, cfg, only=None):
                         f = focus_of(b.get('focus'))
                         if f is not None: bd['focus'] = f
                         if p.get('covers'): bd['covers'] = p['covers']
-                        bd['dur'] = round((hi - lo) * b.get('w', 1) / Wt, 3); bd['cap'] = caps[j]; bts.append(bd)
+                        bd['dur'] = round((hi - lo) * b.get('w', 1) / Wt, 3); bd['cap'] = caps[j]
+                        if 'view' in b: bd['view'] = b['view']
+                        if isinstance(b.get('badge'), str): bd['badge'] = b['badge']
+                        elif cfg['badge_min'] and b.get('badge', True) and b.get('freeze') is None and 'a' in b:
+                            sp = (b['b'] - b['a']) / bd['dur']   # sped-up range: show "N× speed"
+                            if sp >= cfg['badge_min']: bd['badge'] = f'{sp:.0f}×'
+                        bts.append(bd)
                 bts[-1]['dur'] = round(bts[-1]['dur'] + XF, 3)
                 it = dict(kind='shot', layout=p['layout'], src=cfg['takes'][p['take']], eb=p['eyebrow'], who=p.get('who', ''), beats=bts)
             items.append(dict(kind='r', start=T + s0, dur=d, item=it, scene=k)); cur = s1
@@ -126,23 +138,41 @@ def render_video(items, total, path, XF):
     subprocess.run(args + ['-filter_complex', ';'.join(fc), '-map', f'[{prev}]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '20',
                            '-pix_fmt', 'yuv420p', '-r', '30', '-t', f'{total:.3f}', path], check=True)
 
+def lufs(f):
+    e = subprocess.run(['ffmpeg', '-nostats', '-i', f, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr.split('Summary')[-1]
+    return float(re.search(r'I:\s+(-?[\d.]+) LUFS', e).group(1))
+
 def mix_audio(cfg, voice, total, path):
-    """Voice track (scene files already at -16 LUFS), music bed ducked ~6 dB under it with fades, true-peak limited."""
+    """Voice track (scene files already at -16 LUFS), music bed ducked ~6 dB under it with fades, master gain to the
+    loudness target, true-peak limited."""
     W = os.path.dirname(path); vo, mu = f'{W}/voice.wav', f'{W}/music_ducked.wav'
     args = ['ffmpeg', '-v', 'error', '-y']
     for k, t in voice: args += ['-i', os.path.join(cfg['vo'], f'n_{k}.wav')]
     fc = [f'[{i}:a]aresample=48000,aformat=channel_layouts=mono,adelay={int(round(t * 1000))}:all=1[d{i}]' for i, (k, t) in enumerate(voice)]
     fc.append(''.join(f'[d{i}]' for i in range(len(voice))) + f'amix=inputs={len(voice)}:normalize=0,apad=whole_dur={total:.3f},atrim=0:{total:.3f},aformat=channel_layouts=stereo[o]')
     subprocess.run(args + ['-filter_complex', ';'.join(fc), '-map', '[o]', '-ar', '48000', '-c:a', 'pcm_s24le', vo], check=True)
-    if not cfg['music']:
-        os.replace(vo, path); return
-    fc = [f'[0:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.3f},asetpts=PTS-STARTPTS,volume={cfg["gain"]}dB,'
-          f'afade=t=in:st=0:d=2.0,afade=t=out:st={total - 3.5:.3f}:d=3.5[m]', '[1:a]highpass=f=120[sc]',
-          f'[m][sc]sidechaincompress=threshold={cfg["duck"]}:ratio=3:attack=80:release=700:knee=3:makeup=1[o]']
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', cfg['music'], '-i', vo, '-filter_complex', ';'.join(fc), '-map', '[o]', '-ar', '48000', '-c:a', 'pcm_s24le', mu], check=True)
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', vo, '-i', mu, '-filter_complex',
-                    '[0:a][1:a]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.82:attack=3:release=60:level=disabled[o]',
-                    '-map', '[o]', '-ar', '48000', '-c:a', 'pcm_s16le', path], check=True)
+    if cfg['music']:
+        bed = f'{W}/bed.wav'
+        info = music.bed(cfg['music'], bed, total + 1.0, cfg['m_start'], cfg['m_end'], cfg['m_bpm'])
+        print('music bed', info, flush=True)
+        fc = [f'[0:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.3f},asetpts=PTS-STARTPTS,volume={cfg["gain"]}dB,'
+              f'afade=t=in:st=0:d={cfg["m_fade"]},afade=t=out:st={total - 3.5:.3f}:d=3.5[m]', '[1:a]highpass=f=120[sc]',
+              f'[m][sc]sidechaincompress=threshold={cfg["duck"]}:ratio=3:attack=80:release=700:knee=3:makeup=1[o]']
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', bed, '-i', vo, '-filter_complex', ';'.join(fc), '-map', '[o]', '-ar', '48000', '-c:a', 'pcm_s24le', mu], check=True)
+        pre = f'{W}/premix.wav'
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', vo, '-i', mu, '-filter_complex', '[0:a][1:a]amix=inputs=2:normalize=0:duration=first[o]',
+                        '-map', '[o]', '-ar', '48000', '-c:a', 'pcm_s24le', pre], check=True)
+    else: pre = vo
+    # master gain to the loudness target, then the true-peak limiter (it lowers loudness a little: measure and correct once)
+    fixed = os.environ.get('MASTER_GAIN_DB'); target = cfg['lufs']
+    g = float(fixed) if fixed is not None else (target - lufs(pre) if target is not None else 0.0)
+    for _ in range(2):
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pre, '-af', f'volume={g:.2f}dB,alimiter=limit=0.82:attack=3:release=60:level=disabled',
+                        '-ar', '48000', '-c:a', 'pcm_s16le', path], check=True)
+        got = lufs(path)
+        if fixed is not None or target is None or abs(got - target) <= 0.2: break
+        g += target - got
+    print(f'mix: master gain {g:+.2f} dB, {got:.1f} LUFS', flush=True)
 
 def mux(video, audio, srt, out, ss=None, to=None):
     pre = ['-ss', f'{ss:.3f}', '-to', f'{to:.3f}'] if ss is not None else []
@@ -176,6 +206,7 @@ def main():
     for it in rend:
         x = it['item']
         specs += [x['spec']] if x['kind'] == 'card' else [lt_spec(b.get('eb', x['eb']), b['cap'], b.get('who', x['who'])) for b in x['beats']]
+        specs += [badge_spec(b['badge']) for b in x.get('beats', []) if b.get('badge')]
     overlays.render(specs)
     if 'render' in steps:
         with Pool(int(os.environ.get('JOBS', '6')), initializer=_init, initargs=(seg, cfg['plates'], cfg['cover_font'], ovc, cfg['templates'])) as pool:

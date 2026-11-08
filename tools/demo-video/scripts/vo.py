@@ -4,6 +4,13 @@
   python3 vo.py PLAN.json tts [S1 S2 ...]                             # write <vo_dir>/<id>.wav (skips existing files)
   python3 vo.py PLAN.json align [S1 ...]                              # trim, -16 LUFS, word timestamps -> timing.json
   python3 vo.py PLAN.json check                                       # Gemini STT per scene vs. the script
+  python3 vo.py PLAN.json line S5 2                                   # re-render sentence 2 of S5 only, splice it in, re-align S5
+  python3 vo.py PLAN.json drop S5 2                                   # cut sentence 2 (old timing) out of S5, re-align S5
+
+Per-line edits keep the other sentences of the scene as they are (same takes, same pauses). For `line`, change the
+sentence in the plan narration first (the sentence count must stay the same). For `drop`, remove the sentence from
+the narration (and its caption and beats) first; the cut uses the old timing.json, so run it before `align`.
+The scene's previous source file is kept as <id>.prev.wav.
 
 Env: HEYGEN_API_KEY (default TTS), GEMINI_API_KEY (fallback TTS, STT and listening checks), FAL_KEY (ElevenLabs TTS via fal).
 Plan "voice": {"provider": "heygen"|"gemini"|"elevenlabs", "model": ..., "voice": ..., "style": optional prompt prefix (Gemini only)}.
@@ -132,10 +139,55 @@ def cmd_check(P, vo):
         r = difflib.SequenceMatcher(None, norm(s['narration']), norm(t)).ratio()
         print(s['id'], round(r, 3), '' if r > 0.95 else '| ' + t.strip())
 
+def _pcm(f):
+    import numpy as np
+    return np.frombuffer(run_b('ffmpeg', '-v', 'error', '-i', f, '-ac', '1', '-ar', '48000', '-f', 'f32le', '-'), np.float32).copy()
+def run_b(*a): return subprocess.run(a, capture_output=True, check=True).stdout
+def _write(x, out):
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', '48000', '-ac', '1', '-i', '-', '-c:a', 'pcm_s16le', out], input=x.tobytes(), check=True)
+def _lufs(x):
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix='.wav') as t:
+        _write(x, t.name); e = run('ffmpeg', '-nostats', '-i', t.name, '-af', 'ebur128', '-f', 'null', '-').stderr.split('Summary')[-1]
+    return float(re.search(r'I:\s+(-?[\d.]+) LUFS', e).group(1))
+def _join(parts, fade=0.005):
+    """Concatenate mono 48 kHz pieces with 5 ms fades at each cut (no clicks)."""
+    import numpy as np
+    n = int(48000 * fade); out = []
+    for p in parts:
+        p = p.copy()
+        if len(p) > 2 * n: p[:n] *= np.linspace(0, 1, n, dtype=np.float32); p[-n:] *= np.linspace(1, 0, n, dtype=np.float32)
+        out.append(p)
+    return np.concatenate(out)
+
+def cmd_edit(P, vo, k, j, mode):
+    """Splice one sentence of scene k in the trimmed take t_<k>.wav, using the spans in timing.json."""
+    import numpy as np
+    tim = json.load(open(os.path.join(vo, 'timing.json')))[k]['sents']; sc = next(s for s in P['scenes'] if s['id'] == k)
+    t = _pcm(os.path.join(vo, f't_{k}.wav')); at = lambda x: int(round(x * 48000))
+    if mode == 'line':
+        new = sents(sc['narration'])
+        if len(new) != len(tim): raise SystemExit(f'{k}: narration has {len(new)} sentences, timing has {len(tim)}; use drop for removed sentences')
+        a, b = tim[j][0], tim[j][1]; raw = os.path.join(vo, f'_line_{k}_{j}.wav'); v = P['voice']
+        tts(v['provider'], v['model'], v['voice'], new[j], raw, v.get('style', ''))
+        run('ffmpeg', '-v', 'error', '-y', '-i', raw, '-af', 'silenceremove=start_periods=1:start_threshold=-48dB:start_silence=0.04,areverse,'
+            'silenceremove=start_periods=1:start_threshold=-48dB:start_silence=0.06,areverse,aresample=48000', raw + '.t.wav')
+        x = _pcm(raw + '.t.wav'); x *= np.float32(10 ** ((_lufs(t[at(a):at(b)]) - _lufs(x)) / 20))   # match the old sentence level
+        y = _join([t[:at(a)], x, t[at(b):]]); os.remove(raw); os.remove(raw + '.t.wav')
+    else:   # drop: keep the pause before sentence j, remove the sentence and the pause after it
+        y = _join([t[:at(tim[j][0])], t[at(tim[j + 1][0]):]]) if j + 1 < len(tim) else t[:at(tim[j - 1][1]) + at(0.3)]
+        left = [x[2] for i, x in enumerate(tim) if i != j]
+        if left != sents(sc['narration']): print(f'WARNING: {k}: remaining sentences differ from the plan narration', left)
+    src = os.path.join(vo, f'{k}.wav')
+    if os.path.exists(src): os.replace(src, os.path.join(vo, f'{k}.prev.wav'))
+    _write(y, src); print(k, mode, j, round(len(y) / 48000, 2), 's', flush=True)
+    cmd_align(P, vo, [k])
+
 if __name__ == '__main__':
     P, vo = load(sys.argv[1]); c = sys.argv[2]
     if c == 'trial': cmd_trial(P, vo, sys.argv[3], sys.argv[4:])
     elif c == 'tts': cmd_tts(P, vo, sys.argv[3:])
     elif c == 'align': cmd_align(P, vo, sys.argv[3:])
     elif c == 'check': cmd_check(P, vo)
+    elif c in ('line', 'drop'): cmd_edit(P, vo, sys.argv[3], int(sys.argv[4]), c)
     else: raise SystemExit(__doc__)

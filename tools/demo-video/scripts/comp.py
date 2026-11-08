@@ -2,7 +2,7 @@
 import json, math, os, subprocess, hashlib
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
-from overlays import path_of, lt_spec, card_spec
+from overlays import path_of, lt_spec, card_spec, badge_spec
 
 W, H, FPS = 1920, 1080, 30
 DEEP = np.array([30, 9, 87], np.float32); VIOLET = np.array([94, 40, 210], np.float32); LIME = np.array([179, 229, 27], np.float32)
@@ -43,10 +43,10 @@ def plate_c(name):
     return _PL[name]
 
 # ---------- source frames ----------
-def frames(src, a, b):
-    """Decode src from a to b at 30 fps, returns list of RGB uint8 arrays."""
+def frames(src, a, b, fps=30):
+    """Decode src from a to b at fps (default 30), returns list of RGB uint8 arrays."""
     w, h = probe_size(src)
-    p = subprocess.run(['ffmpeg', '-v', 'error', '-ss', f'{a:.3f}', '-i', src, '-t', f'{b - a:.3f}', '-vf', 'fps=30',
+    p = subprocess.run(['ffmpeg', '-v', 'error', '-ss', f'{a:.3f}', '-i', src, '-t', f'{b - a:.3f}', '-vf', f'fps={fps:.6f}',
                         '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True, check=True).stdout
     n = len(p) // (w * h * 3)
     return [np.frombuffer(p, np.uint8, w * h * 3, i * w * h * 3).reshape(h, w, 3) for i in range(max(n, 1))] if n else [frame_at(src, a)]
@@ -107,6 +107,9 @@ LAYOUT = {
     'gh': dict(win=(160, 95, 160 + 1600, 95 + 890), crop=(1280, 712), r=16, zmax=1.10),
     'desk1920': dict(win=(96, 54, 96 + 1728, 54 + 972), crop=(1920, 1080), r=16, zmax=1.08),   # app recorded at 1920x1080
     'phone': dict(win=(830, 60, 830 + 468, 60 + 960), crop=(780, 1600), r=38, zmax=1.0),
+    # Large or near-square source (e.g. a 2404x2258 screen recording): each beat shows a source "view" [cx, cy, w]
+    # in source px (height follows the window aspect); the view eases between beats. No zoom on top of it.
+    'pan': dict(win=(160, 40, 160 + 1600, 40 + 1000), crop=(1600, 1000), r=16, zmax=1.0, pan=True),
 }
 _BG = {}
 def background(kind):
@@ -183,7 +186,7 @@ def lt_body(meta, corner):
 def overlap(a, b):
     return max(0, min(a[2], b[2]) - max(a[0], b[0])) * max(0, min(a[3], b[3]) - max(a[1], b[1]))
 # Source-pixel areas the caption should not cover: sidebar (incl. bottom navigation) and the room header + tabs.
-PROTECT = {'desk': [(0, 0, 410, 900), (410, 0, 1440, 105)], 'desk1920': [(0, 0, 252, 1080), (252, 0, 1920, 130)], 'gh': [(0, 0, 1280, 64)], 'phone': []}
+PROTECT = {'desk': [(0, 0, 410, 900), (410, 0, 1440, 105)], 'desk1920': [(0, 0, 252, 1080), (252, 0, 1920, 130)], 'gh': [(0, 0, 1280, 64)], 'phone': [], 'pan': []}
 def pick_corner(meta, focus_screen, prev, protect_screen=()):
     order = ([prev] if prev else []) + ['br', 'bl', 'tr', 'tl']
     best = None
@@ -229,6 +232,36 @@ def spotlight(fr, blurred, rects, a):
     fr = fr + (LIME - fr) * glow
     return fr
 
+# ---------- speed badge ----------
+def draw_badge(fr, spec, win, a):
+    """Small "4x speed" pill at the top-right corner inside the app window (screen rect win)."""
+    if a <= 0.003: return fr
+    o = lt_img(spec)[0]; h, w = o.shape[:2]
+    x, y = int(round(win[2] - w - 6)), int(round(win[1] + 4))
+    x0, y0, x1, y1 = max(0, x), max(0, y), min(W, x + w), min(H, y + h)
+    o = o[y0 - y:y1 - y, x0 - x:x1 - x]; al = o[..., 3:4] / 255 * a
+    fr[y0:y1, x0:x1] = fr[y0:y1, x0:x1] * (1 - al) + o[..., :3] * al
+    return fr
+
+# ---------- pan layout ----------
+def view_rect(v, sw, sh, cw, ch):
+    """[cx, cy, w] in source px -> (x0, y0, w), kept inside the source when it fits."""
+    cx, cy, w = v; h = w * ch / cw
+    x0 = clamp(cx - w / 2, 0, sw - w) if w <= sw else cx - w / 2
+    y0 = clamp(cy - h / 2, 0, sh - h) if h <= sh else cy - h / 2
+    return (x0, y0, w)
+def default_view(rects, sw, sh):
+    """Full source width, centred on the focus (or on the source)."""
+    if not rects: return (sw / 2, sh / 2, sw)
+    return (sw / 2, (min(r[1] for r in rects) + max(r[3] for r in rects)) / 2, sw)
+def view_map(v, r, cw):
+    x0, y0, w = v; s = cw / w
+    return ((r[0] - x0) * s, (r[1] - y0) * s, (r[2] - x0) * s, (r[3] - y0) * s)
+def view_crop(im, v, cw, ch):
+    x0, y0, w = v; s = cw / w
+    M = np.float32([[s, 0, -x0 * s], [0, s, -y0 * s]])
+    return cv2.warpAffine(im, M, (cw, ch), flags=cv2.INTER_AREA if s < 1 else cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+
 # ---------- encoder ----------
 class Enc:
     def __init__(s, out):
@@ -240,7 +273,7 @@ class Enc:
 
 # ---------- items ----------
 def key(*a): return hashlib.md5(json.dumps(a, sort_keys=True, default=str).encode()).hexdigest()[:12]
-VERSION = 'v4.3'
+VERSION = 'v4.4'
 
 def render_card(item, out):
     """item: dict(kind='card', spec, dur, plate)"""
@@ -278,11 +311,10 @@ def beat_frames(src, b):
     if b.get('freeze') is not None:
         return [frame_at(src, b['freeze'])] * N
     a, bb = b['a'], b['b']
-    fs = frames(src, a, bb)
-    sp = max(b.get('minsp', 1.0), len(fs) / max(N, 1))
-    n = min(N, int(len(fs) / sp))
-    out = [fs[min(len(fs) - 1, int(round(i * sp)))] for i in range(n)]
-    out += [fs[-1]] * (N - n)
+    sp = max(b.get('minsp', 1.0), (bb - a) * FPS / max(N, 1))   # speed-up that fits the range into the beat
+    fs = frames(src, a, bb, FPS / sp)                              # decode only the frames that are shown
+    out = fs[:N]
+    out += [out[-1]] * (N - len(out))
     return out
 
 def resolve_focus(src, b):
@@ -300,20 +332,29 @@ def render_shot(item, out):
     bg = background(kind); x0, y0, x1, y1 = L['win']; cw, ch = L['crop']
     pre = (x1 - x0) / cw   # source px -> layout px
     e = Enc(out)
-    prev_cam = None; prev_rects = []; prev_lt = None; prev_corner = None; T = 0.0
+    pan = L.get('pan'); sw, sh = probe_size(src) if pan else (cw, ch); prev_view = None; prev_badge = None
+    prev_cam = None; prev_rects = []; prev_lt = None; prev_corner = None; T = 0.0; cum = 0.0
     for bi, b in enumerate(item['beats']):
-        fs = beat_frames(src, b); n = len(fs)
+        # carry frame rounding across beats, so many short beats do not drift from the planned shot length
+        cum += b['dur']; nb = int(round(cum * FPS)) - int(round(T * FPS))
+        fs = beat_frames(src, dict(b, dur=nb / FPS)); n = len(fs)
         rects_src = resolve_focus(src, b)
-        target = cam_for(kind, rects_src, b.get('zoom', True))
+        if pan:
+            view = view_rect(b.get('view') or default_view(rects_src, sw, sh), sw, sh, cw, ch)
+            vstart = prev_view or view; vmove = 0.8 if vstart != view else 0.0
+            rects_v = [view_map(view, r, cw) for r in rects_src]
+        else: rects_v = rects_src; vmove = 0.0
+        target = cam_for(kind, rects_v, b.get('zoom', True))
         if prev_cam is None:
             start = (1.0, W / 2, H / 2) if target[0] > 1.04 else clamp_cam((target[0] * 0.975, target[1], target[2]))
         else: start = prev_cam
-        lr = [to_layout(kind, r) for r in rects_src]
+        lr = [to_layout(kind, r) for r in rects_v]
+        badge = badge_spec(b['badge']) if b.get('badge') else None
         spec = lt_spec(b.get('eb', item['eb']), b['cap'], b.get('who', item['who']))
         _, meta = lt_img(spec)
         corner = pick_corner(meta, [to_screen(target, r) for r in lr], prev_corner, [to_screen(target, to_layout(kind, p)) for p in PROTECT[kind]])
         same_lt = prev_lt is not None and prev_lt[0] == spec and prev_lt[1] == corner
-        morph = bool(prev_rects) and bool(lr) and len(prev_rects) == len(lr)
+        morph = not pan and bool(prev_rects) and bool(lr) and len(prev_rects) == len(lr)
         move = 0.75 if start != target else 0.0
         frz = b.get('freeze') is not None
         for i in range(n):
@@ -322,7 +363,11 @@ def render_shot(item, out):
             if frz and t > move:   # slow drift on stills
                 cam = clamp_cam((cam[0] * (1 + 0.010 * (t - move) / max(0.1, b['dur'])), cam[1], cam[2]))
             z, cx, cy = cam
-            src_fr = apply_covers(fs[i], b.get('covers'))[:ch, :cw]
+            if pan:
+                v = tuple(vstart[j] + (view[j] - vstart[j]) * ease_io(t / vmove) for j in range(3)) if vmove else view
+                src_fr = view_crop(apply_covers(fs[i], b.get('covers')), v, cw, ch)
+                lr = [to_layout(kind, view_map(v, r, cw)) for r in rects_src]
+            else: src_fr = apply_covers(fs[i], b.get('covers'))[:ch, :cw]
             # app layer
             if kind == 'phone':
                 s0 = cv2.resize(src_fr, (x1 - x0, y1 - y0), interpolation=cv2.INTER_AREA); k = 1.0
@@ -341,8 +386,11 @@ def render_shot(item, out):
             else:
                 if prev_rects and t < 0.15:
                     fr = spotlight(fr, blur_frame(fr, 1.1), [to_screen(cam, r) for r in prev_rects], 1 - t / 0.15)
-                sa = ease_out((t - (0.15 if prev_rects else 0.12)) / 0.22)
+                sa = ease_out((t - vmove - (0.15 if prev_rects else 0.12)) / 0.22)   # pan: after the view settles
                 if lr and sa > 0: fr = spotlight(fr, blur_frame(fr, 1.1), [to_screen(cam, r) for r in lr], sa)
+            # speed badge (sped-up range), fades out at the start of the next beat
+            if badge: fr = draw_badge(fr, badge, win, 1.0 if prev_badge == badge else ease_out(t / 0.2))
+            elif prev_badge and t < 0.15: fr = draw_badge(fr, prev_badge, win, 1 - t / 0.15)
             # lower-third
             if same_lt: fr = draw_lt(fr, spec, corner, 1.0, 0)
             else:
@@ -352,7 +400,8 @@ def render_shot(item, out):
                 fr = draw_lt(fr, spec, corner, p, (1 - p) * 12)
             e.put(fr)
         b['_t0'] = T; T += n / FPS; b['_t1'] = T
-        prev_cam = cam; prev_rects = lr; prev_lt = (spec, corner); prev_corner = corner
+        prev_cam = cam; prev_rects = lr; prev_lt = (spec, corner); prev_corner = corner; prev_badge = badge
+        if pan: prev_view = view
     e.close(); return T
 
 def render_item(item):

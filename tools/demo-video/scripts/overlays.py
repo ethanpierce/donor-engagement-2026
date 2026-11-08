@@ -22,6 +22,7 @@ def _key(*a): return hashlib.md5(json.dumps(a, sort_keys=True).encode()).hexdige
 
 def lt_spec(eb, cap, who): return dict(kind='lt', eb=eb, cap=cap, who=who)
 def card_spec(eb, title, sub, name=False): return dict(kind='card', eb=eb, title=title, sub=sub, name=name)
+def badge_spec(text): return dict(kind='badge', text=text)   # e.g. '4×' -> "4× SPEED" pill on sped-up footage
 def path_of(spec): return os.path.join(CFG['cache'], f"{spec['kind']}_{_key(spec, 'fit1')}")
 
 def _tpl(name):
@@ -31,7 +32,7 @@ def _tpl(name):
 def render(specs):
     todo = [s for s in specs if not os.path.exists(path_of(s) + '.json')]
     if not todo: return
-    lt_t, card_t = _tpl('lower-third.html'), _tpl('scene-card.html')
+    lt_t, card_t, badge_t = _tpl('lower-third.html'), _tpl('scene-card.html'), _tpl('speed-badge.html')
     with sync_playwright() as p:
         b = p.chromium.launch(headless=True)
         pg = b.new_page(viewport={'width': 1920, 'height': 1080}, device_scale_factor=1)
@@ -50,6 +51,10 @@ def render(specs):
                 wb = w.bounding_box(); lb = pg.locator('.lt').bounding_box()
                 meta = dict(w=round(wb['width']), h=round(wb['height']), bx=round(lb['x'] - wb['x']), by=round(lb['y'] - wb['y']),
                             bw=round(lb['width']), bh=round(lb['height']), r=18)
+            elif s['kind'] == 'badge':
+                pg.set_content(badge_t.replace('{{text}}', html.escape(s['text']))); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(150)
+                w = pg.locator('#wrap'); w.screenshot(path=base + '.png', omit_background=True)
+                bb = w.bounding_box(); meta = dict(w=round(bb['width']), h=round(bb['height']))
             else:
                 doc = (card_t.replace('{{eyebrow}}', html.escape(s['eb'])).replace('{{title}}', md(s['title']))
                        .replace('{{title_class}}', 't name' if s['name'] else 't')

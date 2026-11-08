@@ -2,7 +2,8 @@
 
   python3 verify.py OUT_DIR [--sheet] [--stt]
 
-Checks per mp4: 1920x1080 H.264 30 fps, AAC audio, mov_text subtitles, integrated loudness, true peak <= -1 dBTP,
+Checks per mp4: 1920x1080 H.264 30 fps, AAC audio, mov_text subtitles, integrated loudness within 1 LU of -16 LUFS
+(env LUFS_TARGET), true peak <= -1 dBTP,
 SRT cues >= 1.5 s, no overlap, last cue ends before the video. --sheet writes contact-sheet.png (1 frame / 4 s) and
 five full-size frames into OUT_DIR/../check/. --stt asks Gemini to transcribe the main mix and judge the music balance.
 """
@@ -23,6 +24,7 @@ def check(f):
     if a.get('codec_name') != 'aac': probs.append('audio codec')
     if s.get('codec_name') != 'mov_text': probs.append('no mov_text subtitles')
     if tp > -1.0: probs.append(f'true peak {tp}')
+    if abs(I - float(os.environ.get('LUFS_TARGET', '-16'))) > 1.0: probs.append(f'loudness {I} LUFS')
     if any(cs[i][1] > cs[i + 1][0] for i in range(len(cs) - 1)): probs.append('srt overlap')
     if any(y - x < 1.5 - 1e-3 for x, y in cs): probs.append('srt cue < 1.5 s')
     if cs and cs[-1][1] > d: probs.append('srt ends after video')
