@@ -31,11 +31,14 @@ auction, and checks typed in by staff.
 ## 3. Late and failed regular gifts
 
 Run `python3 scripts/lapsed.py <gifts.csv> [--today YYYY-MM-DD]`.
-The CSV has `donor_id,name,date,amount,recurring` (`recurring` is `monthly`
-or empty). `samples/gifts.csv` is a made-up example.
+The CSV has `donor_id,name,date,amount,recurring,status` (`recurring` is
+`monthly` or empty; `status` is `paid` or empty, or `failed` for a declined
+charge). `samples/gifts.csv` is a made-up example.
 
-- `FAILED MONTHLY`: a monthly gift missed its expected date by more than
-  7 days. Likely a card problem. Draft a gentle card-update note.
+- `FAILED MONTHLY`: the newest monthly charge has `status` `failed`. It is
+  flagged the next day. Draft a gentle card-update note.
+- `LATE MONTHLY`: no failed charge, but the monthly gift is more than 7 days
+  past its expected date. Draft a check-in note.
 - `LATE REGULAR`: a donor who gives on a steady cadence (3 or more gifts) is
   past the usual gap by more than 25 percent. Draft a check-in note.
 

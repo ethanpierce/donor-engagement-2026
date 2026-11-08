@@ -1,7 +1,8 @@
 """Find late regular donors and failed monthly gifts in a gift CSV.
 
 Usage: python3 lapsed.py GIFTS.csv [--today YYYY-MM-DD] [--json]
-CSV columns: donor_id,name,date,amount,recurring (recurring: monthly or empty).
+CSV columns: donor_id,name,date,amount,recurring[,status]
+(recurring: monthly or empty; status: paid (default) or failed, a declined charge).
 """
 import argparse
 import csv
@@ -27,8 +28,12 @@ def analyse(rows, today):
     for r in rows:
         donors[r["donor_id"]].append(r)
     out = []
-    for did, gifts in donors.items():
-        gifts.sort(key=lambda g: g["date"])
+    for did, rows_ in donors.items():
+        rows_.sort(key=lambda g: g["date"])
+        failed = [g for g in rows_ if (g.get("status") or "").strip().lower() == "failed"]
+        gifts = [g for g in rows_ if g not in failed]
+        if not gifts:
+            continue
         dates = [date.fromisoformat(g["date"]) for g in gifts]
         amounts = [float(g["amount"]) for g in gifts]
         last = dates[-1]
@@ -39,11 +44,15 @@ def analyse(rows, today):
             "usual_amount": statistics.median(amounts),
             "usual_month": MONTHS[Counter(d.month for d in dates).most_common(1)[0][0] - 1],
         }
-        if any(g.get("recurring", "").strip() == "monthly" for g in gifts):
+        if any(g.get("recurring", "").strip() == "monthly" for g in rows_):
             expected = add_month(last)
             late_by = (today - expected).days
-            if late_by > 7:
-                out.append(dict(info, status="FAILED MONTHLY", cadence="monthly",
+            fail = [g for g in failed if g["date"] > gifts[-1]["date"] and g["date"] <= today.isoformat()]
+            if fail:
+                out.append(dict(info, status="FAILED MONTHLY", cadence="monthly", failed_on=fail[-1]["date"],
+                                expected=expected.isoformat(), days_late=max(late_by, 0)))
+            elif late_by > 7:
+                out.append(dict(info, status="LATE MONTHLY", cadence="monthly",
                                 expected=expected.isoformat(), days_late=late_by))
         elif len(dates) >= 3:
             gap = statistics.median((b - a).days for a, b in zip(dates, dates[1:]))
@@ -52,7 +61,7 @@ def analyse(rows, today):
             if since > gap * 1.25:
                 out.append(dict(info, status="LATE REGULAR", cadence=f"every {gap:.0f} days",
                                 expected=expected.isoformat(), days_late=(today - expected).days))
-    return sorted(out, key=lambda x: -x["days_late"])
+    return sorted(out, key=lambda x: (x["status"] != "FAILED MONTHLY", -x["days_late"]))
 
 
 def main():
@@ -70,6 +79,10 @@ def main():
     if not res:
         print("No late or failed regular gifts.")
     for r in res:
+        if r["status"] == "FAILED MONTHLY":
+            print(f"FAILED MONTHLY: {r['name']} ({r['donor_id']}) card payment failed {r['failed_on']}, "
+                  f"usual ${r['usual_amount']:.0f} monthly, last paid gift {r['last_gift']}")
+            continue
         print(f"{r['status']}: {r['name']} ({r['donor_id']}) last gift {r['last_gift']}, "
               f"usual ${r['usual_amount']:.0f} {r['cadence']}, usual month {r['usual_month']}, "
               f"expected {r['expected']}, {r['days_late']} days late")

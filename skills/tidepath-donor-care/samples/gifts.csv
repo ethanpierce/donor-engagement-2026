@@ -1,4 +1,4 @@
-donor_id,name,date,amount,recurring
+donor_id,name,date,amount,recurring,status
 D001,Maria Lopez,2026-05-03,25,monthly
 D001,Maria Lopez,2026-06-03,25,monthly
 D001,Maria Lopez,2026-07-03,25,monthly
@@ -16,3 +16,8 @@ D004,Sam Okafor,2026-01-10,100,
 D004,Sam Okafor,2026-04-12,100,
 D004,Sam Okafor,2026-07-09,120,
 D005,Ana Pierre,2026-03-01,50,
+D006,Lucia Navarro,2026-07-06,35,monthly
+D006,Lucia Navarro,2026-08-06,35,monthly
+D006,Lucia Navarro,2026-09-06,35,monthly
+D006,Lucia Navarro,2026-10-06,35,monthly
+D006,Lucia Navarro,2026-11-06,35,monthly,failed

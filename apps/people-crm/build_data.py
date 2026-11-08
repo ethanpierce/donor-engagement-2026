@@ -51,6 +51,8 @@ for s in rows("SELECT * FROM signups ORDER BY kid_id"):
                     rows("SELECT mentor_id, match_date, status FROM matches WHERE kid_id=? ORDER BY match_date", k)],
         "visits": [dict(v, volunteer=name.get(v["volunteer_id"])) for v in
                    rows("SELECT volunteer_id, date, hours, activity, note FROM visits WHERE kid_id=? ORDER BY date", k)],
+        "urgent": [dict(u, reportedBy=name.get(u["reported_by"])) for u in
+                   rows("SELECT date, need, status, reported_by FROM urgent WHERE person_id=? ORDER BY date", k)],
     })
 risk = [dict(zip(["kid", "reason", "lastMeeting", "parent", "contact", "owner"], r)) for r in crm.at_risk(db, WEEK)]
 m, checks, (s, e) = crm.report(db, QUARTER)
