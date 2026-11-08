@@ -1,0 +1,79 @@
+{{/* The section pins to the screen. Scrolling slides the four product screens sideways,
+     with a short pause on each one (assets/js/site.js). */}}
+{{ $s := site.Data.sample -}}
+{{ $total := 0 }}{{ range $s.gifts }}{{ $total = add $total .amount }}{{ end -}}
+{{ $rows := 0 }}{{ range $s.files }}{{ $rows = add $rows .rows }}{{ end -}}
+{{ $first := index $s.steps 0 -}}
+<section class="how" id="how" data-how>
+  <div class="how-sticky wrap">
+    <div class="how-left">
+      <h2 class="section-title">How it works</h2>
+      <div class="how-bar"><i data-how-bar style="transform:scaleX(.06)"></i></div>
+      <div class="how-now" data-how-now>
+        <h3><span>1</span>{{ $first.title }}</h3>
+        <p>{{ $first.text }}</p>
+      </div>
+      <ol>
+        {{ range $i, $step := $s.steps }}
+        <li{{ if eq $i 0 }} class="on"{{ end }} data-step="{{ $i }}">
+          <h3><span>{{ add $i 1 }}</span>{{ $step.title }}</h3>
+          <div class="how-text"><div><p>{{ $step.text }}</p></div></div>
+        </li>
+        {{ end }}
+      </ol>
+    </div>
+    <div class="panel">
+      <div class="how-track" data-how-track>
+        {{ range $i, $step := $s.steps }}
+        <div class="slide" data-slide>
+          <div class="screen win">
+            {{ partial "winbar.html" (dict "title" $step.title "right" "Sample data") }}
+            <div class="screen-body">
+              {{ if eq $i 0 }}
+              <div data-seen="0.35">
+                <ul class="files">
+                  {{ range $j, $f := $s.files }}<li class="a a-up8" style="--d:{{ printf "%.2f" (add 0.12 (mul $j 0.08)) }}s"><span class="file-icon">{{ partial "icons/file.html" }}</span><span><strong>{{ $f.name }}</strong><small>{{ $f.file }}</small></span><em>{{ $f.rows }} rows</em></li>{{ end }}
+                </ul>
+                <p class="screen-foot a a-up8" style="--d:.44s"><span>4 lists in</span><strong>{{ partial "count.html" (dict "to" $rows "prefix" "") }} rows</strong></p>
+              </div>
+              {{ else if eq $i 1 }}
+              <div data-seen="0.35">
+                <div class="compare">
+                  {{ range $j, $row := $s.compare }}
+                  <div class="compare-row a a-up8" style="--d:{{ printf "%.2f" (add 0.12 (mul $j 0.08)) }}s">
+                    <small>{{ $row.field }}</small>
+                    <span>{{ if $row.same }}{{ partial "mark.html" (dict "text" $row.left "delay" (add 0.3 (mul $j 0.2))) }}{{ else }}{{ $row.left }}{{ end }}</span>
+                    <span>{{ if $row.same }}{{ partial "mark.html" (dict "text" $row.right "delay" (add 0.4 (mul $j 0.2))) }}{{ else }}{{ $row.right }}{{ end }}</span>
+                    <em class="{{ if not $row.same }}differs{{ end }}">{{ $row.verdict }}</em>
+                  </div>
+                  {{ end }}
+                </div>
+                <p class="screen-foot a a-up8" style="--d:.54s"><span>Online donations and Checks in the mail</span><strong>Needs your call</strong></p>
+              </div>
+              {{ else if eq $i 2 }}
+              <div data-seen="0.35">
+                <div class="approved a a-up8" style="--d:.12s">
+                  <span>Rosa M. Delgado</span>
+                  <span class="card-badge a a-badge" style="--d:.4s">{{ partial "icons/check.html" }}Approved by Denise</span>
+                </div>
+                <ul class="mini-ledger">
+                  {{ range $j, $g := $s.gifts }}<li class="a a-up8" style="--d:{{ printf "%.2f" (add 0.35 (mul (add $j 1) 0.08)) }}s"><span>{{ $g.date }}</span><span>{{ $g.source }}</span><span>{{ partial "money.html" $g.amount }}</span></li>{{ end }}
+                </ul>
+                <p class="screen-foot a a-up8" style="--d:.91s"><span>{{ len $s.gifts }} gifts kept. None lost.</span><strong>{{ partial "count.html" (dict "to" $total) }}</strong></p>
+              </div>
+              {{ else }}
+              <div data-seen="0.35">
+                <ul class="late">
+                  {{ range $j, $d := $s.lateDonors }}<li class="a a-up8" style="--d:{{ printf "%.2f" (add 0.12 (mul $j 0.08)) }}s"><strong>{{ $d.name }}</strong><span class="late-meta">Last gift {{ $d.last }} · {{ partial "money.html" $d.amount }}<br>{{ $d.timing }}</span><span class="late-status"><span class="{{ if $d.late }}tag-late{{ else }}tag-ok{{ end }}">{{ $d.status }}</span></span></li>{{ end }}
+                </ul>
+                <p class="screen-foot a a-up8" style="--d:.74s"><span>This week</span><strong>{{ len (where $s.lateDonors "late" true) }} donors to call</strong></p>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>

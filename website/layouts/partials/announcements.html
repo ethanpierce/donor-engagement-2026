@@ -1,0 +1,29 @@
+{{- /* Announcement banners from data/announcements.json.
+  Item: {id, title, body, link?, linkText?, tone: info|urgent|celebrate, startsAt?, endsAt?, updatedAt, updatedBy}.
+  Filtered at build time: startsAt <= build time < endsAt; a missing bound is open.
+  An empty list renders nothing. */ -}}
+{{- $now := now -}}
+{{- $active := slice -}}
+{{- range site.Data.announcements -}}
+  {{- $ok := true -}}
+  {{- with .startsAt }}{{ if (time.AsTime .).After $now }}{{ $ok = false }}{{ end }}{{ end -}}
+  {{- with .endsAt }}{{ if not ($now.Before (time.AsTime .)) }}{{ $ok = false }}{{ end }}{{ end -}}
+  {{- if $ok }}{{ $active = $active | append . }}{{ end -}}
+{{- end -}}
+{{- with $active }}
+<div class="announcements">
+  {{- range . }}
+  {{- $item := . }}
+  {{- $tone := .tone | default "info" }}{{ if not (in (slice "info" "urgent" "celebrate") $tone) }}{{ $tone = "info" }}{{ end }}
+  <aside class="announce announce-{{ $tone }}" data-announcement-id="{{ .id }}" data-announcement-key="{{ .id }}|{{ .updatedAt }}" aria-label="Announcement">
+    <div class="wrap announce-in">
+      <span class="announce-dot" aria-hidden="true"></span>
+      <p class="announce-text"><strong>{{ .title }}</strong>{{ with .body }} <span>{{ . }}</span>{{ end }}{{ with .link }} <a href="{{ . }}">{{ $item.linkText | default "Learn more" }}<span aria-hidden="true"> →</span></a>{{ end }}</p>
+      <button class="announce-x" type="button" aria-label="Dismiss announcement" data-announce-dismiss><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
+    </div>
+  </aside>
+  {{- end }}
+</div>
+{{ $js := resources.Get "js/announcements.js" | minify -}}
+<script>{{ $js.Content | safeJS }}</script>
+{{- end -}}

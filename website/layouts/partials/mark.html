@@ -1,0 +1,3 @@
+{{- /* Highlighted match field. Takes dict "text" and "delay" (seconds). */ -}}
+<span class="hl" style="transition-delay:{{ printf "%.2f" (float .delay) }}s">{{ .text }}</span>
+{{- /**/ -}}

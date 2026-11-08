@@ -1,0 +1,30 @@
+/* Announcement banners (layouts/partials/announcements.html). Same tokens as main.css. */
+.announce { border-bottom: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; line-height: 1.45; }
+.announce-in { display: flex; align-items: center; gap: 12px; min-height: 44px; padding-block: 10px; }
+.announce-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-2); }
+.announce-text { flex: 1; margin: 0; color: var(--ink-2); text-wrap: pretty; }
+.announce-text strong { font-weight: 600; color: var(--ink); letter-spacing: -.01em; }
+.announce-text a { font-weight: 500; color: var(--ink); white-space: nowrap; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color .2s; }
+.announce-text a:hover { text-decoration-color: currentColor; }
+.announce-x { flex: none; display: grid; place-items: center; width: 28px; height: 28px; margin-right: -6px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); transition: background .2s, color .2s; }
+.announce-x:hover { background: rgb(38 34 31 / .06); color: var(--ink); }
+.announce-x svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.announce-urgent { background: var(--amber-tint); border-bottom-color: #F4C9AE; }
+.announce-urgent .announce-dot { background: var(--amber); box-shadow: 0 0 0 3px var(--tint); }
+.announce-urgent .announce-text, .announce-urgent .announce-text strong, .announce-urgent .announce-text a { color: var(--amber-ink); }
+.announce-urgent .announce-text a { text-decoration-color: #F4C9AE; }
+.announce-urgent .announce-x { color: var(--amber-ink); }
+.announce-urgent .announce-x:hover { background: rgb(194 65 12 / .1); }
+.announce-celebrate { background: var(--ink); border-bottom-color: var(--ink); }
+.announce-celebrate .announce-dot { background: var(--amber); }
+.announce-celebrate .announce-text { color: #C3BCB0; }
+.announce-celebrate .announce-text strong { font: 500 italic 16px/1.3 var(--serif); letter-spacing: -.01em; color: #fff; }
+.announce-celebrate .announce-text a { color: #fff; text-decoration-color: rgb(255 255 255 / .3); }
+.announce-celebrate .announce-x { color: #C3BCB0; }
+.announce-celebrate .announce-x:hover { background: rgb(255 255 255 / .1); color: #fff; }
+@media (max-width: 560px) {
+  .announce { font-size: 13.5px; }
+  .announce-in { align-items: flex-start; }
+  .announce-dot { margin-top: 7px; }
+  .announce-x { margin-top: -4px; }
+}

@@ -1,0 +1,57 @@
+{{/* Hero demo: one donor on three lists. assets/js/site.js runs the phases:
+     arrive -> match -> ask -> merge -> done, or ask -> apart. */}}
+{{ $s := site.Data.sample -}}
+{{ $total := 0 }}{{ range $s.gifts }}{{ $total = add $total .amount }}{{ end -}}
+<section class="stage" aria-label="Sample merge of one donor found on three lists" data-stage>
+  <div class="stage-head"><span>One donor, three lists</span><span>Sample data</span></div>
+  <div class="stage-grid" data-grid>
+    {{ range $i, $r := $s.records -}}
+    {{ $last := replaceRE `^.*\s` "" $r.name }}{{ $first := strings.TrimSpace (strings.TrimSuffix $last $r.name) -}}
+    {{ $gifts := where $s.gifts "record" $r.id }}{{ $sum := 0 }}{{ range $gifts }}{{ $sum = add $sum .amount }}{{ end -}}
+    {{ $d := add 0.1 (mul $i 0.15) -}}
+    <div class="slot" data-slot style="z-index:{{ if eq $i 1 }}2{{ else }}1{{ end }};position:relative">
+      <div class="card">
+        <div class="card-top"><span class="card-kind">{{ partial "icons/mail.html" }}<span>Year-end letter</span></span><span class="card-src">{{ $r.source }}</span></div>
+        <p class="card-name">{{ with $first }}{{ partial "mark.html" (dict "text" . "delay" (add $d 0.15)) }} {{ end }}{{ partial "mark.html" (dict "text" $last "delay" $d) }}</p>
+        <p class="card-line">{{ $r.email }}</p>
+        <p class="card-line">{{ if hasPrefix $r.phone "(" }}{{ partial "mark.html" (dict "text" $r.phone "delay" (add $d 0.3)) }}{{ else }}<span class="faint">{{ $r.phone }}</span>{{ end }}</p>
+        <div class="card-foot"><span>{{ len $gifts }} {{ if eq (len $gifts) 1 }}gift{{ else }}gifts{{ end }}</span><strong>{{ partial "money.html" $sum }}</strong></div>
+      </div>
+    </div>
+    {{- end }}
+  </div>
+  <div class="stage-grid is-done" data-done hidden>
+    <div class="slot" data-merged>
+      <div class="card">
+        <div class="card-top"><span class="card-kind">{{ partial "icons/mail.html" }}Year-end letter</span><span class="card-badge">{{ partial "icons/check.html" }}Merged</span></div>
+        <p class="card-name">Rosa M. Delgado</p>
+        <p class="card-line">rosa.delgado@example.com</p>
+        <p class="card-line">rdelgado@example.org</p>
+        <p class="card-line">(305) 555-0142</p>
+        <div class="card-foot"><span>{{ len $s.gifts }} gifts, 3 lists</span><strong>{{ partial "count.html" (dict "to" $total) }}</strong></div>
+      </div>
+    </div>
+    <div class="history a a-up12blur" style="--d:.3s">
+      <div class="history-head"><span>Giving history</span><span>All gifts kept</span></div>
+      <ul>
+        {{ range $i, $g := $s.gifts }}<li class="a a-fade" style="--t:.5s;--d:{{ printf "%.2f" (add 0.45 (mul $i 0.06)) }}s"><span>{{ $g.date }}</span><span>{{ $g.source }}</span><span>{{ partial "money.html" $g.amount }}</span></li>{{ end }}
+      </ul>
+      <div class="history-foot"><span>{{ len $s.gifts }} gifts kept. None lost.</span><strong>{{ partial "count.html" (dict "to" $total) }}</strong></div>
+    </div>
+  </div>
+  <div class="stage-bar" data-bar>
+    <div class="stage-bar-row" data-row-ask>
+      <ul class="chips" aria-label="Why these records seem to match">
+        {{ range $i, $r := $s.reasons }}<li style="--d:{{ printf "%.2f" (add 0.2 (mul $i 0.12)) }}s">{{ partial "icons/check.html" }}{{ $r }}</li>{{ end }}
+      </ul>
+      <div class="stage-actions">
+        <button class="btn" data-approve>Approve merge<svg class="cursor" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M4 3l6.5 17 2.4-7.1L20 10.5z"/></svg></button>
+        <button class="text-btn" data-apart>Not the same person</button>
+      </div>
+    </div>
+    <div class="stage-bar-row" data-row-end hidden>
+      <p class="stage-result" data-result>One donor, one letter, and the total is right.</p>
+      <button class="text-btn" data-replay>Replay</button>
+    </div>
+  </div>
+</section>

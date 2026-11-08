@@ -1,0 +1,10 @@
+{{ $name := site.Data.site.productName -}}
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="{{ $name }} home">{{ partial "icons/mail.html" }}{{ $name }}</a>
+    <nav aria-label="Main">
+      <a href="#how">How it works</a>
+      <a class="btn" href="#demo">Try the demo</a>
+    </nav>
+  </div>
+</header>

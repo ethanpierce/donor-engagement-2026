@@ -1,0 +1,24 @@
+{{ $s := site.Data.sample -}}
+<section class="failed wrap section">
+  <div class="a a-rise" data-seen="0.3">
+    <h2 class="section-title">A failed monthly gift shows up in <em>days, not months.</em></h2>
+    <p class="lede">When a monthly gift fails, it goes to the top of the list so someone can reach out before the gifts quietly stop.</p>
+  </div>
+  <div class="failed-win win" data-seen="0.5">
+    {{ partial "winbar.html" (dict "title" "Monthly gift · $25" "right" "Sample data") }}
+    <div class="track" aria-label="Sample monthly gifts from June to November, with November failed">
+      <i class="track-line a a-scaleX"></i>
+      {{ range $i, $m := $s.monthly }}
+      <div class="node-col{{ if not $m.ok }} bad{{ end }}">
+        <span class="node-wrap">
+          {{ if not $m.ok }}<span class="ring"></span>{{ end }}
+          <span class="node a a-pop" style="--d:{{ printf "%.2f" (add 0.15 (mul $i 0.14)) }}s">{{ if $m.ok }}{{ partial "icons/check.html" }}{{ else }}!{{ end }}</span>
+        </span>
+        <span class="node-m">{{ $m.month }}</span>
+        <span class="node-v">{{ if $m.ok }}$25 paid{{ else }}Failed{{ end }}</span>
+      </div>
+      {{ end }}
+    </div>
+    <p class="months-note a a-up6" style="--d:1.1s"><span class="tag-late">Failed Nov 3</span><span>On your list Nov 5, two days later.</span></p>
+  </div>
+</section>

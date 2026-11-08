@@ -1,0 +1,20 @@
+baseURL = "https://tidepathfamily.org/"
+languageCode = "en-us"
+title = "Tidepath Family: each donor once, no late gift missed"
+disableKinds = ["taxonomy", "term", "section", "page", "RSS", "sitemap", "robotsTXT", "404"]
+ignoreFiles = ["README\\.md$"]
+
+# One-page site. Content lives in data/ (site.yaml, sample.yaml, announcements.json).
+# Hugo writes the build to public/ (Cloudflare Pages output directory).
+publishDir = "public"
+
+[outputs]
+  home = ["HTML"]
+
+[params]
+  themeColor = "#FFFDF9"
+
+# Keep attribute quotes in minified HTML. The tidepath-website skill verifies the
+# live page by searching for data-announcement-id="<id>" literally.
+[minify.tdewolff.html]
+  keepQuotes = true

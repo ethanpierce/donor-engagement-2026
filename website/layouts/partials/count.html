@@ -1,0 +1,4 @@
+{{/* Number that counts up from 0 when its trigger is seen. Takes dict "to" and optional "prefix" (default "$"). */}}
+{{- $prefix := "$" }}{{ if isset . "prefix" }}{{ $prefix = .prefix }}{{ end -}}
+<span data-count="{{ .to }}" data-prefix="{{ $prefix }}">{{ $prefix }}{{ lang.FormatNumber 0 .to }}</span>
+{{- /**/ -}}

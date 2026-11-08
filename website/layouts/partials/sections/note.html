@@ -1,0 +1,30 @@
+{{ $name := site.Data.site.productName -}}
+{{ $s := site.Data.sample -}}
+{{ $donor := index $s.lateDonors 0 -}}
+{{ $sentences := findRE `[^.?!]+[.?!]+` $s.noteText -}}
+<section class="note-band section" id="note">
+  <div class="note wrap">
+    <div>
+      <h2 class="section-title">A note for {{ $donor.name }}, <em>ready before you call.</em></h2>
+      <div class="chart win" data-seen="0.5">
+        {{ partial "winbar.html" (dict "title" (printf "%s · gifts each December" $donor.name) "right" "Sample data") }}
+        <div class="bars">
+          {{ range $i, $y := $s.noteYears }}
+          <div class="bar-col {{ $y.state }}">
+            <span class="bar-top">{{ if eq $y.state "gift" }}{{ partial "money.html" $donor.amount }}{{ else if eq $y.state "missed" }}Missed{{ else }}Next{{ end }}</span>
+            <span class="bar a a-scaleY" style="--d:{{ printf "%.2f" (add 0.1 (mul $i 0.09)) }}s"></span>
+            <span class="bar-label">{{ $y.label }}</span>
+          </div>
+          {{ end }}
+        </div>
+        <div class="chart-foot"><span>Last gift {{ $donor.last }}</span><span class="tag-late">No gift last December</span></div>
+      </div>
+    </div>
+    <div class="note-sheet" data-seen="0.5">
+      <div class="note-head"><span>Suggested note</span><span>Sample data</span></div>
+      <p class="note-text">{{ range $i, $t := $sentences }}<span class="a a-blur" style="--d:{{ printf "%.2f" (add 0.15 (mul $i 0.35)) }}s">{{ $t }}</span>{{ end }}</p>
+      <p class="note-sign a a-fade" style="--d:{{ printf "%.2f" (add 0.15 (mul (len $sentences) 0.35)) }}s">{{ $s.noteSign }}</p>
+      <p class="note-foot">Staff edit it and make the call. {{ $name }} never sends anything.</p>
+    </div>
+  </div>
+</section>

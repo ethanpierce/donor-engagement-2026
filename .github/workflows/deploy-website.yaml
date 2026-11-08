@@ -1,0 +1,45 @@
+name: deploy website to Cloudflare Pages
+
+# Disabled until the Cloudflare secrets (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID) are set
+# and the Pages project no longer builds with Vite settings. To enable, uncomment the push trigger.
+on:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - website/**
+  #     - .github/workflows/deploy-website.yaml
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: deploy tidepathfamily.org
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.155.3"
+          extended: true
+
+      - name: Build Hugo site
+        working-directory: ./website
+        run: hugo --minify
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: website
+          command: pages deploy public --project-name tidepathfamily --branch main

@@ -1,0 +1,8 @@
+{{ $text := "“I just want to know each donor is on our list once, and to hear about a late gift while there's still time to call.”" -}}
+<section class="quote section">
+  <div class="wrap">
+    {{/* Words come up with scroll. The text stays real text for screen readers. */}}
+    <p class="quote-text" data-scroll-words>{{ range split $text " " }}<span><span>{{ . }}</span> </span>{{ end }}</p>
+    <p class="quote-who"><span class="avatar small" aria-hidden="true">D</span>Denise, fundraising coordinator, Tidepath Family Alliance</p>
+  </div>
+</section>
