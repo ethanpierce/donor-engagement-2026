@@ -1,0 +1,11 @@
+schemaVersion: 1
+kind: HubFlavor
+id: tidepath_web
+version: 1.0.0
+name: Tidepath Website
+description: 'Tidepath Family Alliance website editor: drafts announcements for tidepathfamily.org, publishes them only after Alex approves, verifies them live, and answers questions about the site from the read-only public repo. Fictional nonprofit.'
+trustLevel: first_party
+skillNamespace: tidepath
+skills:
+  - id: tidepath-website
+    version: 1.0.0
